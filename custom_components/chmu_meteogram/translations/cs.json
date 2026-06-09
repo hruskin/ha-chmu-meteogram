@@ -1,0 +1,28 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Počasí ČHMÚ — meteogram",
+        "description": "Auto-detekovaná nejbližší ALADIN lokalita k tvé HA zóně `home`: **{auto_name}** (id {auto_id}).\nMůžeš ji ručně přepsat nebo nechat výchozí.",
+        "data": {
+          "location_id": "Lokalita ALADIN",
+          "alerts_enabled": "Stahovat výstrahy ČHMÚ"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Integrace už je nakonfigurována."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Nastavení Počasí ČHMÚ",
+        "data": {
+          "location_id": "Lokalita ALADIN",
+          "alerts_enabled": "Stahovat výstrahy ČHMÚ"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "ČHMÚ Weather — meteogram",
+        "description": "Auto-detected nearest ALADIN location to your HA `home` zone: **{auto_name}** (id {auto_id}).\nYou can override it or keep the default.",
+        "data": {
+          "location_id": "ALADIN location",
+          "alerts_enabled": "Fetch ČHMÚ alerts"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Integration is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ČHMÚ Weather settings",
+        "data": {
+          "location_id": "ALADIN location",
+          "alerts_enabled": "Fetch ČHMÚ alerts"
+        }
+      }
+    }
+  }
+}
