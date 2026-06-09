@@ -14,3 +14,4 @@ Thumbs.db
 .ruff_cache/
 dist/
 build/
+.scratch_*
