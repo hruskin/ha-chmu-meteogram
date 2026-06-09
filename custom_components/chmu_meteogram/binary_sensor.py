@@ -1,4 +1,4 @@
-"""Binary sensor — výstrahy ČHMÚ pro danou oblast."""
+"""Binary sensor — výstrahy ČHMÚ pro POI."""
 from __future__ import annotations
 
 from homeassistant.components.binary_sensor import (
@@ -11,7 +11,7 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN
+from .const import DOMAIN, PUBLIC_URL
 from .coordinator import ChmuCoordinator
 
 
@@ -26,7 +26,7 @@ async def async_setup_entry(
 
 class ChmuAlertsBinarySensor(CoordinatorEntity[ChmuCoordinator], BinarySensorEntity):
     _attr_has_entity_name = True
-    _attr_name = "Výstrahy ČHMÚ"
+    _attr_translation_key = "alerts"
     _attr_device_class = BinarySensorDeviceClass.SAFETY
 
     def __init__(self, coordinator: ChmuCoordinator, entry_id: str) -> None:
@@ -37,34 +37,18 @@ class ChmuAlertsBinarySensor(CoordinatorEntity[ChmuCoordinator], BinarySensorEnt
             identifiers={(DOMAIN, str(loc.id))},
             name=f"ČHMÚ {loc.name}",
             manufacturer="ČHMÚ",
-            model="ALADIN meteogram",
+            model=f"ALADIN meteogram ({loc.category})",
+            configuration_url=PUBLIC_URL.format(poi_id=loc.id, slug=loc.slug),
         )
 
     @property
     def is_on(self) -> bool:
-        return bool(self.coordinator.data and self.coordinator.data.alerts)
+        alert = self.coordinator.data.alert if self.coordinator.data else None
+        return bool(alert and alert.is_warning)
 
     @property
     def extra_state_attributes(self) -> dict:
-        alerts = self.coordinator.data.alerts if self.coordinator.data else []
-        # MeteoalarmCard kompatibilní atributy (zjednodušená první iterace)
-        first = alerts[0] if alerts else None
-        return {
-            "alert_count": len(alerts),
-            "alerts": [a.as_dict() for a in alerts],
-            "headline": first.headline if first else None,
-            "event": first.event if first else None,
-            "severity": first.severity if first else None,
-            "awareness_level": _severity_to_meteoalarm(first.severity) if first else None,
-        }
-
-
-def _severity_to_meteoalarm(severity: str) -> str:
-    # MeteoalarmCard očekává čísla 1–4 jako string
-    mapping = {
-        "Minor": "2",
-        "Moderate": "3",
-        "Severe": "4",
-        "Extreme": "5",
-    }
-    return mapping.get(severity, "1")
+        alert = self.coordinator.data.alert if self.coordinator.data else None
+        if not alert:
+            return {}
+        return alert.as_dict()

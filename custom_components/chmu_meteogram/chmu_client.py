@@ -1,177 +1,155 @@
-"""HTTP klient pro chmi.cz (meteogram PNG, výstrahy CAP)."""
+"""HTTP klient pro data-provider.chmi.cz (JSON meteogram + výstrahy)."""
 from __future__ import annotations
 
 import logging
-import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
+from datetime import datetime
 from typing import Any
 
-from aiohttp import ClientResponseError, ClientSession, ClientTimeout
+from aiohttp import ClientSession, ClientTimeout
 
-from .const import (
-    ALADIN_PUBLISH_DELAY_HOURS,
-    ALADIN_RUN_HOURS,
-    ALERTS_URL,
-    METEOGRAM_BASE_URL,
-    USER_AGENT,
-)
+from .const import ALERT_URL, ALERT_URL_ALL, METEOGRAM_URL, USER_AGENT
 
 _LOGGER = logging.getLogger(__name__)
 _TIMEOUT = ClientTimeout(total=20)
-_CAP_NS = {"cap": "urn:oasis:names:tc:emergency:cap:1.2"}
 
 
 @dataclass
-class MeteogramImage:
-    data: bytes
-    content_type: str
-    run_time: datetime  # běh ALADIN modelu (UTC)
+class MeteogramPoint:
+    time: datetime  # validityTime, UTC
+    temperature: float | None  # °C
+    humidity: float | None  # %
+    precipitation: float | None  # mm/h
+    snow: float | None  # mm/h
+    wind_speed: float | None  # m/s
+    wind_gust: float | None  # m/s
+    wind_direction: float | None  # °
+    pressure: float | None  # hPa (MSLP)
+    clouds: float | None  # %
+    icon: int | None  # ČHMÚ ikona
+
+    @classmethod
+    def from_api(cls, raw: dict[str, Any]) -> "MeteogramPoint":
+        return cls(
+            time=_parse_dt(raw["validityTime"]),
+            temperature=_num(raw.get("t2m")),
+            humidity=_num(raw.get("rh2m")),
+            precipitation=_num(raw.get("prec")),
+            snow=_num(raw.get("snow")),
+            wind_speed=_num(raw.get("windSpeed")),
+            wind_gust=_num(raw.get("windGustSpeed")),
+            wind_direction=_num(raw.get("windDirection")),
+            pressure=_num(raw.get("mslp")),
+            clouds=_num(raw.get("cloudsTot")),
+            icon=_int(raw.get("icon")),
+        )
+
+
+@dataclass
+class Meteogram:
+    points: list[MeteogramPoint]
+    elevation_m: int | None
+    parameters: dict[str, dict[str, str]]  # raw definitions
     fetched_at: datetime
 
 
 @dataclass
 class Alert:
-    identifier: str
-    sent: datetime | None
-    event: str
-    severity: str
-    urgency: str
-    certainty: str
-    headline: str
+    is_warning: bool
     description: str
-    areas: list[str] = field(default_factory=list)
-    onset: datetime | None = None
-    expires: datetime | None = None
+    details: list[dict[str, Any]] = field(default_factory=list)
 
     def as_dict(self) -> dict[str, Any]:
         return {
-            "identifier": self.identifier,
-            "sent": self.sent.isoformat() if self.sent else None,
-            "event": self.event,
-            "severity": self.severity,
-            "urgency": self.urgency,
-            "certainty": self.certainty,
-            "headline": self.headline,
+            "is_warning": self.is_warning,
             "description": self.description,
-            "areas": self.areas,
-            "onset": self.onset.isoformat() if self.onset else None,
-            "expires": self.expires.isoformat() if self.expires else None,
+            "details": self.details,
         }
 
 
 class ChmuClient:
-    """Tenký asynchronní klient pro veřejná data ČHMÚ."""
+    """Tenký asynchronní klient pro veřejná JSON data ČHMÚ."""
 
     def __init__(self, session: ClientSession) -> None:
         self._session = session
-        self._headers = {"User-Agent": USER_AGENT}
+        self._headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
 
-    # ---------- Meteogram ----------
-
-    @staticmethod
-    def _candidate_runs(now_utc: datetime, max_back: int = 4) -> list[datetime]:
-        """Vrátí kandidátní časy běhů modelu od nejnovějšího po starší."""
-        cutoff = now_utc - timedelta(hours=ALADIN_PUBLISH_DELAY_HOURS)
-        # Najdi nejbližší předchozí běh (00/06/12/18) k cutoff
-        run = cutoff.replace(minute=0, second=0, microsecond=0)
-        while run.hour not in ALADIN_RUN_HOURS:
-            run -= timedelta(hours=1)
-        return [run - timedelta(hours=6 * i) for i in range(max_back)]
-
-    @staticmethod
-    def _meteogram_url(run_time: datetime, location_id: int) -> str:
-        stamp = run_time.strftime("%Y%m%d%H")
-        return f"{METEOGRAM_BASE_URL}/{stamp}/{location_id}.png"
-
-    async def fetch_meteogram(self, location_id: int) -> MeteogramImage:
-        """Stáhne nejnovější dostupný meteogram pro lokalitu."""
-        now = datetime.now(timezone.utc)
-        last_err: Exception | None = None
-        for run in self._candidate_runs(now):
-            url = self._meteogram_url(run, location_id)
-            try:
-                async with self._session.get(
-                    url, headers=self._headers, timeout=_TIMEOUT
-                ) as resp:
-                    if resp.status == 404:
-                        _LOGGER.debug("Meteogram %s: 404, zkusím starší běh", url)
-                        continue
-                    resp.raise_for_status()
-                    data = await resp.read()
-                    content_type = resp.headers.get("Content-Type", "image/png")
-                    return MeteogramImage(
-                        data=data,
-                        content_type=content_type,
-                        run_time=run,
-                        fetched_at=now,
-                    )
-            except ClientResponseError as err:
-                last_err = err
-                _LOGGER.debug("Meteogram %s: %s", url, err)
-                continue
-        raise RuntimeError(
-            f"Nepodařilo se stáhnout meteogram pro lokalitu {location_id}: {last_err}"
+    async def fetch_meteogram(self, poi_id: int) -> Meteogram:
+        url = METEOGRAM_URL.format(poi_id=poi_id)
+        async with self._session.get(url, headers=self._headers, timeout=_TIMEOUT) as resp:
+            resp.raise_for_status()
+            payload = await resp.json(content_type=None)
+        points = [MeteogramPoint.from_api(item) for item in payload.get("data", [])]
+        return Meteogram(
+            points=points,
+            elevation_m=_int(payload.get("z")),
+            parameters=payload.get("parameters") or {},
+            fetched_at=datetime.now().astimezone(),
         )
 
-    # ---------- Výstrahy (CAP 1.2) ----------
-
-    async def fetch_alerts(self) -> list[Alert]:
+    async def fetch_alert(self, poi_id: int) -> Alert:
+        # Krátký endpoint: stav výstrah ano/ne + popis
         async with self._session.get(
-            ALERTS_URL, headers=self._headers, timeout=_TIMEOUT
+            ALERT_URL,
+            params={"poiId": poi_id},
+            headers=self._headers,
+            timeout=_TIMEOUT,
         ) as resp:
             resp.raise_for_status()
-            text = await resp.text()
-        return self._parse_cap(text)
+            data = await resp.json(content_type=None)
+        is_warning = bool(data.get("isWarning"))
+        description = data.get("description") or ""
 
-    @staticmethod
-    def _parse_cap(xml_text: str) -> list[Alert]:
-        try:
-            root = ET.fromstring(xml_text)
-        except ET.ParseError as err:
-            raise RuntimeError(f"Nelze parsovat CAP XML: {err}") from err
+        details: list[dict[str, Any]] = []
+        if is_warning:
+            # Detail kompletního CAP záznamu (může vrátit i mapový PNG v base64)
+            try:
+                async with self._session.get(
+                    ALERT_URL_ALL,
+                    params={"poiId": poi_id},
+                    headers=self._headers,
+                    timeout=_TIMEOUT,
+                ) as resp2:
+                    if resp2.status == 200:
+                        full = await resp2.json(content_type=None)
+                        # ČHMÚ vrací různý formát; pokud najdeme pole "warnings"
+                        # nebo "items", uložíme jen textové části (vynecháme base64 obrázek)
+                        warns = full.get("warnings") or full.get("items") or []
+                        if isinstance(warns, list):
+                            details = [_strip_binary(w) for w in warns if isinstance(w, dict)]
+            except Exception as err:  # noqa: BLE001
+                _LOGGER.debug("Detail výstrah selhal: %s", err)
 
-        identifier = _text(root, "cap:identifier") or ""
-        sent = _datetime(root, "cap:sent")
-
-        alerts: list[Alert] = []
-        for info in root.findall("cap:info", _CAP_NS):
-            # ČHMÚ posílá více jazyků; bereme český, jinak první
-            lang = info.findtext("cap:language", default="", namespaces=_CAP_NS)
-            if lang and not lang.startswith("cs"):
-                continue
-            areas = [
-                a.findtext("cap:areaDesc", default="", namespaces=_CAP_NS) or ""
-                for a in info.findall("cap:area", _CAP_NS)
-            ]
-            alerts.append(
-                Alert(
-                    identifier=identifier,
-                    sent=sent,
-                    event=_text(info, "cap:event") or "",
-                    severity=_text(info, "cap:severity") or "Unknown",
-                    urgency=_text(info, "cap:urgency") or "Unknown",
-                    certainty=_text(info, "cap:certainty") or "Unknown",
-                    headline=_text(info, "cap:headline") or "",
-                    description=_text(info, "cap:description") or "",
-                    areas=areas,
-                    onset=_datetime(info, "cap:onset"),
-                    expires=_datetime(info, "cap:expires"),
-                )
-            )
-        return alerts
+        return Alert(is_warning=is_warning, description=description, details=details)
 
 
-def _text(elem: ET.Element, tag: str) -> str | None:
-    found = elem.find(tag, _CAP_NS)
-    return found.text if found is not None else None
+def _parse_dt(s: str) -> datetime:
+    return datetime.fromisoformat(s.replace("Z", "+00:00"))
 
 
-def _datetime(elem: ET.Element, tag: str) -> datetime | None:
-    raw = _text(elem, tag)
-    if not raw:
+def _num(v: Any) -> float | None:
+    if v is None:
         return None
     try:
-        return datetime.fromisoformat(raw.replace("Z", "+00:00"))
-    except ValueError:
+        return float(v)
+    except (TypeError, ValueError):
         return None
+
+
+def _int(v: Any) -> int | None:
+    if v is None:
+        return None
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def _strip_binary(d: dict[str, Any]) -> dict[str, Any]:
+    """Z odpovědi odstraní pole, která vypadají jako base64 binární data."""
+    out: dict[str, Any] = {}
+    for k, v in d.items():
+        if isinstance(v, str) and len(v) > 2000:
+            continue
+        out[k] = v
+    return out

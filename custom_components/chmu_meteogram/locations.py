@@ -1,4 +1,4 @@
-"""Vyhledávač nejbližší ALADIN meteogram lokality."""
+"""Vyhledávač nejbližší ALADIN POI lokality."""
 from __future__ import annotations
 
 import json
@@ -12,7 +12,9 @@ _DATA_FILE = Path(__file__).parent / "data" / "aladin_locations.json"
 @dataclass(frozen=True)
 class AladinLocation:
     id: int
+    slug: str
     name: str
+    category: str  # obec | vodni-plocha | lyzarske-stredisko | letiste
     lat: float
     lon: float
 
@@ -37,9 +39,10 @@ def _haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     return 2 * r * asin(sqrt(a))
 
 
-def nearest(lat: float, lon: float) -> AladinLocation:
-    """Najde nejbližší ALADIN meteogram lokalitu k danému bodu."""
-    return min(_LOCATIONS, key=lambda loc: _haversine_km(lat, lon, loc.lat, loc.lon))
+def nearest(lat: float, lon: float, category: str = "obec") -> AladinLocation:
+    """Najde nejbližší POI dané kategorie. Defaultně obec."""
+    pool = [l for l in _LOCATIONS if l.category == category] or _LOCATIONS
+    return min(pool, key=lambda loc: _haversine_km(lat, lon, loc.lat, loc.lon))
 
 
 def by_id(location_id: int) -> AladinLocation | None:

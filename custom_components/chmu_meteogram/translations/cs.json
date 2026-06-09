@@ -3,9 +3,9 @@
     "step": {
       "user": {
         "title": "Počasí ČHMÚ — meteogram",
-        "description": "Auto-detekovaná nejbližší ALADIN lokalita k tvé HA zóně `home`: **{auto_name}** (id {auto_id}).\nMůžeš ji ručně přepsat nebo nechat výchozí.",
+        "description": "Auto-detekovaná nejbližší ALADIN lokalita k HA zóně `home`: **{auto_name}** (id {auto_id}).\nMůžeš ji ručně přepsat.",
         "data": {
-          "location_id": "Lokalita ALADIN",
+          "location_id": "Lokalita",
           "alerts_enabled": "Stahovat výstrahy ČHMÚ"
         }
       }
@@ -19,10 +19,26 @@
       "init": {
         "title": "Nastavení Počasí ČHMÚ",
         "data": {
-          "location_id": "Lokalita ALADIN",
+          "location_id": "Lokalita",
           "alerts_enabled": "Stahovat výstrahy ČHMÚ"
         }
       }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "temperature":     { "name": "Teplota" },
+      "humidity":        { "name": "Vlhkost" },
+      "precipitation":   { "name": "Srážky" },
+      "pressure":        { "name": "Tlak" },
+      "wind_speed":      { "name": "Rychlost větru" },
+      "wind_gust":       { "name": "Nárazy větru" },
+      "wind_direction":  { "name": "Směr větru" },
+      "cloud_coverage":  { "name": "Oblačnost" },
+      "snow":            { "name": "Sníh" }
+    },
+    "binary_sensor": {
+      "alerts": { "name": "Výstrahy ČHMÚ" }
     }
   }
 }

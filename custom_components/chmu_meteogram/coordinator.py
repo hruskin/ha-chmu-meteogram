@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .chmu_client import Alert, ChmuClient, MeteogramImage
+from .chmu_client import Alert, ChmuClient, Meteogram
 from .const import DEFAULT_SCAN_INTERVAL, DOMAIN
 from .locations import AladinLocation
 
@@ -16,13 +16,11 @@ _LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class ChmuData:
-    meteogram: MeteogramImage | None
-    alerts: list[Alert]
+    meteogram: Meteogram | None
+    alert: Alert | None
 
 
 class ChmuCoordinator(DataUpdateCoordinator[ChmuData]):
-    """Koordinátor — jedno volání získá meteogram i výstrahy a sdílí je entitám."""
-
     def __init__(
         self,
         hass: HomeAssistant,
@@ -46,12 +44,11 @@ class ChmuCoordinator(DataUpdateCoordinator[ChmuData]):
         except Exception as err:  # noqa: BLE001
             raise UpdateFailed(f"Meteogram: {err}") from err
 
-        alerts: list[Alert] = []
+        alert: Alert | None = None
         if self._alerts_enabled:
             try:
-                alerts = await self._client.fetch_alerts()
+                alert = await self._client.fetch_alert(self.location.id)
             except Exception as err:  # noqa: BLE001
-                # Selhání výstrah nemá shodit celou integraci
-                _LOGGER.warning("Nelze stáhnout výstrahy ČHMÚ: %s", err)
+                _LOGGER.warning("Výstrahy ČHMÚ: %s", err)
 
-        return ChmuData(meteogram=meteogram, alerts=alerts)
+        return ChmuData(meteogram=meteogram, alert=alert)

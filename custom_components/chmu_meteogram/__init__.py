@@ -1,20 +1,14 @@
-"""Integrace Počasí ČHMÚ — meteogram a výstrahy."""
+"""Integrace Počasí ČHMÚ — meteogram a výstrahy z data-provider.chmi.cz."""
 from __future__ import annotations
 
 import logging
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .chmu_client import ChmuClient
-from .const import (
-    CONF_ALERTS_ENABLED,
-    CONF_LOCATION_ID,
-    DOMAIN,
-    PLATFORMS,
-)
+from .const import CONF_ALERTS_ENABLED, CONF_LOCATION_ID, DOMAIN, PLATFORMS
 from .coordinator import ChmuCoordinator
 from .locations import by_id, nearest
 
@@ -22,14 +16,13 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Setup config entry."""
     data = entry.data
+    location = None
     location_id = data.get(CONF_LOCATION_ID)
-    location = by_id(location_id) if location_id else None
+    if location_id:
+        location = by_id(int(location_id))
     if location is None:
-        lat = data.get(CONF_LATITUDE, hass.config.latitude)
-        lon = data.get(CONF_LONGITUDE, hass.config.longitude)
-        location = nearest(lat, lon)
+        location = nearest(hass.config.latitude, hass.config.longitude)
         _LOGGER.info(
             "Auto-vybrána ALADIN lokalita: %s (id=%s)", location.name, location.id
         )

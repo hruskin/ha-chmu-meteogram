@@ -5,7 +5,7 @@
         "title": "ČHMÚ Weather — meteogram",
         "description": "Auto-detected nearest ALADIN location to your HA `home` zone: **{auto_name}** (id {auto_id}).",
         "data": {
-          "location_id": "ALADIN location",
+          "location_id": "Location",
           "alerts_enabled": "Fetch ČHMÚ alerts"
         }
       }
@@ -19,10 +19,26 @@
       "init": {
         "title": "ČHMÚ Weather settings",
         "data": {
-          "location_id": "ALADIN location",
+          "location_id": "Location",
           "alerts_enabled": "Fetch ČHMÚ alerts"
         }
       }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "temperature":     { "name": "Temperature" },
+      "humidity":        { "name": "Humidity" },
+      "precipitation":   { "name": "Precipitation" },
+      "pressure":        { "name": "Pressure" },
+      "wind_speed":      { "name": "Wind speed" },
+      "wind_gust":       { "name": "Wind gust" },
+      "wind_direction":  { "name": "Wind direction" },
+      "cloud_coverage":  { "name": "Cloud coverage" },
+      "snow":            { "name": "Snow" }
+    },
+    "binary_sensor": {
+      "alerts": { "name": "ČHMÚ alerts" }
     }
   }
 }

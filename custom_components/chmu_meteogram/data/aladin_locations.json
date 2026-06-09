@@ -1,9 +1,6646 @@
 {
-  "_comment": "Seed seznamu ALADIN meteogram lokalit. Doplň skriptem tools/scrape_locations.py.",
-  "_source": "https://www.chmi.cz/predpoved-pocasi/meteogramy-aladin/obce",
+  "_source": "https://data-provider.chmi.cz/api/poi/data/map/{category}/4",
+  "_coord_system": "WGS84 (převedeno z EPSG:32633)",
   "locations": [
-    {"id": 40,  "name": "Brno",          "lat": 49.1951, "lon": 16.6068},
-    {"id": 338, "name": "Plzeň",         "lat": 49.7475, "lon": 13.3776},
-    {"id": 1,   "name": "Praha-Karlov",  "lat": 50.0683, "lon": 14.4280}
+    {
+      "id": 1,
+      "slug": "adamov",
+      "name": "Adamov",
+      "category": "obec",
+      "lat": 49.301,
+      "lon": 16.661
+    },
+    {
+      "id": 2,
+      "slug": "albrechtice",
+      "name": "Albrechtice",
+      "category": "obec",
+      "lat": 49.786,
+      "lon": 18.528
+    },
+    {
+      "id": 3,
+      "slug": "as",
+      "name": "Aš",
+      "category": "obec",
+      "lat": 50.224,
+      "lon": 12.196
+    },
+    {
+      "id": 4,
+      "slug": "bakov-nad-jizerou",
+      "name": "Bakov nad Jizerou",
+      "category": "obec",
+      "lat": 50.483,
+      "lon": 14.944
+    },
+    {
+      "id": 5,
+      "slug": "baska",
+      "name": "Baška",
+      "category": "obec",
+      "lat": 49.641,
+      "lon": 18.377
+    },
+    {
+      "id": 6,
+      "slug": "bechyne",
+      "name": "Bechyně",
+      "category": "obec",
+      "lat": 49.295,
+      "lon": 14.47
+    },
+    {
+      "id": 7,
+      "slug": "bela-pod-bezdezem",
+      "name": "Bělá pod Bezdězem",
+      "category": "obec",
+      "lat": 50.501,
+      "lon": 14.806
+    },
+    {
+      "id": 8,
+      "slug": "benatky-nad-jizerou",
+      "name": "Benátky nad Jizerou",
+      "category": "obec",
+      "lat": 50.292,
+      "lon": 14.825
+    },
+    {
+      "id": 9,
+      "slug": "benesov",
+      "name": "Benešov",
+      "category": "obec",
+      "lat": 49.782,
+      "lon": 14.689
+    },
+    {
+      "id": 10,
+      "slug": "benesov-nad-ploucnici",
+      "name": "Benešov nad Ploučnicí",
+      "category": "obec",
+      "lat": 50.742,
+      "lon": 14.314
+    },
+    {
+      "id": 11,
+      "slug": "beroun",
+      "name": "Beroun",
+      "category": "obec",
+      "lat": 49.964,
+      "lon": 14.074
+    },
+    {
+      "id": 12,
+      "slug": "bilina",
+      "name": "Bílina",
+      "category": "obec",
+      "lat": 50.549,
+      "lon": 13.778
+    },
+    {
+      "id": 13,
+      "slug": "bilovec",
+      "name": "Bílovec",
+      "category": "obec",
+      "lat": 49.756,
+      "lon": 18.018
+    },
+    {
+      "id": 14,
+      "slug": "blansko",
+      "name": "Blansko",
+      "category": "obec",
+      "lat": 49.363,
+      "lon": 16.645
+    },
+    {
+      "id": 15,
+      "slug": "blatna",
+      "name": "Blatná",
+      "category": "obec",
+      "lat": 49.426,
+      "lon": 13.882
+    },
+    {
+      "id": 16,
+      "slug": "blovice",
+      "name": "Blovice",
+      "category": "obec",
+      "lat": 49.582,
+      "lon": 13.538
+    },
+    {
+      "id": 17,
+      "slug": "bludov",
+      "name": "Bludov",
+      "category": "obec",
+      "lat": 49.941,
+      "lon": 16.93
+    },
+    {
+      "id": 18,
+      "slug": "bohumin",
+      "name": "Bohumín",
+      "category": "obec",
+      "lat": 49.904,
+      "lon": 18.359
+    },
+    {
+      "id": 19,
+      "slug": "bojkovice",
+      "name": "Bojkovice",
+      "category": "obec",
+      "lat": 49.04,
+      "lon": 17.817
+    },
+    {
+      "id": 20,
+      "slug": "bolatice",
+      "name": "Bolatice",
+      "category": "obec",
+      "lat": 49.952,
+      "lon": 18.087
+    },
+    {
+      "id": 21,
+      "slug": "bor",
+      "name": "Bor",
+      "category": "obec",
+      "lat": 49.714,
+      "lon": 12.778
+    },
+    {
+      "id": 22,
+      "slug": "borovany",
+      "name": "Borovany",
+      "category": "obec",
+      "lat": 48.901,
+      "lon": 14.643
+    },
+    {
+      "id": 23,
+      "slug": "boskovice",
+      "name": "Boskovice",
+      "category": "obec",
+      "lat": 49.489,
+      "lon": 16.661
+    },
+    {
+      "id": 24,
+      "slug": "brandys-n-l-stara-boleslav",
+      "name": "Brandýs n/L-Stará Boleslav",
+      "category": "obec",
+      "lat": 50.188,
+      "lon": 14.665
+    },
+    {
+      "id": 25,
+      "slug": "brno",
+      "name": "Brno",
+      "category": "obec",
+      "lat": 49.195,
+      "lon": 16.603
+    },
+    {
+      "id": 26,
+      "slug": "brno-bohunice",
+      "name": "Brno-Bohunice",
+      "category": "obec",
+      "lat": 49.176,
+      "lon": 16.579
+    },
+    {
+      "id": 27,
+      "slug": "brno-bystrc",
+      "name": "Brno-Bystrc",
+      "category": "obec",
+      "lat": 49.227,
+      "lon": 16.532
+    },
+    {
+      "id": 28,
+      "slug": "brno-cernovice",
+      "name": "Brno-Černovice",
+      "category": "obec",
+      "lat": 49.183,
+      "lon": 16.639
+    },
+    {
+      "id": 29,
+      "slug": "brno-chrlice",
+      "name": "Brno-Chrlice",
+      "category": "obec",
+      "lat": 49.132,
+      "lon": 16.656
+    },
+    {
+      "id": 30,
+      "slug": "brno-jih",
+      "name": "Brno-jih",
+      "category": "obec",
+      "lat": 49.179,
+      "lon": 16.627
+    },
+    {
+      "id": 31,
+      "slug": "brno-jundrov",
+      "name": "Brno-Jundrov",
+      "category": "obec",
+      "lat": 49.209,
+      "lon": 16.555
+    },
+    {
+      "id": 32,
+      "slug": "brno-kohoutovice",
+      "name": "Brno-Kohoutovice",
+      "category": "obec",
+      "lat": 49.195,
+      "lon": 16.543
+    },
+    {
+      "id": 33,
+      "slug": "brno-komin",
+      "name": "Brno-Komín",
+      "category": "obec",
+      "lat": 49.22,
+      "lon": 16.554
+    },
+    {
+      "id": 34,
+      "slug": "brno-kralovo-pole",
+      "name": "Brno-Královo Pole",
+      "category": "obec",
+      "lat": 49.223,
+      "lon": 16.616
+    },
+    {
+      "id": 35,
+      "slug": "brno-lisen",
+      "name": "Brno-Líšeň",
+      "category": "obec",
+      "lat": 49.206,
+      "lon": 16.699
+    },
+    {
+      "id": 36,
+      "slug": "brno-novy-liskovec",
+      "name": "Brno-Nový Lískovec",
+      "category": "obec",
+      "lat": 49.184,
+      "lon": 16.563
+    },
+    {
+      "id": 37,
+      "slug": "brno-obrany-a-malomerice",
+      "name": "Brno-Obřany a Maloměřice",
+      "category": "obec",
+      "lat": 49.23,
+      "lon": 16.649
+    },
+    {
+      "id": 38,
+      "slug": "brno-reckovice-a-mokra-hora",
+      "name": "Brno-Řečkovice a Mokrá Hora",
+      "category": "obec",
+      "lat": 49.252,
+      "lon": 16.583
+    },
+    {
+      "id": 39,
+      "slug": "brno-sever",
+      "name": "Brno-sever",
+      "category": "obec",
+      "lat": 49.21,
+      "lon": 16.618
+    },
+    {
+      "id": 40,
+      "slug": "brno-slatina",
+      "name": "Brno-Slatina",
+      "category": "obec",
+      "lat": 49.176,
+      "lon": 16.69
+    },
+    {
+      "id": 41,
+      "slug": "brno-stary-liskovec",
+      "name": "Brno-Starý Lískovec",
+      "category": "obec",
+      "lat": 49.165,
+      "lon": 16.563
+    },
+    {
+      "id": 42,
+      "slug": "brno-stred",
+      "name": "Brno-střed",
+      "category": "obec",
+      "lat": 49.196,
+      "lon": 16.603
+    },
+    {
+      "id": 43,
+      "slug": "brno-turany",
+      "name": "Brno-Tuřany",
+      "category": "obec",
+      "lat": 49.148,
+      "lon": 16.67
+    },
+    {
+      "id": 44,
+      "slug": "brno-vinohrady",
+      "name": "Brno-Vinohrady",
+      "category": "obec",
+      "lat": 49.204,
+      "lon": 16.66
+    },
+    {
+      "id": 45,
+      "slug": "brno-zabovresky",
+      "name": "Brno-Žabovřesky",
+      "category": "obec",
+      "lat": 49.214,
+      "lon": 16.574
+    },
+    {
+      "id": 46,
+      "slug": "brno-zidenice",
+      "name": "Brno-Židenice",
+      "category": "obec",
+      "lat": 49.197,
+      "lon": 16.649
+    },
+    {
+      "id": 47,
+      "slug": "broumov",
+      "name": "Broumov",
+      "category": "obec",
+      "lat": 50.586,
+      "lon": 16.334
+    },
+    {
+      "id": 48,
+      "slug": "brtnice",
+      "name": "Brtnice",
+      "category": "obec",
+      "lat": 49.305,
+      "lon": 15.68
+    },
+    {
+      "id": 49,
+      "slug": "brumov-bylnice",
+      "name": "Brumov-Bylnice",
+      "category": "obec",
+      "lat": 49.091,
+      "lon": 18.024
+    },
+    {
+      "id": 50,
+      "slug": "bruntal",
+      "name": "Bruntál",
+      "category": "obec",
+      "lat": 49.989,
+      "lon": 17.466
+    },
+    {
+      "id": 51,
+      "slug": "brusperk",
+      "name": "Brušperk",
+      "category": "obec",
+      "lat": 49.701,
+      "lon": 18.227
+    },
+    {
+      "id": 52,
+      "slug": "breclav",
+      "name": "Břeclav",
+      "category": "obec",
+      "lat": 48.76,
+      "lon": 16.885
+    },
+    {
+      "id": 53,
+      "slug": "breznice",
+      "name": "Březnice",
+      "category": "obec",
+      "lat": 49.558,
+      "lon": 13.952
+    },
+    {
+      "id": 54,
+      "slug": "brezova",
+      "name": "Březová",
+      "category": "obec",
+      "lat": 50.145,
+      "lon": 12.651
+    },
+    {
+      "id": 55,
+      "slug": "bridlicna",
+      "name": "Břidličná",
+      "category": "obec",
+      "lat": 49.914,
+      "lon": 17.378
+    },
+    {
+      "id": 56,
+      "slug": "bucovice",
+      "name": "Bučovice",
+      "category": "obec",
+      "lat": 49.149,
+      "lon": 17.004
+    },
+    {
+      "id": 57,
+      "slug": "budisov-nad-budisovkou",
+      "name": "Budišov nad Budišovkou",
+      "category": "obec",
+      "lat": 49.795,
+      "lon": 17.629
+    },
+    {
+      "id": 58,
+      "slug": "bystrice",
+      "name": "Bystřice",
+      "category": "obec",
+      "lat": 49.733,
+      "lon": 14.669
+    },
+    {
+      "id": 59,
+      "slug": "bystrice",
+      "name": "Bystřice",
+      "category": "obec",
+      "lat": 49.637,
+      "lon": 18.721
+    },
+    {
+      "id": 60,
+      "slug": "bystrice-nad-pernstejnem",
+      "name": "Bystřice nad Pernštejnem",
+      "category": "obec",
+      "lat": 49.524,
+      "lon": 16.263
+    },
+    {
+      "id": 61,
+      "slug": "bystrice-pod-hostynem",
+      "name": "Bystřice pod Hostýnem",
+      "category": "obec",
+      "lat": 49.399,
+      "lon": 17.676
+    },
+    {
+      "id": 62,
+      "slug": "bzenec",
+      "name": "Bzenec",
+      "category": "obec",
+      "lat": 48.973,
+      "lon": 17.268
+    },
+    {
+      "id": 63,
+      "slug": "cvikov",
+      "name": "Cvikov",
+      "category": "obec",
+      "lat": 50.777,
+      "lon": 14.634
+    },
+    {
+      "id": 64,
+      "slug": "caslav",
+      "name": "Čáslav",
+      "category": "obec",
+      "lat": 49.911,
+      "lon": 15.392
+    },
+    {
+      "id": 65,
+      "slug": "cejkovice",
+      "name": "Čejkovice",
+      "category": "obec",
+      "lat": 48.906,
+      "lon": 16.945
+    },
+    {
+      "id": 66,
+      "slug": "celakovice",
+      "name": "Čelákovice",
+      "category": "obec",
+      "lat": 50.161,
+      "lon": 14.752
+    },
+    {
+      "id": 67,
+      "slug": "cercany",
+      "name": "Čerčany",
+      "category": "obec",
+      "lat": 49.853,
+      "lon": 14.706
+    },
+    {
+      "id": 68,
+      "slug": "cernosice",
+      "name": "Černošice",
+      "category": "obec",
+      "lat": 49.961,
+      "lon": 14.321
+    },
+    {
+      "id": 69,
+      "slug": "cervena-voda",
+      "name": "Červená Voda",
+      "category": "obec",
+      "lat": 50.041,
+      "lon": 16.747
+    },
+    {
+      "id": 70,
+      "slug": "cerveny-kostelec",
+      "name": "Červený Kostelec",
+      "category": "obec",
+      "lat": 50.477,
+      "lon": 16.098
+    },
+    {
+      "id": 71,
+      "slug": "ceska-kamenice",
+      "name": "Česká Kamenice",
+      "category": "obec",
+      "lat": 50.798,
+      "lon": 14.419
+    },
+    {
+      "id": 72,
+      "slug": "ceska-lipa",
+      "name": "Česká Lípa",
+      "category": "obec",
+      "lat": 50.686,
+      "lon": 14.539
+    },
+    {
+      "id": 73,
+      "slug": "ceska-skalice",
+      "name": "Česká Skalice",
+      "category": "obec",
+      "lat": 50.396,
+      "lon": 16.047
+    },
+    {
+      "id": 74,
+      "slug": "ceska-trebova",
+      "name": "Česká Třebová",
+      "category": "obec",
+      "lat": 49.902,
+      "lon": 16.451
+    },
+    {
+      "id": 75,
+      "slug": "ceske-budejovice",
+      "name": "České Budějovice",
+      "category": "obec",
+      "lat": 48.975,
+      "lon": 14.476
+    },
+    {
+      "id": 76,
+      "slug": "ceske-velenice",
+      "name": "České Velenice",
+      "category": "obec",
+      "lat": 48.769,
+      "lon": 14.965
+    },
+    {
+      "id": 77,
+      "slug": "cesky-brod",
+      "name": "Český Brod",
+      "category": "obec",
+      "lat": 50.075,
+      "lon": 14.863
+    },
+    {
+      "id": 78,
+      "slug": "cesky-dub",
+      "name": "Český Dub",
+      "category": "obec",
+      "lat": 50.659,
+      "lon": 14.994
+    },
+    {
+      "id": 79,
+      "slug": "cesky-krumlov",
+      "name": "Český Krumlov",
+      "category": "obec",
+      "lat": 48.811,
+      "lon": 14.316
+    },
+    {
+      "id": 80,
+      "slug": "cesky-tesin",
+      "name": "Český Těšín",
+      "category": "obec",
+      "lat": 49.744,
+      "lon": 18.576
+    },
+    {
+      "id": 81,
+      "slug": "dacice",
+      "name": "Dačice",
+      "category": "obec",
+      "lat": 49.082,
+      "lon": 15.439
+    },
+    {
+      "id": 82,
+      "slug": "decin",
+      "name": "Děčín",
+      "category": "obec",
+      "lat": 50.782,
+      "lon": 14.216
+    },
+    {
+      "id": 83,
+      "slug": "desna",
+      "name": "Desná",
+      "category": "obec",
+      "lat": 50.761,
+      "lon": 15.305
+    },
+    {
+      "id": 84,
+      "slug": "detmarovice",
+      "name": "Dětmarovice",
+      "category": "obec",
+      "lat": 49.894,
+      "lon": 18.464
+    },
+    {
+      "id": 85,
+      "slug": "dobra",
+      "name": "Dobrá",
+      "category": "obec",
+      "lat": 49.674,
+      "lon": 18.415
+    },
+    {
+      "id": 86,
+      "slug": "dobrovice",
+      "name": "Dobrovice",
+      "category": "obec",
+      "lat": 50.368,
+      "lon": 14.964
+    },
+    {
+      "id": 87,
+      "slug": "dobruska",
+      "name": "Dobruška",
+      "category": "obec",
+      "lat": 50.292,
+      "lon": 16.162
+    },
+    {
+      "id": 88,
+      "slug": "dobrany",
+      "name": "Dobřany",
+      "category": "obec",
+      "lat": 49.656,
+      "lon": 13.291
+    },
+    {
+      "id": 89,
+      "slug": "dobrichovice",
+      "name": "Dobřichovice",
+      "category": "obec",
+      "lat": 49.929,
+      "lon": 14.273
+    },
+    {
+      "id": 90,
+      "slug": "dobris",
+      "name": "Dobříš",
+      "category": "obec",
+      "lat": 49.782,
+      "lon": 14.168
+    },
+    {
+      "id": 91,
+      "slug": "doksy",
+      "name": "Doksy",
+      "category": "obec",
+      "lat": 50.565,
+      "lon": 14.658
+    },
+    {
+      "id": 92,
+      "slug": "dolni-benesov",
+      "name": "Dolní Benešov",
+      "category": "obec",
+      "lat": 49.921,
+      "lon": 18.112
+    },
+    {
+      "id": 93,
+      "slug": "dolni-bojanovice",
+      "name": "Dolní Bojanovice",
+      "category": "obec",
+      "lat": 48.861,
+      "lon": 17.029
+    },
+    {
+      "id": 94,
+      "slug": "dolni-lutyne",
+      "name": "Dolní Lutyně",
+      "category": "obec",
+      "lat": 49.908,
+      "lon": 18.417
+    },
+    {
+      "id": 95,
+      "slug": "dolni-nemci",
+      "name": "Dolní Němčí",
+      "category": "obec",
+      "lat": 48.969,
+      "lon": 17.587
+    },
+    {
+      "id": 96,
+      "slug": "domazlice",
+      "name": "Domažlice",
+      "category": "obec",
+      "lat": 49.441,
+      "lon": 12.932
+    },
+    {
+      "id": 97,
+      "slug": "dubi",
+      "name": "Dubí",
+      "category": "obec",
+      "lat": 50.682,
+      "lon": 13.79
+    },
+    {
+      "id": 98,
+      "slug": "dubnany",
+      "name": "Dubňany",
+      "category": "obec",
+      "lat": 48.917,
+      "lon": 17.091
+    },
+    {
+      "id": 99,
+      "slug": "duchcov",
+      "name": "Duchcov",
+      "category": "obec",
+      "lat": 50.604,
+      "lon": 13.748
+    },
+    {
+      "id": 100,
+      "slug": "dvur-kralove-nad-labem",
+      "name": "Dvůr Králové nad Labem",
+      "category": "obec",
+      "lat": 50.432,
+      "lon": 15.817
+    },
+    {
+      "id": 101,
+      "slug": "frantiskovy-lazne",
+      "name": "Františkovy Lázně",
+      "category": "obec",
+      "lat": 50.121,
+      "lon": 12.354
+    },
+    {
+      "id": 102,
+      "slug": "frenstat-pod-radhostem",
+      "name": "Frenštát pod Radhoštěm",
+      "category": "obec",
+      "lat": 49.549,
+      "lon": 18.212
+    },
+    {
+      "id": 103,
+      "slug": "frydek-mistek",
+      "name": "Frýdek-Místek",
+      "category": "obec",
+      "lat": 49.686,
+      "lon": 18.35
+    },
+    {
+      "id": 104,
+      "slug": "frydlant",
+      "name": "Frýdlant",
+      "category": "obec",
+      "lat": 50.922,
+      "lon": 15.081
+    },
+    {
+      "id": 105,
+      "slug": "frydlant-nad-ostravici",
+      "name": "Frýdlant nad Ostravicí",
+      "category": "obec",
+      "lat": 49.593,
+      "lon": 18.361
+    },
+    {
+      "id": 106,
+      "slug": "frystak",
+      "name": "Fryšták",
+      "category": "obec",
+      "lat": 49.286,
+      "lon": 17.684
+    },
+    {
+      "id": 107,
+      "slug": "fulnek",
+      "name": "Fulnek",
+      "category": "obec",
+      "lat": 49.714,
+      "lon": 17.905
+    },
+    {
+      "id": 108,
+      "slug": "golcuv-jenikov",
+      "name": "Golčův Jeníkov",
+      "category": "obec",
+      "lat": 49.818,
+      "lon": 15.478
+    },
+    {
+      "id": 109,
+      "slug": "habartov",
+      "name": "Habartov",
+      "category": "obec",
+      "lat": 50.183,
+      "lon": 12.552
+    },
+    {
+      "id": 110,
+      "slug": "haj-ve-slezsku",
+      "name": "Háj ve Slezsku",
+      "category": "obec",
+      "lat": 49.897,
+      "lon": 18.103
+    },
+    {
+      "id": 111,
+      "slug": "hanusovice",
+      "name": "Hanušovice",
+      "category": "obec",
+      "lat": 50.078,
+      "lon": 16.936
+    },
+    {
+      "id": 112,
+      "slug": "havirov",
+      "name": "Havířov",
+      "category": "obec",
+      "lat": 49.78,
+      "lon": 18.438
+    },
+    {
+      "id": 113,
+      "slug": "havlickuv-brod",
+      "name": "Havlíčkův Brod",
+      "category": "obec",
+      "lat": 49.609,
+      "lon": 15.582
+    },
+    {
+      "id": 114,
+      "slug": "hejnice",
+      "name": "Hejnice",
+      "category": "obec",
+      "lat": 50.876,
+      "lon": 15.194
+    },
+    {
+      "id": 115,
+      "slug": "hermanuv-mestec",
+      "name": "Heřmanův Městec",
+      "category": "obec",
+      "lat": 49.948,
+      "lon": 15.668
+    },
+    {
+      "id": 116,
+      "slug": "hlinsko",
+      "name": "Hlinsko",
+      "category": "obec",
+      "lat": 49.763,
+      "lon": 15.91
+    },
+    {
+      "id": 117,
+      "slug": "hlohovice",
+      "name": "Hlohovice",
+      "category": "obec",
+      "lat": 49.889,
+      "lon": 13.643
+    },
+    {
+      "id": 118,
+      "slug": "hlubocky",
+      "name": "Hlubočky",
+      "category": "obec",
+      "lat": 49.628,
+      "lon": 17.406
+    },
+    {
+      "id": 119,
+      "slug": "hluboka-nad-vltavou",
+      "name": "Hluboká nad Vltavou",
+      "category": "obec",
+      "lat": 49.052,
+      "lon": 14.437
+    },
+    {
+      "id": 120,
+      "slug": "hlucin",
+      "name": "Hlučín",
+      "category": "obec",
+      "lat": 49.898,
+      "lon": 18.194
+    },
+    {
+      "id": 121,
+      "slug": "hluk",
+      "name": "Hluk",
+      "category": "obec",
+      "lat": 48.988,
+      "lon": 17.529
+    },
+    {
+      "id": 122,
+      "slug": "hodkovice-nad-mohelkou",
+      "name": "Hodkovice nad Mohelkou",
+      "category": "obec",
+      "lat": 50.668,
+      "lon": 15.087
+    },
+    {
+      "id": 123,
+      "slug": "hodonin",
+      "name": "Hodonín",
+      "category": "obec",
+      "lat": 48.85,
+      "lon": 17.135
+    },
+    {
+      "id": 124,
+      "slug": "holesov",
+      "name": "Holešov",
+      "category": "obec",
+      "lat": 49.334,
+      "lon": 17.579
+    },
+    {
+      "id": 125,
+      "slug": "holice",
+      "name": "Holice",
+      "category": "obec",
+      "lat": 50.066,
+      "lon": 15.988
+    },
+    {
+      "id": 126,
+      "slug": "holysov",
+      "name": "Holýšov",
+      "category": "obec",
+      "lat": 49.594,
+      "lon": 13.099
+    },
+    {
+      "id": 127,
+      "slug": "horazdovice",
+      "name": "Horažďovice",
+      "category": "obec",
+      "lat": 49.321,
+      "lon": 13.702
+    },
+    {
+      "id": 128,
+      "slug": "horni-benesov",
+      "name": "Horní Benešov",
+      "category": "obec",
+      "lat": 49.967,
+      "lon": 17.604
+    },
+    {
+      "id": 129,
+      "slug": "horni-briza",
+      "name": "Horní Bříza",
+      "category": "obec",
+      "lat": 49.841,
+      "lon": 13.357
+    },
+    {
+      "id": 130,
+      "slug": "horni-slavkov",
+      "name": "Horní Slavkov",
+      "category": "obec",
+      "lat": 50.139,
+      "lon": 12.81
+    },
+    {
+      "id": 131,
+      "slug": "horni-sucha",
+      "name": "Horní Suchá",
+      "category": "obec",
+      "lat": 49.801,
+      "lon": 18.48
+    },
+    {
+      "id": 132,
+      "slug": "horsovsky-tyn",
+      "name": "Horšovský Týn",
+      "category": "obec",
+      "lat": 49.53,
+      "lon": 12.945
+    },
+    {
+      "id": 133,
+      "slug": "horice",
+      "name": "Hořice",
+      "category": "obec",
+      "lat": 50.368,
+      "lon": 15.633
+    },
+    {
+      "id": 134,
+      "slug": "horovice",
+      "name": "Hořovice",
+      "category": "obec",
+      "lat": 49.836,
+      "lon": 13.904
+    },
+    {
+      "id": 135,
+      "slug": "hostinne",
+      "name": "Hostinné",
+      "category": "obec",
+      "lat": 50.543,
+      "lon": 15.726
+    },
+    {
+      "id": 136,
+      "slug": "hostivice",
+      "name": "Hostivice",
+      "category": "obec",
+      "lat": 50.082,
+      "lon": 14.261
+    },
+    {
+      "id": 137,
+      "slug": "hrabova",
+      "name": "Hrabová",
+      "category": "obec",
+      "lat": 49.773,
+      "lon": 18.284
+    },
+    {
+      "id": 138,
+      "slug": "hradec-kralove",
+      "name": "Hradec Králové",
+      "category": "obec",
+      "lat": 50.21,
+      "lon": 15.835
+    },
+    {
+      "id": 139,
+      "slug": "hradec-nad-moravici",
+      "name": "Hradec nad Moravicí",
+      "category": "obec",
+      "lat": 49.876,
+      "lon": 17.875
+    },
+    {
+      "id": 140,
+      "slug": "hradek",
+      "name": "Hrádek",
+      "category": "obec",
+      "lat": 49.714,
+      "lon": 13.655
+    },
+    {
+      "id": 141,
+      "slug": "hradek-nad-nisou",
+      "name": "Hrádek nad Nisou",
+      "category": "obec",
+      "lat": 50.853,
+      "lon": 14.846
+    },
+    {
+      "id": 142,
+      "slug": "hranice",
+      "name": "Hranice",
+      "category": "obec",
+      "lat": 49.548,
+      "lon": 17.737
+    },
+    {
+      "id": 143,
+      "slug": "hronov",
+      "name": "Hronov",
+      "category": "obec",
+      "lat": 50.482,
+      "lon": 16.186
+    },
+    {
+      "id": 144,
+      "slug": "hrusovany-nad-jevisovkou",
+      "name": "Hrušovany nad Jevišovkou",
+      "category": "obec",
+      "lat": 48.831,
+      "lon": 16.403
+    },
+    {
+      "id": 145,
+      "slug": "hrusovany-u-brna",
+      "name": "Hrušovany u Brna",
+      "category": "obec",
+      "lat": 49.039,
+      "lon": 16.597
+    },
+    {
+      "id": 146,
+      "slug": "hulin",
+      "name": "Hulín",
+      "category": "obec",
+      "lat": 49.318,
+      "lon": 17.466
+    },
+    {
+      "id": 147,
+      "slug": "humpolec",
+      "name": "Humpolec",
+      "category": "obec",
+      "lat": 49.543,
+      "lon": 15.359
+    },
+    {
+      "id": 148,
+      "slug": "hustopece",
+      "name": "Hustopeče",
+      "category": "obec",
+      "lat": 48.941,
+      "lon": 16.739
+    },
+    {
+      "id": 149,
+      "slug": "cheb",
+      "name": "Cheb",
+      "category": "obec",
+      "lat": 50.08,
+      "lon": 12.376
+    },
+    {
+      "id": 150,
+      "slug": "chlumec",
+      "name": "Chlumec",
+      "category": "obec",
+      "lat": 50.699,
+      "lon": 13.942
+    },
+    {
+      "id": 151,
+      "slug": "chlumec-nad-cidlinou",
+      "name": "Chlumec nad Cidlinou",
+      "category": "obec",
+      "lat": 50.154,
+      "lon": 15.463
+    },
+    {
+      "id": 152,
+      "slug": "chocen",
+      "name": "Choceň",
+      "category": "obec",
+      "lat": 50.003,
+      "lon": 16.223
+    },
+    {
+      "id": 153,
+      "slug": "chodov",
+      "name": "Chodov",
+      "category": "obec",
+      "lat": 50.242,
+      "lon": 12.756
+    },
+    {
+      "id": 154,
+      "slug": "chomutov",
+      "name": "Chomutov",
+      "category": "obec",
+      "lat": 50.461,
+      "lon": 13.419
+    },
+    {
+      "id": 155,
+      "slug": "chotebor",
+      "name": "Chotěboř",
+      "category": "obec",
+      "lat": 49.721,
+      "lon": 15.672
+    },
+    {
+      "id": 156,
+      "slug": "chotesov",
+      "name": "Chotěšov",
+      "category": "obec",
+      "lat": 49.656,
+      "lon": 13.202
+    },
+    {
+      "id": 157,
+      "slug": "chrast",
+      "name": "Chrast",
+      "category": "obec",
+      "lat": 49.902,
+      "lon": 15.939
+    },
+    {
+      "id": 158,
+      "slug": "chrastava",
+      "name": "Chrastava",
+      "category": "obec",
+      "lat": 50.817,
+      "lon": 14.971
+    },
+    {
+      "id": 159,
+      "slug": "chropyne",
+      "name": "Chropyně",
+      "category": "obec",
+      "lat": 49.356,
+      "lon": 17.366
+    },
+    {
+      "id": 160,
+      "slug": "chrudim",
+      "name": "Chrudim",
+      "category": "obec",
+      "lat": 49.951,
+      "lon": 15.797
+    },
+    {
+      "id": 161,
+      "slug": "chvaletice",
+      "name": "Chvaletice",
+      "category": "obec",
+      "lat": 50.035,
+      "lon": 15.417
+    },
+    {
+      "id": 162,
+      "slug": "ivancice",
+      "name": "Ivančice",
+      "category": "obec",
+      "lat": 49.102,
+      "lon": 16.38
+    },
+    {
+      "id": 163,
+      "slug": "ivanovice-na-hane",
+      "name": "Ivanovice na Hané",
+      "category": "obec",
+      "lat": 49.305,
+      "lon": 17.096
+    },
+    {
+      "id": 164,
+      "slug": "jablonec-nad-nisou",
+      "name": "Jablonec nad Nisou",
+      "category": "obec",
+      "lat": 50.725,
+      "lon": 15.172
+    },
+    {
+      "id": 165,
+      "slug": "jablonne-nad-orlici",
+      "name": "Jablonné nad Orlicí",
+      "category": "obec",
+      "lat": 50.03,
+      "lon": 16.603
+    },
+    {
+      "id": 166,
+      "slug": "jablonne-v-podjestedi",
+      "name": "Jablonné v Podještědí",
+      "category": "obec",
+      "lat": 50.767,
+      "lon": 14.764
+    },
+    {
+      "id": 167,
+      "slug": "jablunkov",
+      "name": "Jablunkov",
+      "category": "obec",
+      "lat": 49.576,
+      "lon": 18.765
+    },
+    {
+      "id": 168,
+      "slug": "jachymov",
+      "name": "Jáchymov",
+      "category": "obec",
+      "lat": 50.359,
+      "lon": 12.937
+    },
+    {
+      "id": 169,
+      "slug": "jaromer",
+      "name": "Jaroměř",
+      "category": "obec",
+      "lat": 50.357,
+      "lon": 15.923
+    },
+    {
+      "id": 170,
+      "slug": "jaromerice-nad-rokytnou",
+      "name": "Jaroměřice nad Rokytnou",
+      "category": "obec",
+      "lat": 49.094,
+      "lon": 15.896
+    },
+    {
+      "id": 171,
+      "slug": "javornik",
+      "name": "Javorník",
+      "category": "obec",
+      "lat": 50.391,
+      "lon": 17.003
+    },
+    {
+      "id": 172,
+      "slug": "jemnice",
+      "name": "Jemnice",
+      "category": "obec",
+      "lat": 49.019,
+      "lon": 15.572
+    },
+    {
+      "id": 173,
+      "slug": "jesenik",
+      "name": "Jeseník",
+      "category": "obec",
+      "lat": 50.23,
+      "lon": 17.206
+    },
+    {
+      "id": 174,
+      "slug": "jevicko",
+      "name": "Jevíčko",
+      "category": "obec",
+      "lat": 49.634,
+      "lon": 16.712
+    },
+    {
+      "id": 175,
+      "slug": "jicin",
+      "name": "Jičín",
+      "category": "obec",
+      "lat": 50.437,
+      "lon": 15.353
+    },
+    {
+      "id": 176,
+      "slug": "jihlava",
+      "name": "Jihlava",
+      "category": "obec",
+      "lat": 49.397,
+      "lon": 15.593
+    },
+    {
+      "id": 177,
+      "slug": "jilemnice",
+      "name": "Jilemnice",
+      "category": "obec",
+      "lat": 50.609,
+      "lon": 15.509
+    },
+    {
+      "id": 178,
+      "slug": "jilove",
+      "name": "Jílové",
+      "category": "obec",
+      "lat": 50.761,
+      "lon": 14.105
+    },
+    {
+      "id": 179,
+      "slug": "jilove-u-prahy",
+      "name": "Jílové u Prahy",
+      "category": "obec",
+      "lat": 49.896,
+      "lon": 14.495
+    },
+    {
+      "id": 180,
+      "slug": "jindrichuv-hradec",
+      "name": "Jindřichův Hradec",
+      "category": "obec",
+      "lat": 49.144,
+      "lon": 15.005
+    },
+    {
+      "id": 181,
+      "slug": "jirkov",
+      "name": "Jirkov",
+      "category": "obec",
+      "lat": 50.5,
+      "lon": 13.45
+    },
+    {
+      "id": 182,
+      "slug": "jirikov",
+      "name": "Jiříkov",
+      "category": "obec",
+      "lat": 50.995,
+      "lon": 14.572
+    },
+    {
+      "id": 183,
+      "slug": "kadan",
+      "name": "Kadaň",
+      "category": "obec",
+      "lat": 50.377,
+      "lon": 13.273
+    },
+    {
+      "id": 184,
+      "slug": "kamenice-nad-lipou",
+      "name": "Kamenice nad Lipou",
+      "category": "obec",
+      "lat": 49.304,
+      "lon": 15.076
+    },
+    {
+      "id": 185,
+      "slug": "kamenicky-senov",
+      "name": "Kamenický Šenov",
+      "category": "obec",
+      "lat": 50.776,
+      "lon": 14.47
+    },
+    {
+      "id": 186,
+      "slug": "kaplice",
+      "name": "Kaplice",
+      "category": "obec",
+      "lat": 48.739,
+      "lon": 14.498
+    },
+    {
+      "id": 187,
+      "slug": "karlovy-vary",
+      "name": "Karlovy Vary",
+      "category": "obec",
+      "lat": 50.222,
+      "lon": 12.888
+    },
+    {
+      "id": 188,
+      "slug": "karolinka",
+      "name": "Karolinka",
+      "category": "obec",
+      "lat": 49.351,
+      "lon": 18.248
+    },
+    {
+      "id": 189,
+      "slug": "karvina",
+      "name": "Karviná",
+      "category": "obec",
+      "lat": 49.854,
+      "lon": 18.543
+    },
+    {
+      "id": 190,
+      "slug": "kaznejov",
+      "name": "Kaznějov",
+      "category": "obec",
+      "lat": 49.892,
+      "lon": 13.386
+    },
+    {
+      "id": 191,
+      "slug": "kdyne",
+      "name": "Kdyně",
+      "category": "obec",
+      "lat": 49.391,
+      "lon": 13.04
+    },
+    {
+      "id": 192,
+      "slug": "kelc",
+      "name": "Kelč",
+      "category": "obec",
+      "lat": 49.479,
+      "lon": 17.817
+    },
+    {
+      "id": 193,
+      "slug": "kladno",
+      "name": "Kladno",
+      "category": "obec",
+      "lat": 50.148,
+      "lon": 14.105
+    },
+    {
+      "id": 194,
+      "slug": "klasterec-nad-ohri",
+      "name": "Klášterec nad Ohří",
+      "category": "obec",
+      "lat": 50.385,
+      "lon": 13.174
+    },
+    {
+      "id": 195,
+      "slug": "klatovy",
+      "name": "Klatovy",
+      "category": "obec",
+      "lat": 49.396,
+      "lon": 13.297
+    },
+    {
+      "id": 196,
+      "slug": "klimkovice",
+      "name": "Klimkovice",
+      "category": "obec",
+      "lat": 49.787,
+      "lon": 18.13
+    },
+    {
+      "id": 197,
+      "slug": "koberice",
+      "name": "Kobeřice",
+      "category": "obec",
+      "lat": 49.986,
+      "lon": 18.053
+    },
+    {
+      "id": 198,
+      "slug": "kojetin",
+      "name": "Kojetín",
+      "category": "obec",
+      "lat": 49.353,
+      "lon": 17.307
+    },
+    {
+      "id": 199,
+      "slug": "kolin",
+      "name": "Kolín",
+      "category": "obec",
+      "lat": 50.028,
+      "lon": 15.202
+    },
+    {
+      "id": 200,
+      "slug": "konice",
+      "name": "Konice",
+      "category": "obec",
+      "lat": 49.592,
+      "lon": 16.89
+    },
+    {
+      "id": 201,
+      "slug": "konstantinovy-lazne",
+      "name": "Konstantinovy Lázně",
+      "category": "obec",
+      "lat": 49.881,
+      "lon": 12.977
+    },
+    {
+      "id": 202,
+      "slug": "koprivnice",
+      "name": "Kopřivnice",
+      "category": "obec",
+      "lat": 49.6,
+      "lon": 18.146
+    },
+    {
+      "id": 203,
+      "slug": "korycany",
+      "name": "Koryčany",
+      "category": "obec",
+      "lat": 49.11,
+      "lon": 17.167
+    },
+    {
+      "id": 204,
+      "slug": "kosmonosy",
+      "name": "Kosmonosy",
+      "category": "obec",
+      "lat": 50.439,
+      "lon": 14.931
+    },
+    {
+      "id": 205,
+      "slug": "kostelec-nad-cernymi-lesy",
+      "name": "Kostelec nad Černými Lesy",
+      "category": "obec",
+      "lat": 49.992,
+      "lon": 14.856
+    },
+    {
+      "id": 206,
+      "slug": "kostelec-nad-labem",
+      "name": "Kostelec nad Labem",
+      "category": "obec",
+      "lat": 50.227,
+      "lon": 14.587
+    },
+    {
+      "id": 207,
+      "slug": "kostelec-nad-orlici",
+      "name": "Kostelec nad Orlicí",
+      "category": "obec",
+      "lat": 50.124,
+      "lon": 16.213
+    },
+    {
+      "id": 208,
+      "slug": "kostelec-na-hane",
+      "name": "Kostelec na Hané",
+      "category": "obec",
+      "lat": 49.515,
+      "lon": 17.06
+    },
+    {
+      "id": 209,
+      "slug": "kozlovice",
+      "name": "Kozlovice",
+      "category": "obec",
+      "lat": 49.581,
+      "lon": 18.262
+    },
+    {
+      "id": 210,
+      "slug": "kraliky",
+      "name": "Králíky",
+      "category": "obec",
+      "lat": 50.086,
+      "lon": 16.762
+    },
+    {
+      "id": 211,
+      "slug": "kralovice",
+      "name": "Kralovice",
+      "category": "obec",
+      "lat": 49.982,
+      "lon": 13.489
+    },
+    {
+      "id": 212,
+      "slug": "kralupy-nad-vltavou",
+      "name": "Kralupy nad Vltavou",
+      "category": "obec",
+      "lat": 50.242,
+      "lon": 14.314
+    },
+    {
+      "id": 213,
+      "slug": "kraluv-dvur",
+      "name": "Králův Dvůr",
+      "category": "obec",
+      "lat": 49.95,
+      "lon": 14.036
+    },
+    {
+      "id": 214,
+      "slug": "kraslice",
+      "name": "Kraslice",
+      "category": "obec",
+      "lat": 50.324,
+      "lon": 12.519
+    },
+    {
+      "id": 215,
+      "slug": "krasna-lipa",
+      "name": "Krásná Lípa",
+      "category": "obec",
+      "lat": 50.913,
+      "lon": 14.512
+    },
+    {
+      "id": 216,
+      "slug": "kravare",
+      "name": "Kravaře",
+      "category": "obec",
+      "lat": 49.933,
+      "lon": 18.006
+    },
+    {
+      "id": 217,
+      "slug": "krnov",
+      "name": "Krnov",
+      "category": "obec",
+      "lat": 50.09,
+      "lon": 17.706
+    },
+    {
+      "id": 218,
+      "slug": "kromeriz",
+      "name": "Kroměříž",
+      "category": "obec",
+      "lat": 49.299,
+      "lon": 17.392
+    },
+    {
+      "id": 219,
+      "slug": "krupka",
+      "name": "Krupka",
+      "category": "obec",
+      "lat": 50.684,
+      "lon": 13.859
+    },
+    {
+      "id": 220,
+      "slug": "kunovice",
+      "name": "Kunovice",
+      "category": "obec",
+      "lat": 49.045,
+      "lon": 17.471
+    },
+    {
+      "id": 221,
+      "slug": "kurim",
+      "name": "Kuřim",
+      "category": "obec",
+      "lat": 49.299,
+      "lon": 16.533
+    },
+    {
+      "id": 222,
+      "slug": "kutna-hora",
+      "name": "Kutná Hora",
+      "category": "obec",
+      "lat": 49.949,
+      "lon": 15.269
+    },
+    {
+      "id": 223,
+      "slug": "kyjov",
+      "name": "Kyjov",
+      "category": "obec",
+      "lat": 49.011,
+      "lon": 17.125
+    },
+    {
+      "id": 224,
+      "slug": "kynsperk-nad-ohri",
+      "name": "Kynšperk nad Ohří",
+      "category": "obec",
+      "lat": 50.12,
+      "lon": 12.533
+    },
+    {
+      "id": 225,
+      "slug": "lanskroun",
+      "name": "Lanškroun",
+      "category": "obec",
+      "lat": 49.913,
+      "lon": 16.614
+    },
+    {
+      "id": 226,
+      "slug": "lanzhot",
+      "name": "Lanžhot",
+      "category": "obec",
+      "lat": 48.725,
+      "lon": 16.969
+    },
+    {
+      "id": 227,
+      "slug": "lazne-belohrad",
+      "name": "Lázně Bělohrad",
+      "category": "obec",
+      "lat": 50.43,
+      "lon": 15.586
+    },
+    {
+      "id": 228,
+      "slug": "ledec-nad-sazavou",
+      "name": "Ledeč nad Sázavou",
+      "category": "obec",
+      "lat": 49.696,
+      "lon": 15.28
+    },
+    {
+      "id": 229,
+      "slug": "letohrad",
+      "name": "Letohrad",
+      "category": "obec",
+      "lat": 50.037,
+      "lon": 16.501
+    },
+    {
+      "id": 230,
+      "slug": "letovice",
+      "name": "Letovice",
+      "category": "obec",
+      "lat": 49.547,
+      "lon": 16.576
+    },
+    {
+      "id": 231,
+      "slug": "libcice-nad-vltavou",
+      "name": "Libčice nad Vltavou",
+      "category": "obec",
+      "lat": 50.198,
+      "lon": 14.366
+    },
+    {
+      "id": 232,
+      "slug": "liberec",
+      "name": "Liberec",
+      "category": "obec",
+      "lat": 50.768,
+      "lon": 15.058
+    },
+    {
+      "id": 233,
+      "slug": "libina",
+      "name": "Libina",
+      "category": "obec",
+      "lat": 49.858,
+      "lon": 17.11
+    },
+    {
+      "id": 234,
+      "slug": "libochovice",
+      "name": "Libochovice",
+      "category": "obec",
+      "lat": 50.406,
+      "lon": 14.046
+    },
+    {
+      "id": 235,
+      "slug": "lipnik-nad-becvou",
+      "name": "Lipník nad Bečvou",
+      "category": "obec",
+      "lat": 49.528,
+      "lon": 17.589
+    },
+    {
+      "id": 236,
+      "slug": "lisov",
+      "name": "Lišov",
+      "category": "obec",
+      "lat": 49.016,
+      "lon": 14.61
+    },
+    {
+      "id": 237,
+      "slug": "litomerice",
+      "name": "Litoměřice",
+      "category": "obec",
+      "lat": 50.534,
+      "lon": 14.133
+    },
+    {
+      "id": 238,
+      "slug": "litomysl",
+      "name": "Litomyšl",
+      "category": "obec",
+      "lat": 49.872,
+      "lon": 16.314
+    },
+    {
+      "id": 239,
+      "slug": "litovel",
+      "name": "Litovel",
+      "category": "obec",
+      "lat": 49.702,
+      "lon": 17.078
+    },
+    {
+      "id": 240,
+      "slug": "litvinov",
+      "name": "Litvínov",
+      "category": "obec",
+      "lat": 50.605,
+      "lon": 13.619
+    },
+    {
+      "id": 241,
+      "slug": "loket",
+      "name": "Loket",
+      "category": "obec",
+      "lat": 50.187,
+      "lon": 12.755
+    },
+    {
+      "id": 242,
+      "slug": "lom",
+      "name": "Lom",
+      "category": "obec",
+      "lat": 50.594,
+      "lon": 13.66
+    },
+    {
+      "id": 243,
+      "slug": "lomnice-nad-popelkou",
+      "name": "Lomnice nad Popelkou",
+      "category": "obec",
+      "lat": 50.531,
+      "lon": 15.376
+    },
+    {
+      "id": 244,
+      "slug": "lostice",
+      "name": "Loštice",
+      "category": "obec",
+      "lat": 49.745,
+      "lon": 16.929
+    },
+    {
+      "id": 245,
+      "slug": "louny",
+      "name": "Louny",
+      "category": "obec",
+      "lat": 50.357,
+      "lon": 13.799
+    },
+    {
+      "id": 246,
+      "slug": "lovosice",
+      "name": "Lovosice",
+      "category": "obec",
+      "lat": 50.515,
+      "lon": 14.053
+    },
+    {
+      "id": 247,
+      "slug": "luby",
+      "name": "Luby",
+      "category": "obec",
+      "lat": 50.255,
+      "lon": 12.409
+    },
+    {
+      "id": 248,
+      "slug": "ludgerovice",
+      "name": "Ludgeřovice",
+      "category": "obec",
+      "lat": 49.892,
+      "lon": 18.241
+    },
+    {
+      "id": 249,
+      "slug": "luhacovice",
+      "name": "Luhačovice",
+      "category": "obec",
+      "lat": 49.102,
+      "lon": 17.763
+    },
+    {
+      "id": 250,
+      "slug": "lutin",
+      "name": "Lutín",
+      "category": "obec",
+      "lat": 49.56,
+      "lon": 17.139
+    },
+    {
+      "id": 251,
+      "slug": "luze",
+      "name": "Luže",
+      "category": "obec",
+      "lat": 49.894,
+      "lon": 16.03
+    },
+    {
+      "id": 252,
+      "slug": "luzice",
+      "name": "Lužice",
+      "category": "obec",
+      "lat": 48.842,
+      "lon": 17.074
+    },
+    {
+      "id": 253,
+      "slug": "lysa-nad-labem",
+      "name": "Lysá nad Labem",
+      "category": "obec",
+      "lat": 50.202,
+      "lon": 14.834
+    },
+    {
+      "id": 254,
+      "slug": "marianske-hory-a-hulvaky",
+      "name": "Mariánské Hory a Hulváky",
+      "category": "obec",
+      "lat": 49.832,
+      "lon": 18.258
+    },
+    {
+      "id": 255,
+      "slug": "marianske-lazne",
+      "name": "Mariánské Lázně",
+      "category": "obec",
+      "lat": 49.965,
+      "lon": 12.703
+    },
+    {
+      "id": 256,
+      "slug": "melnik",
+      "name": "Mělník",
+      "category": "obec",
+      "lat": 50.351,
+      "lon": 14.476
+    },
+    {
+      "id": 257,
+      "slug": "mestec-kralove",
+      "name": "Městec Králové",
+      "category": "obec",
+      "lat": 50.208,
+      "lon": 15.3
+    },
+    {
+      "id": 258,
+      "slug": "mesto-albrechtice",
+      "name": "Město Albrechtice",
+      "category": "obec",
+      "lat": 50.163,
+      "lon": 17.578
+    },
+    {
+      "id": 259,
+      "slug": "mezibori",
+      "name": "Meziboří",
+      "category": "obec",
+      "lat": 50.621,
+      "lon": 13.601
+    },
+    {
+      "id": 260,
+      "slug": "mezimesti",
+      "name": "Meziměstí",
+      "category": "obec",
+      "lat": 50.627,
+      "lon": 16.243
+    },
+    {
+      "id": 261,
+      "slug": "mikulasovice",
+      "name": "Mikulášovice",
+      "category": "obec",
+      "lat": 50.967,
+      "lon": 14.362
+    },
+    {
+      "id": 262,
+      "slug": "mikulov",
+      "name": "Mikulov",
+      "category": "obec",
+      "lat": 48.806,
+      "lon": 16.64
+    },
+    {
+      "id": 263,
+      "slug": "mikulovice",
+      "name": "Mikulovice",
+      "category": "obec",
+      "lat": 50.302,
+      "lon": 17.327
+    },
+    {
+      "id": 264,
+      "slug": "milevsko",
+      "name": "Milevsko",
+      "category": "obec",
+      "lat": 49.452,
+      "lon": 14.361
+    },
+    {
+      "id": 265,
+      "slug": "milovice",
+      "name": "Milovice",
+      "category": "obec",
+      "lat": 50.228,
+      "lon": 14.877
+    },
+    {
+      "id": 266,
+      "slug": "mimon",
+      "name": "Mimoň",
+      "category": "obec",
+      "lat": 50.66,
+      "lon": 14.726
+    },
+    {
+      "id": 267,
+      "slug": "miroslav",
+      "name": "Miroslav",
+      "category": "obec",
+      "lat": 48.947,
+      "lon": 16.314
+    },
+    {
+      "id": 268,
+      "slug": "mlada-boleslav",
+      "name": "Mladá Boleslav",
+      "category": "obec",
+      "lat": 50.412,
+      "lon": 14.906
+    },
+    {
+      "id": 269,
+      "slug": "mlada-vozice",
+      "name": "Mladá Vožice",
+      "category": "obec",
+      "lat": 49.533,
+      "lon": 14.811
+    },
+    {
+      "id": 270,
+      "slug": "mnichovo-hradiste",
+      "name": "Mnichovo Hradiště",
+      "category": "obec",
+      "lat": 50.528,
+      "lon": 14.973
+    },
+    {
+      "id": 271,
+      "slug": "mnisek-pod-brdy",
+      "name": "Mníšek pod Brdy",
+      "category": "obec",
+      "lat": 49.867,
+      "lon": 14.262
+    },
+    {
+      "id": 272,
+      "slug": "modrice",
+      "name": "Modřice",
+      "category": "obec",
+      "lat": 49.129,
+      "lon": 16.616
+    },
+    {
+      "id": 273,
+      "slug": "mohelnice",
+      "name": "Mohelnice",
+      "category": "obec",
+      "lat": 49.777,
+      "lon": 16.92
+    },
+    {
+      "id": 274,
+      "slug": "mokra-horakov",
+      "name": "Mokrá-Horákov",
+      "category": "obec",
+      "lat": 49.225,
+      "lon": 16.754
+    },
+    {
+      "id": 275,
+      "slug": "moravska-nova-ves",
+      "name": "Moravská Nová Ves",
+      "category": "obec",
+      "lat": 48.802,
+      "lon": 17.017
+    },
+    {
+      "id": 276,
+      "slug": "moravska-ostrava-a-privoz",
+      "name": "Moravská Ostrava a Přívoz",
+      "category": "obec",
+      "lat": 49.836,
+      "lon": 18.286
+    },
+    {
+      "id": 277,
+      "slug": "moravska-trebova",
+      "name": "Moravská Třebová",
+      "category": "obec",
+      "lat": 49.758,
+      "lon": 16.666
+    },
+    {
+      "id": 278,
+      "slug": "moravske-budejovice",
+      "name": "Moravské Budějovice",
+      "category": "obec",
+      "lat": 49.052,
+      "lon": 15.811
+    },
+    {
+      "id": 279,
+      "slug": "moravsky-beroun",
+      "name": "Moravský Beroun",
+      "category": "obec",
+      "lat": 49.794,
+      "lon": 17.443
+    },
+    {
+      "id": 280,
+      "slug": "moravsky-krumlov",
+      "name": "Moravský Krumlov",
+      "category": "obec",
+      "lat": 49.05,
+      "lon": 16.314
+    },
+    {
+      "id": 281,
+      "slug": "morkovice-slizany",
+      "name": "Morkovice-Slížany",
+      "category": "obec",
+      "lat": 49.249,
+      "lon": 17.21
+    },
+    {
+      "id": 282,
+      "slug": "most",
+      "name": "Most",
+      "category": "obec",
+      "lat": 50.504,
+      "lon": 13.638
+    },
+    {
+      "id": 283,
+      "slug": "mosty-u-jablunkova",
+      "name": "Mosty u Jablunkova",
+      "category": "obec",
+      "lat": 49.525,
+      "lon": 18.754
+    },
+    {
+      "id": 284,
+      "slug": "mutenice",
+      "name": "Mutěnice",
+      "category": "obec",
+      "lat": 48.905,
+      "lon": 17.031
+    },
+    {
+      "id": 285,
+      "slug": "nachod",
+      "name": "Náchod",
+      "category": "obec",
+      "lat": 50.417,
+      "lon": 16.165
+    },
+    {
+      "id": 286,
+      "slug": "namest-nad-oslavou",
+      "name": "Náměšť nad Oslavou",
+      "category": "obec",
+      "lat": 49.208,
+      "lon": 16.16
+    },
+    {
+      "id": 287,
+      "slug": "napajedla",
+      "name": "Napajedla",
+      "category": "obec",
+      "lat": 49.173,
+      "lon": 17.513
+    },
+    {
+      "id": 288,
+      "slug": "navsi",
+      "name": "Návsí",
+      "category": "obec",
+      "lat": 49.586,
+      "lon": 18.754
+    },
+    {
+      "id": 289,
+      "slug": "nejdek",
+      "name": "Nejdek",
+      "category": "obec",
+      "lat": 50.322,
+      "lon": 12.731
+    },
+    {
+      "id": 290,
+      "slug": "nepomuk",
+      "name": "Nepomuk",
+      "category": "obec",
+      "lat": 49.486,
+      "lon": 13.584
+    },
+    {
+      "id": 291,
+      "slug": "neratovice",
+      "name": "Neratovice",
+      "category": "obec",
+      "lat": 50.26,
+      "lon": 14.519
+    },
+    {
+      "id": 292,
+      "slug": "nestemice",
+      "name": "Neštěmice",
+      "category": "obec",
+      "lat": 50.673,
+      "lon": 14.105
+    },
+    {
+      "id": 293,
+      "slug": "netolice",
+      "name": "Netolice",
+      "category": "obec",
+      "lat": 49.049,
+      "lon": 14.198
+    },
+    {
+      "id": 294,
+      "slug": "nivnice",
+      "name": "Nivnice",
+      "category": "obec",
+      "lat": 48.977,
+      "lon": 17.646
+    },
+    {
+      "id": 295,
+      "slug": "nova-bystrice",
+      "name": "Nová Bystřice",
+      "category": "obec",
+      "lat": 49.02,
+      "lon": 15.104
+    },
+    {
+      "id": 296,
+      "slug": "nova-paka",
+      "name": "Nová Paka",
+      "category": "obec",
+      "lat": 50.496,
+      "lon": 15.519
+    },
+    {
+      "id": 297,
+      "slug": "nova-role",
+      "name": "Nová Role",
+      "category": "obec",
+      "lat": 50.273,
+      "lon": 12.791
+    },
+    {
+      "id": 298,
+      "slug": "nova-vcelnice",
+      "name": "Nová Včelnice",
+      "category": "obec",
+      "lat": 49.238,
+      "lon": 15.074
+    },
+    {
+      "id": 299,
+      "slug": "nove-hrady",
+      "name": "Nové Hrady",
+      "category": "obec",
+      "lat": 48.791,
+      "lon": 14.784
+    },
+    {
+      "id": 300,
+      "slug": "nove-mesto-nad-metuji",
+      "name": "Nové Město nad Metují",
+      "category": "obec",
+      "lat": 50.345,
+      "lon": 16.152
+    },
+    {
+      "id": 301,
+      "slug": "nove-mesto-na-morave",
+      "name": "Nové Město na Moravě",
+      "category": "obec",
+      "lat": 49.562,
+      "lon": 16.076
+    },
+    {
+      "id": 302,
+      "slug": "nove-mesto-pod-smrkem",
+      "name": "Nové Město pod Smrkem",
+      "category": "obec",
+      "lat": 50.925,
+      "lon": 15.231
+    },
+    {
+      "id": 303,
+      "slug": "nove-sedlo",
+      "name": "Nové Sedlo",
+      "category": "obec",
+      "lat": 50.207,
+      "lon": 12.737
+    },
+    {
+      "id": 304,
+      "slug": "nove-straseci",
+      "name": "Nové Strašecí",
+      "category": "obec",
+      "lat": 50.153,
+      "lon": 13.903
+    },
+    {
+      "id": 305,
+      "slug": "novy-bor",
+      "name": "Nový Bor",
+      "category": "obec",
+      "lat": 50.759,
+      "lon": 14.557
+    },
+    {
+      "id": 306,
+      "slug": "novy-bydzov",
+      "name": "Nový Bydžov",
+      "category": "obec",
+      "lat": 50.242,
+      "lon": 15.493
+    },
+    {
+      "id": 307,
+      "slug": "novy-hrozenkov",
+      "name": "Nový Hrozenkov",
+      "category": "obec",
+      "lat": 49.336,
+      "lon": 18.198
+    },
+    {
+      "id": 308,
+      "slug": "novy-jicin",
+      "name": "Nový Jičín",
+      "category": "obec",
+      "lat": 49.595,
+      "lon": 18.012
+    },
+    {
+      "id": 309,
+      "slug": "nymburk",
+      "name": "Nymburk",
+      "category": "obec",
+      "lat": 50.187,
+      "lon": 15.043
+    },
+    {
+      "id": 310,
+      "slug": "nyrsko",
+      "name": "Nýrsko",
+      "category": "obec",
+      "lat": 49.294,
+      "lon": 13.145
+    },
+    {
+      "id": 311,
+      "slug": "nyrany",
+      "name": "Nýřany",
+      "category": "obec",
+      "lat": 49.712,
+      "lon": 13.214
+    },
+    {
+      "id": 312,
+      "slug": "odolena-voda",
+      "name": "Odolena Voda",
+      "category": "obec",
+      "lat": 50.234,
+      "lon": 14.413
+    },
+    {
+      "id": 313,
+      "slug": "odry",
+      "name": "Odry",
+      "category": "obec",
+      "lat": 49.666,
+      "lon": 17.83
+    },
+    {
+      "id": 314,
+      "slug": "olomouc",
+      "name": "Olomouc",
+      "category": "obec",
+      "lat": 49.595,
+      "lon": 17.254
+    },
+    {
+      "id": 315,
+      "slug": "ondrejov-astronomicky-ustav-av-cr",
+      "name": "Ondřejov - Astronomický ústav AV ČR",
+      "category": "obec",
+      "lat": 49.909,
+      "lon": 14.781
+    },
+    {
+      "id": 316,
+      "slug": "opava",
+      "name": "Opava",
+      "category": "obec",
+      "lat": 49.939,
+      "lon": 17.904
+    },
+    {
+      "id": 317,
+      "slug": "opocno",
+      "name": "Opočno",
+      "category": "obec",
+      "lat": 50.268,
+      "lon": 16.118
+    },
+    {
+      "id": 318,
+      "slug": "orlova",
+      "name": "Orlová",
+      "category": "obec",
+      "lat": 49.845,
+      "lon": 18.431
+    },
+    {
+      "id": 319,
+      "slug": "osek",
+      "name": "Osek",
+      "category": "obec",
+      "lat": 50.623,
+      "lon": 13.688
+    },
+    {
+      "id": 320,
+      "slug": "oslavany",
+      "name": "Oslavany",
+      "category": "obec",
+      "lat": 49.124,
+      "lon": 16.339
+    },
+    {
+      "id": 321,
+      "slug": "ostrava",
+      "name": "Ostrava",
+      "category": "obec",
+      "lat": 49.835,
+      "lon": 18.286
+    },
+    {
+      "id": 322,
+      "slug": "ostrava-jih",
+      "name": "Ostrava-jih",
+      "category": "obec",
+      "lat": 49.801,
+      "lon": 18.239
+    },
+    {
+      "id": 323,
+      "slug": "ostrov",
+      "name": "Ostrov",
+      "category": "obec",
+      "lat": 50.306,
+      "lon": 12.941
+    },
+    {
+      "id": 324,
+      "slug": "ostrozska-nova-ves",
+      "name": "Ostrožská Nová Ves",
+      "category": "obec",
+      "lat": 49.005,
+      "lon": 17.436
+    },
+    {
+      "id": 325,
+      "slug": "otrokovice",
+      "name": "Otrokovice",
+      "category": "obec",
+      "lat": 49.209,
+      "lon": 17.541
+    },
+    {
+      "id": 326,
+      "slug": "pacov",
+      "name": "Pacov",
+      "category": "obec",
+      "lat": 49.471,
+      "lon": 15.003
+    },
+    {
+      "id": 327,
+      "slug": "pardubice",
+      "name": "Pardubice",
+      "category": "obec",
+      "lat": 50.041,
+      "lon": 15.779
+    },
+    {
+      "id": 328,
+      "slug": "paskov",
+      "name": "Paskov",
+      "category": "obec",
+      "lat": 49.733,
+      "lon": 18.291
+    },
+    {
+      "id": 329,
+      "slug": "pecky",
+      "name": "Pečky",
+      "category": "obec",
+      "lat": 50.091,
+      "lon": 15.032
+    },
+    {
+      "id": 330,
+      "slug": "pelhrimov",
+      "name": "Pelhřimov",
+      "category": "obec",
+      "lat": 49.432,
+      "lon": 15.225
+    },
+    {
+      "id": 331,
+      "slug": "petrovice-u-karvine",
+      "name": "Petrovice u Karviné",
+      "category": "obec",
+      "lat": 49.903,
+      "lon": 18.542
+    },
+    {
+      "id": 332,
+      "slug": "petrkovice",
+      "name": "Petřkovice",
+      "category": "obec",
+      "lat": 49.872,
+      "lon": 18.26
+    },
+    {
+      "id": 333,
+      "slug": "petrvald",
+      "name": "Petřvald",
+      "category": "obec",
+      "lat": 49.826,
+      "lon": 18.387
+    },
+    {
+      "id": 334,
+      "slug": "pisek",
+      "name": "Písek",
+      "category": "obec",
+      "lat": 49.309,
+      "lon": 14.15
+    },
+    {
+      "id": 335,
+      "slug": "plana",
+      "name": "Planá",
+      "category": "obec",
+      "lat": 49.868,
+      "lon": 12.739
+    },
+    {
+      "id": 336,
+      "slug": "plana-nad-luznici",
+      "name": "Planá nad Lužnicí",
+      "category": "obec",
+      "lat": 49.355,
+      "lon": 14.702
+    },
+    {
+      "id": 337,
+      "slug": "plasy",
+      "name": "Plasy",
+      "category": "obec",
+      "lat": 49.936,
+      "lon": 13.391
+    },
+    {
+      "id": 338,
+      "slug": "plzen",
+      "name": "Plzeň",
+      "category": "obec",
+      "lat": 49.748,
+      "lon": 13.379
+    },
+    {
+      "id": 339,
+      "slug": "plzen-1",
+      "name": "Plzeň 1",
+      "category": "obec",
+      "lat": 49.759,
+      "lon": 13.377
+    },
+    {
+      "id": 340,
+      "slug": "plzen-2",
+      "name": "Plzeň 2",
+      "category": "obec",
+      "lat": 49.735,
+      "lon": 13.395
+    },
+    {
+      "id": 341,
+      "slug": "plzen-3",
+      "name": "Plzeň 3",
+      "category": "obec",
+      "lat": 49.749,
+      "lon": 13.379
+    },
+    {
+      "id": 342,
+      "slug": "plzen-4",
+      "name": "Plzeň 4",
+      "category": "obec",
+      "lat": 49.759,
+      "lon": 13.408
+    },
+    {
+      "id": 343,
+      "slug": "pocatky",
+      "name": "Počátky",
+      "category": "obec",
+      "lat": 49.26,
+      "lon": 15.241
+    },
+    {
+      "id": 344,
+      "slug": "podborany",
+      "name": "Podbořany",
+      "category": "obec",
+      "lat": 50.23,
+      "lon": 13.414
+    },
+    {
+      "id": 345,
+      "slug": "podebrady",
+      "name": "Poděbrady",
+      "category": "obec",
+      "lat": 50.143,
+      "lon": 15.118
+    },
+    {
+      "id": 346,
+      "slug": "podivin",
+      "name": "Podivín",
+      "category": "obec",
+      "lat": 48.829,
+      "lon": 16.85
+    },
+    {
+      "id": 347,
+      "slug": "pohorelice",
+      "name": "Pohořelice",
+      "category": "obec",
+      "lat": 48.982,
+      "lon": 16.522
+    },
+    {
+      "id": 348,
+      "slug": "polanka-nad-odrou",
+      "name": "Polanka nad Odrou",
+      "category": "obec",
+      "lat": 49.788,
+      "lon": 18.167
+    },
+    {
+      "id": 349,
+      "slug": "police-nad-metuji",
+      "name": "Police nad Metují",
+      "category": "obec",
+      "lat": 50.538,
+      "lon": 16.233
+    },
+    {
+      "id": 350,
+      "slug": "policka",
+      "name": "Polička",
+      "category": "obec",
+      "lat": 49.715,
+      "lon": 16.267
+    },
+    {
+      "id": 351,
+      "slug": "polna",
+      "name": "Polná",
+      "category": "obec",
+      "lat": 49.487,
+      "lon": 15.72
+    },
+    {
+      "id": 352,
+      "slug": "poruba",
+      "name": "Poruba",
+      "category": "obec",
+      "lat": 49.833,
+      "lon": 18.17
+    },
+    {
+      "id": 353,
+      "slug": "postoloprty",
+      "name": "Postoloprty",
+      "category": "obec",
+      "lat": 50.36,
+      "lon": 13.704
+    },
+    {
+      "id": 354,
+      "slug": "postrelmov",
+      "name": "Postřelmov",
+      "category": "obec",
+      "lat": 49.907,
+      "lon": 16.913
+    },
+    {
+      "id": 355,
+      "slug": "praha",
+      "name": "Praha",
+      "category": "obec",
+      "lat": 50.088,
+      "lon": 14.426
+    },
+    {
+      "id": 356,
+      "slug": "praha-cakovice",
+      "name": "Praha-Čakovice",
+      "category": "obec",
+      "lat": 50.154,
+      "lon": 14.53
+    },
+    {
+      "id": 357,
+      "slug": "praha-horni-pocernice",
+      "name": "Praha-Horní Počernice",
+      "category": "obec",
+      "lat": 50.116,
+      "lon": 14.623
+    },
+    {
+      "id": 358,
+      "slug": "praha-kbely",
+      "name": "Praha-Kbely",
+      "category": "obec",
+      "lat": 50.132,
+      "lon": 14.553
+    },
+    {
+      "id": 359,
+      "slug": "praha-kunratice",
+      "name": "Praha-Kunratice",
+      "category": "obec",
+      "lat": 50.016,
+      "lon": 14.485
+    },
+    {
+      "id": 360,
+      "slug": "praha-letnany",
+      "name": "Praha-Letňany",
+      "category": "obec",
+      "lat": 50.137,
+      "lon": 14.513
+    },
+    {
+      "id": 361,
+      "slug": "praha-libus",
+      "name": "Praha-Libuš",
+      "category": "obec",
+      "lat": 50.007,
+      "lon": 14.463
+    },
+    {
+      "id": 362,
+      "slug": "praha-lipence",
+      "name": "Praha-Lipence",
+      "category": "obec",
+      "lat": 49.956,
+      "lon": 14.354
+    },
+    {
+      "id": 363,
+      "slug": "praha-petrovice",
+      "name": "Praha-Petrovice",
+      "category": "obec",
+      "lat": 50.037,
+      "lon": 14.559
+    },
+    {
+      "id": 364,
+      "slug": "praha-radotin",
+      "name": "Praha-Radotín",
+      "category": "obec",
+      "lat": 49.989,
+      "lon": 14.368
+    },
+    {
+      "id": 365,
+      "slug": "praha-repy",
+      "name": "Praha-Řepy",
+      "category": "obec",
+      "lat": 50.071,
+      "lon": 14.303
+    },
+    {
+      "id": 366,
+      "slug": "praha-suchdol",
+      "name": "Praha-Suchdol",
+      "category": "obec",
+      "lat": 50.136,
+      "lon": 14.38
+    },
+    {
+      "id": 367,
+      "slug": "praha-uhrineves",
+      "name": "Praha-Uhříněves",
+      "category": "obec",
+      "lat": 50.035,
+      "lon": 14.592
+    },
+    {
+      "id": 368,
+      "slug": "praha-ujezd-nad-lesy",
+      "name": "Praha-Újezd nad Lesy",
+      "category": "obec",
+      "lat": 50.076,
+      "lon": 14.661
+    },
+    {
+      "id": 369,
+      "slug": "praha-zbraslav",
+      "name": "Praha-Zbraslav",
+      "category": "obec",
+      "lat": 49.976,
+      "lon": 14.395
+    },
+    {
+      "id": 370,
+      "slug": "praha-zlicin",
+      "name": "Praha-Zličín",
+      "category": "obec",
+      "lat": 50.061,
+      "lon": 14.292
+    },
+    {
+      "id": 371,
+      "slug": "praha-1",
+      "name": "Praha 1",
+      "category": "obec",
+      "lat": 50.089,
+      "lon": 14.426
+    },
+    {
+      "id": 372,
+      "slug": "praha-10",
+      "name": "Praha 10",
+      "category": "obec",
+      "lat": 50.07,
+      "lon": 14.461
+    },
+    {
+      "id": 373,
+      "slug": "praha-11",
+      "name": "Praha 11",
+      "category": "obec",
+      "lat": 50.036,
+      "lon": 14.508
+    },
+    {
+      "id": 374,
+      "slug": "praha-12",
+      "name": "Praha 12",
+      "category": "obec",
+      "lat": 50.011,
+      "lon": 14.409
+    },
+    {
+      "id": 375,
+      "slug": "praha-13",
+      "name": "Praha 13",
+      "category": "obec",
+      "lat": 50.05,
+      "lon": 14.318
+    },
+    {
+      "id": 376,
+      "slug": "praha-14",
+      "name": "Praha 14",
+      "category": "obec",
+      "lat": 50.103,
+      "lon": 14.554
+    },
+    {
+      "id": 377,
+      "slug": "praha-15",
+      "name": "Praha 15",
+      "category": "obec",
+      "lat": 50.055,
+      "lon": 14.526
+    },
+    {
+      "id": 378,
+      "slug": "praha-2",
+      "name": "Praha 2",
+      "category": "obec",
+      "lat": 50.076,
+      "lon": 14.44
+    },
+    {
+      "id": 379,
+      "slug": "praha-3",
+      "name": "Praha 3",
+      "category": "obec",
+      "lat": 50.089,
+      "lon": 14.468
+    },
+    {
+      "id": 380,
+      "slug": "praha-4",
+      "name": "Praha 4",
+      "category": "obec",
+      "lat": 50.061,
+      "lon": 14.436
+    },
+    {
+      "id": 381,
+      "slug": "praha-5",
+      "name": "Praha 5",
+      "category": "obec",
+      "lat": 50.076,
+      "lon": 14.407
+    },
+    {
+      "id": 382,
+      "slug": "praha-6",
+      "name": "Praha 6",
+      "category": "obec",
+      "lat": 50.105,
+      "lon": 14.379
+    },
+    {
+      "id": 383,
+      "slug": "praha-7",
+      "name": "Praha 7",
+      "category": "obec",
+      "lat": 50.101,
+      "lon": 14.437
+    },
+    {
+      "id": 384,
+      "slug": "praha-8",
+      "name": "Praha 8",
+      "category": "obec",
+      "lat": 50.113,
+      "lon": 14.477
+    },
+    {
+      "id": 385,
+      "slug": "praha-9",
+      "name": "Praha 9",
+      "category": "obec",
+      "lat": 50.11,
+      "lon": 14.502
+    },
+    {
+      "id": 386,
+      "slug": "prachatice",
+      "name": "Prachatice",
+      "category": "obec",
+      "lat": 49.013,
+      "lon": 13.999
+    },
+    {
+      "id": 387,
+      "slug": "prostejov",
+      "name": "Prostějov",
+      "category": "obec",
+      "lat": 49.472,
+      "lon": 17.114
+    },
+    {
+      "id": 388,
+      "slug": "protivin",
+      "name": "Protivín",
+      "category": "obec",
+      "lat": 49.197,
+      "lon": 14.219
+    },
+    {
+      "id": 389,
+      "slug": "prelouc",
+      "name": "Přelouč",
+      "category": "obec",
+      "lat": 50.04,
+      "lon": 15.563
+    },
+    {
+      "id": 390,
+      "slug": "prerov",
+      "name": "Přerov",
+      "category": "obec",
+      "lat": 49.456,
+      "lon": 17.452
+    },
+    {
+      "id": 391,
+      "slug": "prestice",
+      "name": "Přeštice",
+      "category": "obec",
+      "lat": 49.573,
+      "lon": 13.335
+    },
+    {
+      "id": 392,
+      "slug": "pribor",
+      "name": "Příbor",
+      "category": "obec",
+      "lat": 49.641,
+      "lon": 18.146
+    },
+    {
+      "id": 393,
+      "slug": "pribram",
+      "name": "Příbram",
+      "category": "obec",
+      "lat": 49.69,
+      "lon": 14.012
+    },
+    {
+      "id": 394,
+      "slug": "pribyslav",
+      "name": "Přibyslav",
+      "category": "obec",
+      "lat": 49.577,
+      "lon": 15.74
+    },
+    {
+      "id": 395,
+      "slug": "radnice",
+      "name": "Radnice",
+      "category": "obec",
+      "lat": 49.857,
+      "lon": 13.606
+    },
+    {
+      "id": 396,
+      "slug": "radvanice-a-bartovice",
+      "name": "Radvanice a Bartovice",
+      "category": "obec",
+      "lat": 49.817,
+      "lon": 18.34
+    },
+    {
+      "id": 397,
+      "slug": "rajec-jestrebi",
+      "name": "Rájec-Jestřebí",
+      "category": "obec",
+      "lat": 49.412,
+      "lon": 16.641
+    },
+    {
+      "id": 398,
+      "slug": "rajhrad",
+      "name": "Rajhrad",
+      "category": "obec",
+      "lat": 49.09,
+      "lon": 16.607
+    },
+    {
+      "id": 399,
+      "slug": "rakovnik",
+      "name": "Rakovník",
+      "category": "obec",
+      "lat": 50.104,
+      "lon": 13.735
+    },
+    {
+      "id": 400,
+      "slug": "rapotin",
+      "name": "Rapotín",
+      "category": "obec",
+      "lat": 49.997,
+      "lon": 17.014
+    },
+    {
+      "id": 401,
+      "slug": "raspenava",
+      "name": "Raspenava",
+      "category": "obec",
+      "lat": 50.905,
+      "lon": 15.117
+    },
+    {
+      "id": 402,
+      "slug": "ratiskovice",
+      "name": "Ratíškovice",
+      "category": "obec",
+      "lat": 48.918,
+      "lon": 17.169
+    },
+    {
+      "id": 403,
+      "slug": "rohatec",
+      "name": "Rohatec",
+      "category": "obec",
+      "lat": 48.881,
+      "lon": 17.185
+    },
+    {
+      "id": 404,
+      "slug": "rokycany",
+      "name": "Rokycany",
+      "category": "obec",
+      "lat": 49.743,
+      "lon": 13.596
+    },
+    {
+      "id": 405,
+      "slug": "rokytnice-nad-jizerou",
+      "name": "Rokytnice nad Jizerou",
+      "category": "obec",
+      "lat": 50.73,
+      "lon": 15.453
+    },
+    {
+      "id": 406,
+      "slug": "rosice",
+      "name": "Rosice",
+      "category": "obec",
+      "lat": 49.183,
+      "lon": 16.389
+    },
+    {
+      "id": 407,
+      "slug": "rotava",
+      "name": "Rotava",
+      "category": "obec",
+      "lat": 50.297,
+      "lon": 12.576
+    },
+    {
+      "id": 408,
+      "slug": "roudnice-nad-labem",
+      "name": "Roudnice nad Labem",
+      "category": "obec",
+      "lat": 50.426,
+      "lon": 14.264
+    },
+    {
+      "id": 409,
+      "slug": "rousinov",
+      "name": "Rousínov",
+      "category": "obec",
+      "lat": 49.202,
+      "lon": 16.884
+    },
+    {
+      "id": 410,
+      "slug": "roztoky",
+      "name": "Roztoky",
+      "category": "obec",
+      "lat": 50.159,
+      "lon": 14.399
+    },
+    {
+      "id": 411,
+      "slug": "rozmital-pod-tremsinem",
+      "name": "Rožmitál pod Třemšínem",
+      "category": "obec",
+      "lat": 49.601,
+      "lon": 13.871
+    },
+    {
+      "id": 412,
+      "slug": "roznov-pod-radhostem",
+      "name": "Rožnov pod Radhoštěm",
+      "category": "obec",
+      "lat": 49.46,
+      "lon": 18.145
+    },
+    {
+      "id": 413,
+      "slug": "rtyne-v-podkrkonosi",
+      "name": "Rtyně v Podkrkonoší",
+      "category": "obec",
+      "lat": 50.506,
+      "lon": 16.071
+    },
+    {
+      "id": 414,
+      "slug": "rudna",
+      "name": "Rudná",
+      "category": "obec",
+      "lat": 50.035,
+      "lon": 14.233
+    },
+    {
+      "id": 415,
+      "slug": "rumburk",
+      "name": "Rumburk",
+      "category": "obec",
+      "lat": 50.952,
+      "lon": 14.558
+    },
+    {
+      "id": 416,
+      "slug": "rychnov-nad-kneznou",
+      "name": "Rychnov nad Kněžnou",
+      "category": "obec",
+      "lat": 50.164,
+      "lon": 16.278
+    },
+    {
+      "id": 417,
+      "slug": "rychvald",
+      "name": "Rychvald",
+      "category": "obec",
+      "lat": 49.873,
+      "lon": 18.38
+    },
+    {
+      "id": 418,
+      "slug": "rymarov",
+      "name": "Rýmařov",
+      "category": "obec",
+      "lat": 49.932,
+      "lon": 17.273
+    },
+    {
+      "id": 419,
+      "slug": "revnice",
+      "name": "Řevnice",
+      "category": "obec",
+      "lat": 49.914,
+      "lon": 14.234
+    },
+    {
+      "id": 420,
+      "slug": "ricany",
+      "name": "Říčany",
+      "category": "obec",
+      "lat": 49.992,
+      "lon": 14.655
+    },
+    {
+      "id": 421,
+      "slug": "sadska",
+      "name": "Sadská",
+      "category": "obec",
+      "lat": 50.136,
+      "lon": 14.987
+    },
+    {
+      "id": 422,
+      "slug": "sazava",
+      "name": "Sázava",
+      "category": "obec",
+      "lat": 49.869,
+      "lon": 14.895
+    },
+    {
+      "id": 423,
+      "slug": "sedlcany",
+      "name": "Sedlčany",
+      "category": "obec",
+      "lat": 49.661,
+      "lon": 14.428
+    },
+    {
+      "id": 424,
+      "slug": "sedlec-prcice",
+      "name": "Sedlec-Prčice",
+      "category": "obec",
+      "lat": 49.573,
+      "lon": 14.533
+    },
+    {
+      "id": 425,
+      "slug": "semily",
+      "name": "Semily",
+      "category": "obec",
+      "lat": 50.603,
+      "lon": 15.338
+    },
+    {
+      "id": 426,
+      "slug": "severni-terasa",
+      "name": "Severní Terasa",
+      "category": "obec",
+      "lat": 50.675,
+      "lon": 14.037
+    },
+    {
+      "id": 427,
+      "slug": "sezemice",
+      "name": "Sezemice",
+      "category": "obec",
+      "lat": 50.065,
+      "lon": 15.856
+    },
+    {
+      "id": 428,
+      "slug": "sezimovo-usti",
+      "name": "Sezimovo Ústí",
+      "category": "obec",
+      "lat": 49.385,
+      "lon": 14.687
+    },
+    {
+      "id": 429,
+      "slug": "skutec",
+      "name": "Skuteč",
+      "category": "obec",
+      "lat": 49.843,
+      "lon": 15.997
+    },
+    {
+      "id": 430,
+      "slug": "slany",
+      "name": "Slaný",
+      "category": "obec",
+      "lat": 50.23,
+      "lon": 14.088
+    },
+    {
+      "id": 431,
+      "slug": "slatinany",
+      "name": "Slatiňany",
+      "category": "obec",
+      "lat": 49.92,
+      "lon": 15.818
+    },
+    {
+      "id": 432,
+      "slug": "slavicin",
+      "name": "Slavičín",
+      "category": "obec",
+      "lat": 49.088,
+      "lon": 17.875
+    },
+    {
+      "id": 433,
+      "slug": "slavkov-u-brna",
+      "name": "Slavkov u Brna",
+      "category": "obec",
+      "lat": 49.153,
+      "lon": 16.878
+    },
+    {
+      "id": 434,
+      "slug": "slavonice",
+      "name": "Slavonice",
+      "category": "obec",
+      "lat": 48.998,
+      "lon": 15.354
+    },
+    {
+      "id": 435,
+      "slug": "slezska-ostrava",
+      "name": "Slezská Ostrava",
+      "category": "obec",
+      "lat": 49.836,
+      "lon": 18.319
+    },
+    {
+      "id": 436,
+      "slug": "slusovice",
+      "name": "Slušovice",
+      "category": "obec",
+      "lat": 49.248,
+      "lon": 17.803
+    },
+    {
+      "id": 437,
+      "slug": "smirice",
+      "name": "Smiřice",
+      "category": "obec",
+      "lat": 50.3,
+      "lon": 15.866
+    },
+    {
+      "id": 438,
+      "slug": "smrzovka",
+      "name": "Smržovka",
+      "category": "obec",
+      "lat": 50.739,
+      "lon": 15.248
+    },
+    {
+      "id": 439,
+      "slug": "sobeslav",
+      "name": "Soběslav",
+      "category": "obec",
+      "lat": 49.26,
+      "lon": 14.72
+    },
+    {
+      "id": 440,
+      "slug": "sobotin",
+      "name": "Sobotín",
+      "category": "obec",
+      "lat": 50.009,
+      "lon": 17.094
+    },
+    {
+      "id": 441,
+      "slug": "sokolov",
+      "name": "Sokolov",
+      "category": "obec",
+      "lat": 50.182,
+      "lon": 12.642
+    },
+    {
+      "id": 442,
+      "slug": "spalene-porici",
+      "name": "Spálené Poříčí",
+      "category": "obec",
+      "lat": 49.615,
+      "lon": 13.608
+    },
+    {
+      "id": 443,
+      "slug": "stankov",
+      "name": "Staňkov",
+      "category": "obec",
+      "lat": 49.554,
+      "lon": 13.071
+    },
+    {
+      "id": 444,
+      "slug": "stara-bela",
+      "name": "Stará Bělá",
+      "category": "obec",
+      "lat": 49.763,
+      "lon": 18.233
+    },
+    {
+      "id": 445,
+      "slug": "stare-mesto",
+      "name": "Staré Město",
+      "category": "obec",
+      "lat": 49.075,
+      "lon": 17.435
+    },
+    {
+      "id": 446,
+      "slug": "stary-plzenec",
+      "name": "Starý Plzenec",
+      "category": "obec",
+      "lat": 49.698,
+      "lon": 13.475
+    },
+    {
+      "id": 447,
+      "slug": "stod",
+      "name": "Stod",
+      "category": "obec",
+      "lat": 49.641,
+      "lon": 13.166
+    },
+    {
+      "id": 448,
+      "slug": "stochov",
+      "name": "Stochov",
+      "category": "obec",
+      "lat": 50.146,
+      "lon": 13.965
+    },
+    {
+      "id": 449,
+      "slug": "strakonice",
+      "name": "Strakonice",
+      "category": "obec",
+      "lat": 49.262,
+      "lon": 13.903
+    },
+    {
+      "id": 450,
+      "slug": "strani",
+      "name": "Strání",
+      "category": "obec",
+      "lat": 48.905,
+      "lon": 17.704
+    },
+    {
+      "id": 451,
+      "slug": "straznice",
+      "name": "Strážnice",
+      "category": "obec",
+      "lat": 48.902,
+      "lon": 17.318
+    },
+    {
+      "id": 452,
+      "slug": "straz-pod-ralskem",
+      "name": "Stráž pod Ralskem",
+      "category": "obec",
+      "lat": 50.703,
+      "lon": 14.806
+    },
+    {
+      "id": 453,
+      "slug": "strekov",
+      "name": "Střekov",
+      "category": "obec",
+      "lat": 50.635,
+      "lon": 14.055
+    },
+    {
+      "id": 454,
+      "slug": "stribro",
+      "name": "Stříbro",
+      "category": "obec",
+      "lat": 49.753,
+      "lon": 13.006
+    },
+    {
+      "id": 455,
+      "slug": "studena",
+      "name": "Studená",
+      "category": "obec",
+      "lat": 49.186,
+      "lon": 15.289
+    },
+    {
+      "id": 456,
+      "slug": "studenka",
+      "name": "Studénka",
+      "category": "obec",
+      "lat": 49.725,
+      "lon": 18.08
+    },
+    {
+      "id": 457,
+      "slug": "suchdol-nad-luznici",
+      "name": "Suchdol nad Lužnicí",
+      "category": "obec",
+      "lat": 48.888,
+      "lon": 14.877
+    },
+    {
+      "id": 458,
+      "slug": "susice",
+      "name": "Sušice",
+      "category": "obec",
+      "lat": 49.232,
+      "lon": 13.521
+    },
+    {
+      "id": 459,
+      "slug": "svatoborice-mistrin",
+      "name": "Svatobořice-Mistřín",
+      "category": "obec",
+      "lat": 48.985,
+      "lon": 17.096
+    },
+    {
+      "id": 460,
+      "slug": "svetla-nad-sazavou",
+      "name": "Světlá nad Sázavou",
+      "category": "obec",
+      "lat": 49.67,
+      "lon": 15.406
+    },
+    {
+      "id": 461,
+      "slug": "svinov",
+      "name": "Svinov",
+      "category": "obec",
+      "lat": 49.81,
+      "lon": 18.203
+    },
+    {
+      "id": 462,
+      "slug": "svitavy",
+      "name": "Svitavy",
+      "category": "obec",
+      "lat": 49.756,
+      "lon": 16.47
+    },
+    {
+      "id": 463,
+      "slug": "senov",
+      "name": "Šenov",
+      "category": "obec",
+      "lat": 49.794,
+      "lon": 18.378
+    },
+    {
+      "id": 464,
+      "slug": "slapanice",
+      "name": "Šlapanice",
+      "category": "obec",
+      "lat": 49.169,
+      "lon": 16.73
+    },
+    {
+      "id": 465,
+      "slug": "sluknov",
+      "name": "Šluknov",
+      "category": "obec",
+      "lat": 51.005,
+      "lon": 14.455
+    },
+    {
+      "id": 466,
+      "slug": "stepankovice",
+      "name": "Štěpánkovice",
+      "category": "obec",
+      "lat": 49.96,
+      "lon": 18.039
+    },
+    {
+      "id": 467,
+      "slug": "stepanov",
+      "name": "Štěpánov",
+      "category": "obec",
+      "lat": 49.684,
+      "lon": 17.225
+    },
+    {
+      "id": 468,
+      "slug": "sternberk",
+      "name": "Šternberk",
+      "category": "obec",
+      "lat": 49.731,
+      "lon": 17.301
+    },
+    {
+      "id": 469,
+      "slug": "steti",
+      "name": "Štětí",
+      "category": "obec",
+      "lat": 50.453,
+      "lon": 14.376
+    },
+    {
+      "id": 470,
+      "slug": "stramberk",
+      "name": "Štramberk",
+      "category": "obec",
+      "lat": 49.593,
+      "lon": 18.119
+    },
+    {
+      "id": 471,
+      "slug": "sumperk",
+      "name": "Šumperk",
+      "category": "obec",
+      "lat": 49.966,
+      "lon": 16.972
+    },
+    {
+      "id": 472,
+      "slug": "tabor",
+      "name": "Tábor",
+      "category": "obec",
+      "lat": 49.415,
+      "lon": 14.66
+    },
+    {
+      "id": 473,
+      "slug": "tachov",
+      "name": "Tachov",
+      "category": "obec",
+      "lat": 49.796,
+      "lon": 12.635
+    },
+    {
+      "id": 474,
+      "slug": "tanvald",
+      "name": "Tanvald",
+      "category": "obec",
+      "lat": 50.738,
+      "lon": 15.308
+    },
+    {
+      "id": 475,
+      "slug": "telc",
+      "name": "Telč",
+      "category": "obec",
+      "lat": 49.184,
+      "lon": 15.455
+    },
+    {
+      "id": 476,
+      "slug": "tepla",
+      "name": "Teplá",
+      "category": "obec",
+      "lat": 49.982,
+      "lon": 12.864
+    },
+    {
+      "id": 477,
+      "slug": "teplice",
+      "name": "Teplice",
+      "category": "obec",
+      "lat": 50.641,
+      "lon": 13.826
+    },
+    {
+      "id": 478,
+      "slug": "terezin",
+      "name": "Terezín",
+      "category": "obec",
+      "lat": 50.511,
+      "lon": 14.152
+    },
+    {
+      "id": 479,
+      "slug": "terlicko",
+      "name": "Těrlicko",
+      "category": "obec",
+      "lat": 49.734,
+      "lon": 18.523
+    },
+    {
+      "id": 480,
+      "slug": "tisnov",
+      "name": "Tišnov",
+      "category": "obec",
+      "lat": 49.349,
+      "lon": 16.426
+    },
+    {
+      "id": 481,
+      "slug": "touzim",
+      "name": "Toužim",
+      "category": "obec",
+      "lat": 50.061,
+      "lon": 12.986
+    },
+    {
+      "id": 482,
+      "slug": "tovacov",
+      "name": "Tovačov",
+      "category": "obec",
+      "lat": 49.434,
+      "lon": 17.286
+    },
+    {
+      "id": 483,
+      "slug": "trhove-sviny",
+      "name": "Trhové Sviny",
+      "category": "obec",
+      "lat": 48.842,
+      "lon": 14.641
+    },
+    {
+      "id": 484,
+      "slug": "trutnov",
+      "name": "Trutnov",
+      "category": "obec",
+      "lat": 50.562,
+      "lon": 15.913
+    },
+    {
+      "id": 485,
+      "slug": "trebechovice-pod-orebem",
+      "name": "Třebechovice pod Orebem",
+      "category": "obec",
+      "lat": 50.202,
+      "lon": 15.995
+    },
+    {
+      "id": 486,
+      "slug": "trebic",
+      "name": "Třebíč",
+      "category": "obec",
+      "lat": 49.214,
+      "lon": 15.882
+    },
+    {
+      "id": 487,
+      "slug": "trebon",
+      "name": "Třeboň",
+      "category": "obec",
+      "lat": 49.004,
+      "lon": 14.772
+    },
+    {
+      "id": 488,
+      "slug": "tremosna",
+      "name": "Třemošná",
+      "category": "obec",
+      "lat": 49.817,
+      "lon": 13.397
+    },
+    {
+      "id": 489,
+      "slug": "tremosnice",
+      "name": "Třemošnice",
+      "category": "obec",
+      "lat": 49.869,
+      "lon": 15.582
+    },
+    {
+      "id": 490,
+      "slug": "trest",
+      "name": "Třešť",
+      "category": "obec",
+      "lat": 49.291,
+      "lon": 15.484
+    },
+    {
+      "id": 491,
+      "slug": "trinec",
+      "name": "Třinec",
+      "category": "obec",
+      "lat": 49.654,
+      "lon": 18.632
+    },
+    {
+      "id": 492,
+      "slug": "turnov",
+      "name": "Turnov",
+      "category": "obec",
+      "lat": 50.588,
+      "lon": 15.159
+    },
+    {
+      "id": 493,
+      "slug": "tynec-nad-sazavou",
+      "name": "Týnec nad Sázavou",
+      "category": "obec",
+      "lat": 49.834,
+      "lon": 14.589
+    },
+    {
+      "id": 494,
+      "slug": "tyniste-nad-orlici",
+      "name": "Týniště nad Orlicí",
+      "category": "obec",
+      "lat": 50.148,
+      "lon": 16.073
+    },
+    {
+      "id": 495,
+      "slug": "tyn-nad-vltavou",
+      "name": "Týn nad Vltavou",
+      "category": "obec",
+      "lat": 49.224,
+      "lon": 14.422
+    },
+    {
+      "id": 496,
+      "slug": "uherske-hradiste",
+      "name": "Uherské Hradiště",
+      "category": "obec",
+      "lat": 49.07,
+      "lon": 17.461
+    },
+    {
+      "id": 497,
+      "slug": "uhersky-brod",
+      "name": "Uherský Brod",
+      "category": "obec",
+      "lat": 49.026,
+      "lon": 17.649
+    },
+    {
+      "id": 498,
+      "slug": "uhersky-ostroh",
+      "name": "Uherský Ostroh",
+      "category": "obec",
+      "lat": 48.986,
+      "lon": 17.392
+    },
+    {
+      "id": 499,
+      "slug": "uhlirske-janovice",
+      "name": "Uhlířské Janovice",
+      "category": "obec",
+      "lat": 49.881,
+      "lon": 15.067
+    },
+    {
+      "id": 500,
+      "slug": "ujezd-u-brna",
+      "name": "Újezd u Brna",
+      "category": "obec",
+      "lat": 49.105,
+      "lon": 16.758
+    },
+    {
+      "id": 501,
+      "slug": "unhost",
+      "name": "Unhošť",
+      "category": "obec",
+      "lat": 50.086,
+      "lon": 14.134
+    },
+    {
+      "id": 502,
+      "slug": "unicov",
+      "name": "Uničov",
+      "category": "obec",
+      "lat": 49.772,
+      "lon": 17.123
+    },
+    {
+      "id": 503,
+      "slug": "upice",
+      "name": "Úpice",
+      "category": "obec",
+      "lat": 50.511,
+      "lon": 16.023
+    },
+    {
+      "id": 504,
+      "slug": "usti-nad-labem",
+      "name": "Ústí nad Labem",
+      "category": "obec",
+      "lat": 50.661,
+      "lon": 14.035
+    },
+    {
+      "id": 505,
+      "slug": "usti-nad-orlici",
+      "name": "Ústí nad Orlicí",
+      "category": "obec",
+      "lat": 49.974,
+      "lon": 16.396
+    },
+    {
+      "id": 507,
+      "slug": "ustek",
+      "name": "Úštěk",
+      "category": "obec",
+      "lat": 50.585,
+      "lon": 14.346
+    },
+    {
+      "id": 508,
+      "slug": "uvaly",
+      "name": "Úvaly",
+      "category": "obec",
+      "lat": 50.078,
+      "lon": 14.723
+    },
+    {
+      "id": 509,
+      "slug": "valasske-klobouky",
+      "name": "Valašské Klobouky",
+      "category": "obec",
+      "lat": 49.14,
+      "lon": 18.005
+    },
+    {
+      "id": 510,
+      "slug": "valasske-mezirici",
+      "name": "Valašské Meziříčí",
+      "category": "obec",
+      "lat": 49.472,
+      "lon": 17.973
+    },
+    {
+      "id": 511,
+      "slug": "valtice",
+      "name": "Valtice",
+      "category": "obec",
+      "lat": 48.745,
+      "lon": 16.76
+    },
+    {
+      "id": 512,
+      "slug": "vamberk",
+      "name": "Vamberk",
+      "category": "obec",
+      "lat": 50.118,
+      "lon": 16.291
+    },
+    {
+      "id": 513,
+      "slug": "varnsdorf",
+      "name": "Varnsdorf",
+      "category": "obec",
+      "lat": 50.912,
+      "lon": 14.62
+    },
+    {
+      "id": 514,
+      "slug": "vejprty",
+      "name": "Vejprty",
+      "category": "obec",
+      "lat": 50.483,
+      "lon": 13.033
+    },
+    {
+      "id": 515,
+      "slug": "velesin",
+      "name": "Velešín",
+      "category": "obec",
+      "lat": 48.829,
+      "lon": 14.464
+    },
+    {
+      "id": 516,
+      "slug": "velka-bites",
+      "name": "Velká Bíteš",
+      "category": "obec",
+      "lat": 49.289,
+      "lon": 16.227
+    },
+    {
+      "id": 517,
+      "slug": "velka-bystrice",
+      "name": "Velká Bystřice",
+      "category": "obec",
+      "lat": 49.595,
+      "lon": 17.368
+    },
+    {
+      "id": 518,
+      "slug": "velka-nad-velickou",
+      "name": "Velká nad Veličkou",
+      "category": "obec",
+      "lat": 48.879,
+      "lon": 17.521
+    },
+    {
+      "id": 519,
+      "slug": "velke-bilovice",
+      "name": "Velké Bílovice",
+      "category": "obec",
+      "lat": 48.85,
+      "lon": 16.889
+    },
+    {
+      "id": 520,
+      "slug": "velke-karlovice",
+      "name": "Velké Karlovice",
+      "category": "obec",
+      "lat": 49.366,
+      "lon": 18.313
+    },
+    {
+      "id": 521,
+      "slug": "velke-losiny",
+      "name": "Velké Losiny",
+      "category": "obec",
+      "lat": 50.032,
+      "lon": 17.043
+    },
+    {
+      "id": 522,
+      "slug": "velke-mezirici",
+      "name": "Velké Meziříčí",
+      "category": "obec",
+      "lat": 49.356,
+      "lon": 16.013
+    },
+    {
+      "id": 523,
+      "slug": "velke-opatovice",
+      "name": "Velké Opatovice",
+      "category": "obec",
+      "lat": 49.613,
+      "lon": 16.682
+    },
+    {
+      "id": 524,
+      "slug": "velke-pavlovice",
+      "name": "Velké Pavlovice",
+      "category": "obec",
+      "lat": 48.905,
+      "lon": 16.816
+    },
+    {
+      "id": 525,
+      "slug": "velvary",
+      "name": "Velvary",
+      "category": "obec",
+      "lat": 50.282,
+      "lon": 14.238
+    },
+    {
+      "id": 526,
+      "slug": "vendryne",
+      "name": "Vendryně",
+      "category": "obec",
+      "lat": 49.668,
+      "lon": 18.713
+    },
+    {
+      "id": 527,
+      "slug": "veseli-nad-luznici",
+      "name": "Veselí nad Lužnicí",
+      "category": "obec",
+      "lat": 49.185,
+      "lon": 14.698
+    },
+    {
+      "id": 528,
+      "slug": "veseli-nad-moravou",
+      "name": "Veselí nad Moravou",
+      "category": "obec",
+      "lat": 48.954,
+      "lon": 17.378
+    },
+    {
+      "id": 529,
+      "slug": "vetrni",
+      "name": "Větřní",
+      "category": "obec",
+      "lat": 48.776,
+      "lon": 14.29
+    },
+    {
+      "id": 530,
+      "slug": "veverska-bityska",
+      "name": "Veverská Bítýška",
+      "category": "obec",
+      "lat": 49.276,
+      "lon": 16.44
+    },
+    {
+      "id": 531,
+      "slug": "vimperk",
+      "name": "Vimperk",
+      "category": "obec",
+      "lat": 49.056,
+      "lon": 13.775
+    },
+    {
+      "id": 532,
+      "slug": "vitkov",
+      "name": "Vítkov",
+      "category": "obec",
+      "lat": 49.775,
+      "lon": 17.752
+    },
+    {
+      "id": 533,
+      "slug": "vitkovice",
+      "name": "Vítkovice",
+      "category": "obec",
+      "lat": 49.805,
+      "lon": 18.255
+    },
+    {
+      "id": 534,
+      "slug": "vizovice",
+      "name": "Vizovice",
+      "category": "obec",
+      "lat": 49.223,
+      "lon": 17.856
+    },
+    {
+      "id": 535,
+      "slug": "vlasim",
+      "name": "Vlašim",
+      "category": "obec",
+      "lat": 49.707,
+      "lon": 14.9
+    },
+    {
+      "id": 536,
+      "slug": "vlcnov",
+      "name": "Vlčnov",
+      "category": "obec",
+      "lat": 49.009,
+      "lon": 17.584
+    },
+    {
+      "id": 537,
+      "slug": "vnorovy",
+      "name": "Vnorovy",
+      "category": "obec",
+      "lat": 48.933,
+      "lon": 17.354
+    },
+    {
+      "id": 538,
+      "slug": "vodnany",
+      "name": "Vodňany",
+      "category": "obec",
+      "lat": 49.149,
+      "lon": 14.176
+    },
+    {
+      "id": 539,
+      "slug": "volary",
+      "name": "Volary",
+      "category": "obec",
+      "lat": 48.909,
+      "lon": 13.888
+    },
+    {
+      "id": 540,
+      "slug": "volyne",
+      "name": "Volyně",
+      "category": "obec",
+      "lat": 49.169,
+      "lon": 13.887
+    },
+    {
+      "id": 541,
+      "slug": "votice",
+      "name": "Votice",
+      "category": "obec",
+      "lat": 49.641,
+      "lon": 14.639
+    },
+    {
+      "id": 542,
+      "slug": "vracov",
+      "name": "Vracov",
+      "category": "obec",
+      "lat": 48.976,
+      "lon": 17.214
+    },
+    {
+      "id": 543,
+      "slug": "vratimov",
+      "name": "Vratimov",
+      "category": "obec",
+      "lat": 49.77,
+      "lon": 18.312
+    },
+    {
+      "id": 544,
+      "slug": "vratislavice-n-n",
+      "name": "Vratislavice n. N.",
+      "category": "obec",
+      "lat": 50.744,
+      "lon": 15.099
+    },
+    {
+      "id": 545,
+      "slug": "vrbno-pod-pradedem",
+      "name": "Vrbno pod Pradědem",
+      "category": "obec",
+      "lat": 50.121,
+      "lon": 17.385
+    },
+    {
+      "id": 546,
+      "slug": "vrdy",
+      "name": "Vrdy",
+      "category": "obec",
+      "lat": 49.922,
+      "lon": 15.475
+    },
+    {
+      "id": 547,
+      "slug": "vrchlabi",
+      "name": "Vrchlabí",
+      "category": "obec",
+      "lat": 50.628,
+      "lon": 15.611
+    },
+    {
+      "id": 548,
+      "slug": "vsetin",
+      "name": "Vsetín",
+      "category": "obec",
+      "lat": 49.339,
+      "lon": 17.999
+    },
+    {
+      "id": 549,
+      "slug": "vysoke-myto",
+      "name": "Vysoké Mýto",
+      "category": "obec",
+      "lat": 49.954,
+      "lon": 16.164
+    },
+    {
+      "id": 550,
+      "slug": "vyskov",
+      "name": "Vyškov",
+      "category": "obec",
+      "lat": 49.278,
+      "lon": 17.001
+    },
+    {
+      "id": 551,
+      "slug": "vyssi-brod",
+      "name": "Vyšší Brod",
+      "category": "obec",
+      "lat": 48.615,
+      "lon": 14.314
+    },
+    {
+      "id": 552,
+      "slug": "zabreh",
+      "name": "Zábřeh",
+      "category": "obec",
+      "lat": 49.883,
+      "lon": 16.874
+    },
+    {
+      "id": 553,
+      "slug": "zasova",
+      "name": "Zašová",
+      "category": "obec",
+      "lat": 49.476,
+      "lon": 18.045
+    },
+    {
+      "id": 554,
+      "slug": "zbysov",
+      "name": "Zbýšov",
+      "category": "obec",
+      "lat": 49.158,
+      "lon": 16.349
+    },
+    {
+      "id": 555,
+      "slug": "zdice",
+      "name": "Zdice",
+      "category": "obec",
+      "lat": 49.914,
+      "lon": 13.981
+    },
+    {
+      "id": 556,
+      "slug": "zlate-hory",
+      "name": "Zlaté Hory",
+      "category": "obec",
+      "lat": 50.263,
+      "lon": 17.398
+    },
+    {
+      "id": 557,
+      "slug": "zlin",
+      "name": "Zlín",
+      "category": "obec",
+      "lat": 49.227,
+      "lon": 17.668
+    },
+    {
+      "id": 558,
+      "slug": "zliv",
+      "name": "Zliv",
+      "category": "obec",
+      "lat": 49.066,
+      "lon": 14.368
+    },
+    {
+      "id": 559,
+      "slug": "znojmo",
+      "name": "Znojmo",
+      "category": "obec",
+      "lat": 48.856,
+      "lon": 16.051
+    },
+    {
+      "id": 560,
+      "slug": "zruc-nad-sazavou",
+      "name": "Zruč nad Sázavou",
+      "category": "obec",
+      "lat": 49.74,
+      "lon": 15.107
+    },
+    {
+      "id": 561,
+      "slug": "zubri",
+      "name": "Zubří",
+      "category": "obec",
+      "lat": 49.476,
+      "lon": 18.093
+    },
+    {
+      "id": 562,
+      "slug": "zacler",
+      "name": "Žacléř",
+      "category": "obec",
+      "lat": 50.664,
+      "lon": 15.913
+    },
+    {
+      "id": 563,
+      "slug": "zamberk",
+      "name": "Žamberk",
+      "category": "obec",
+      "lat": 50.086,
+      "lon": 16.47
+    },
+    {
+      "id": 564,
+      "slug": "zatec",
+      "name": "Žatec",
+      "category": "obec",
+      "lat": 50.328,
+      "lon": 13.547
+    },
+    {
+      "id": 565,
+      "slug": "zdanice",
+      "name": "Ždánice",
+      "category": "obec",
+      "lat": 49.07,
+      "lon": 17.029
+    },
+    {
+      "id": 566,
+      "slug": "zdar-nad-sazavou",
+      "name": "Žďár nad Sázavou",
+      "category": "obec",
+      "lat": 49.563,
+      "lon": 15.942
+    },
+    {
+      "id": 567,
+      "slug": "zdirec-nad-doubravou",
+      "name": "Ždírec nad Doubravou",
+      "category": "obec",
+      "lat": 49.696,
+      "lon": 15.82
+    },
+    {
+      "id": 568,
+      "slug": "zelezny-brod",
+      "name": "Železný Brod",
+      "category": "obec",
+      "lat": 50.644,
+      "lon": 15.256
+    },
+    {
+      "id": 569,
+      "slug": "zidlochovice",
+      "name": "Židlochovice",
+      "category": "obec",
+      "lat": 49.039,
+      "lon": 16.621
+    },
+    {
+      "id": 570,
+      "slug": "zirovnice",
+      "name": "Žirovnice",
+      "category": "obec",
+      "lat": 49.253,
+      "lon": 15.19
+    },
+    {
+      "id": 571,
+      "slug": "zlutice",
+      "name": "Žlutice",
+      "category": "obec",
+      "lat": 50.09,
+      "lon": 13.166
+    },
+    {
+      "id": 572,
+      "slug": "andelska-hora",
+      "name": "Andělská hora",
+      "category": "lyzarske-stredisko",
+      "lat": 50.06,
+      "lon": 17.389
+    },
+    {
+      "id": 573,
+      "slug": "bedrichov",
+      "name": "Bedřichov",
+      "category": "lyzarske-stredisko",
+      "lat": 50.786,
+      "lon": 15.147
+    },
+    {
+      "id": 574,
+      "slug": "benecko",
+      "name": "Benecko",
+      "category": "lyzarske-stredisko",
+      "lat": 50.659,
+      "lon": 15.542
+    },
+    {
+      "id": 575,
+      "slug": "bila",
+      "name": "Bílá",
+      "category": "lyzarske-stredisko",
+      "lat": 49.4351,
+      "lon": 18.4638
+    },
+    {
+      "id": 576,
+      "slug": "bournak",
+      "name": "Bouřňák",
+      "category": "lyzarske-stredisko",
+      "lat": 50.688,
+      "lon": 13.718
+    },
+    {
+      "id": 577,
+      "slug": "bozi-dar",
+      "name": "Boží Dar",
+      "category": "lyzarske-stredisko",
+      "lat": 50.404,
+      "lon": 12.937
+    },
+    {
+      "id": 578,
+      "slug": "branna",
+      "name": "Branná",
+      "category": "lyzarske-stredisko",
+      "lat": 50.153,
+      "lon": 17.011
+    },
+    {
+      "id": 579,
+      "slug": "bublava",
+      "name": "Bublava",
+      "category": "lyzarske-stredisko",
+      "lat": 50.369,
+      "lon": 12.506
+    },
+    {
+      "id": 580,
+      "slug": "cenkovice",
+      "name": "Čenkovice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.01,
+      "lon": 16.693
+    },
+    {
+      "id": 581,
+      "slug": "cerna-hora",
+      "name": "Černá hora",
+      "category": "lyzarske-stredisko",
+      "lat": 50.648,
+      "lon": 15.752
+    },
+    {
+      "id": 582,
+      "slug": "cerna-ricka",
+      "name": "Černá Říčka",
+      "category": "lyzarske-stredisko",
+      "lat": 50.779,
+      "lon": 15.328
+    },
+    {
+      "id": 583,
+      "slug": "cerny-dul",
+      "name": "Černý Důl",
+      "category": "lyzarske-stredisko",
+      "lat": 50.643,
+      "lon": 15.718
+    },
+    {
+      "id": 584,
+      "slug": "cervena-voda",
+      "name": "Červená Voda",
+      "category": "lyzarske-stredisko",
+      "lat": 50.048,
+      "lon": 16.759
+    },
+    {
+      "id": 585,
+      "slug": "cervenohorske-sedlo",
+      "name": "Červenohorské sedlo",
+      "category": "lyzarske-stredisko",
+      "lat": 50.126,
+      "lon": 17.15
+    },
+    {
+      "id": 586,
+      "slug": "ceska-trebova-peklak",
+      "name": "Česká Třebová, Peklák",
+      "category": "lyzarske-stredisko",
+      "lat": 49.917,
+      "lon": 16.44
+    },
+    {
+      "id": 587,
+      "slug": "ceske-petrovice",
+      "name": "České Petrovice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.12,
+      "lon": 16.603
+    },
+    {
+      "id": 588,
+      "slug": "cesky-jiretin",
+      "name": "Český Jiřetín",
+      "category": "lyzarske-stredisko",
+      "lat": 50.707,
+      "lon": 13.547
+    },
+    {
+      "id": 589,
+      "slug": "destne-v-orlickych-horach",
+      "name": "Deštné v Orlických horách",
+      "category": "lyzarske-stredisko",
+      "lat": 50.293,
+      "lon": 16.371
+    },
+    {
+      "id": 590,
+      "slug": "dlouhonovice",
+      "name": "Dlouhoňovice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.065,
+      "lon": 16.436
+    },
+    {
+      "id": 591,
+      "slug": "dolni-dvur",
+      "name": "Dolní Dvůr",
+      "category": "lyzarske-stredisko",
+      "lat": 50.663,
+      "lon": 15.664
+    },
+    {
+      "id": 592,
+      "slug": "dolni-lomna-armada",
+      "name": "Dolní Lomná, Armáda",
+      "category": "lyzarske-stredisko",
+      "lat": 49.538,
+      "lon": 18.691
+    },
+    {
+      "id": 593,
+      "slug": "dolni-morava",
+      "name": "Dolní Morava",
+      "category": "lyzarske-stredisko",
+      "lat": 50.1634,
+      "lon": 16.8409
+    },
+    {
+      "id": 594,
+      "slug": "filipovice",
+      "name": "Filipovice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.159,
+      "lon": 17.167
+    },
+    {
+      "id": 595,
+      "slug": "harrachov",
+      "name": "Harrachov",
+      "category": "lyzarske-stredisko",
+      "lat": 50.7568,
+      "lon": 15.4418
+    },
+    {
+      "id": 596,
+      "slug": "herlikovice",
+      "name": "Herlíkovice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.659,
+      "lon": 15.595
+    },
+    {
+      "id": 597,
+      "slug": "hlubocky",
+      "name": "Hlubočky",
+      "category": "lyzarske-stredisko",
+      "lat": 49.628,
+      "lon": 17.404
+    },
+    {
+      "id": 598,
+      "slug": "hochficht",
+      "name": "Hochficht",
+      "category": "lyzarske-stredisko",
+      "lat": 48.732,
+      "lon": 13.919
+    },
+    {
+      "id": 599,
+      "slug": "horni-lipova-miroslav",
+      "name": "Horní Lipová, Miroslav",
+      "category": "lyzarske-stredisko",
+      "lat": 50.22,
+      "lon": 17.125
+    },
+    {
+      "id": 600,
+      "slug": "horni-vaclavov-avalanche",
+      "name": "Horní Václavov, Avalanche",
+      "category": "lyzarske-stredisko",
+      "lat": 49.988,
+      "lon": 17.333
+    },
+    {
+      "id": 601,
+      "slug": "horni-vltavice",
+      "name": "Horní Vltavice",
+      "category": "lyzarske-stredisko",
+      "lat": 48.973,
+      "lon": 13.758
+    },
+    {
+      "id": 603,
+      "slug": "jablonec-nad-jizerou",
+      "name": "Jablonec nad Jizerou",
+      "category": "lyzarske-stredisko",
+      "lat": 50.703,
+      "lon": 15.429
+    },
+    {
+      "id": 604,
+      "slug": "javorovy-vrch",
+      "name": "Javorový Vrch",
+      "category": "lyzarske-stredisko",
+      "lat": 49.6239,
+      "lon": 18.6177
+    },
+    {
+      "id": 605,
+      "slug": "jested",
+      "name": "Ještěd",
+      "category": "lyzarske-stredisko",
+      "lat": 50.7298,
+      "lon": 14.9941
+    },
+    {
+      "id": 606,
+      "slug": "josefuv-dul",
+      "name": "Josefův Důl",
+      "category": "lyzarske-stredisko",
+      "lat": 50.766,
+      "lon": 15.216
+    },
+    {
+      "id": 607,
+      "slug": "karlov",
+      "name": "Karlov",
+      "category": "lyzarske-stredisko",
+      "lat": 50.019,
+      "lon": 17.288
+    },
+    {
+      "id": 608,
+      "slug": "kasperske-hory",
+      "name": "Kašperské Hory",
+      "category": "lyzarske-stredisko",
+      "lat": 49.138,
+      "lon": 13.567
+    },
+    {
+      "id": 609,
+      "slug": "klinovec",
+      "name": "Klínovec",
+      "category": "lyzarske-stredisko",
+      "lat": 50.396,
+      "lon": 12.967
+    },
+    {
+      "id": 610,
+      "slug": "klinovec-jih",
+      "name": "Klínovec, jih",
+      "category": "lyzarske-stredisko",
+      "lat": 50.387,
+      "lon": 12.945
+    },
+    {
+      "id": 611,
+      "slug": "knezicky-vrch",
+      "name": "Kněžický vrch",
+      "category": "lyzarske-stredisko",
+      "lat": 50.636,
+      "lon": 15.603
+    },
+    {
+      "id": 612,
+      "slug": "kohutka",
+      "name": "Kohútka",
+      "category": "lyzarske-stredisko",
+      "lat": 49.295,
+      "lon": 18.23
+    },
+    {
+      "id": 613,
+      "slug": "kouty-nad-desnou",
+      "name": "Kouty nad Desnou",
+      "category": "lyzarske-stredisko",
+      "lat": 50.098,
+      "lon": 17.104
+    },
+    {
+      "id": 614,
+      "slug": "kouty-nad-desnou-sindelna",
+      "name": "Kouty nad Desnou, Šindelná",
+      "category": "lyzarske-stredisko",
+      "lat": 50.1,
+      "lon": 17.116
+    },
+    {
+      "id": 615,
+      "slug": "kubova-hut",
+      "name": "Kubova Huť",
+      "category": "lyzarske-stredisko",
+      "lat": 48.984,
+      "lon": 13.772
+    },
+    {
+      "id": 616,
+      "slug": "kvilda",
+      "name": "Kvilda",
+      "category": "lyzarske-stredisko",
+      "lat": 49.019,
+      "lon": 13.58
+    },
+    {
+      "id": 617,
+      "slug": "labska-bouda",
+      "name": "Labská bouda",
+      "category": "lyzarske-stredisko",
+      "lat": 50.77,
+      "lon": 15.546
+    },
+    {
+      "id": 618,
+      "slug": "lipno-kramolin",
+      "name": "Lipno, Kramolín",
+      "category": "lyzarske-stredisko",
+      "lat": 48.6529,
+      "lon": 14.2246
+    },
+    {
+      "id": 619,
+      "slug": "lucni-bouda",
+      "name": "Luční bouda",
+      "category": "lyzarske-stredisko",
+      "lat": 50.735,
+      "lon": 15.696
+    },
+    {
+      "id": 620,
+      "slug": "luz",
+      "name": "Luž",
+      "category": "lyzarske-stredisko",
+      "lat": 50.842,
+      "lon": 14.648
+    },
+    {
+      "id": 621,
+      "slug": "mala-upa",
+      "name": "Malá Úpa",
+      "category": "lyzarske-stredisko",
+      "lat": 50.729,
+      "lon": 15.826
+    },
+    {
+      "id": 622,
+      "slug": "marianske-lazne",
+      "name": "Mariánské lázně",
+      "category": "lyzarske-stredisko",
+      "lat": 49.97,
+      "lon": 12.702
+    },
+    {
+      "id": 623,
+      "slug": "mlade-buky",
+      "name": "Mladé Buky",
+      "category": "lyzarske-stredisko",
+      "lat": 50.596,
+      "lon": 15.848
+    },
+    {
+      "id": 624,
+      "slug": "moninec",
+      "name": "Monínec",
+      "category": "lyzarske-stredisko",
+      "lat": 49.543,
+      "lon": 14.5044
+    },
+    {
+      "id": 625,
+      "slug": "mosty-u-jablunkova",
+      "name": "Mosty u Jablunkova",
+      "category": "lyzarske-stredisko",
+      "lat": 49.527,
+      "lon": 18.754
+    },
+    {
+      "id": 626,
+      "slug": "nove-hute",
+      "name": "Nové Hutě",
+      "category": "lyzarske-stredisko",
+      "lat": 49.016,
+      "lon": 13.568
+    },
+    {
+      "id": 627,
+      "slug": "nove-mesto-na-morave",
+      "name": "Nové Město na Moravě",
+      "category": "lyzarske-stredisko",
+      "lat": 49.574,
+      "lon": 16.06
+    },
+    {
+      "id": 628,
+      "slug": "obri-sud-javornik",
+      "name": "Obří sud, Javorník",
+      "category": "lyzarske-stredisko",
+      "lat": 50.699,
+      "lon": 15.068
+    },
+    {
+      "id": 629,
+      "slug": "olesnice",
+      "name": "Olešnice",
+      "category": "lyzarske-stredisko",
+      "lat": 49.557,
+      "lon": 16.411
+    },
+    {
+      "id": 630,
+      "slug": "ostruzna",
+      "name": "Ostružná",
+      "category": "lyzarske-stredisko",
+      "lat": 50.189,
+      "lon": 17.044
+    },
+    {
+      "id": 631,
+      "slug": "paseky-nad-jizerou",
+      "name": "Paseky nad Jizerou",
+      "category": "lyzarske-stredisko",
+      "lat": 50.725,
+      "lon": 15.386
+    },
+    {
+      "id": 632,
+      "slug": "pec-pod-snezkou",
+      "name": "Pec pod Sněžkou",
+      "category": "lyzarske-stredisko",
+      "lat": 50.685,
+      "lon": 15.733
+    },
+    {
+      "id": 633,
+      "slug": "penkavci-vrch",
+      "name": "Pěnkavčí vrch",
+      "category": "lyzarske-stredisko",
+      "lat": 50.695,
+      "lon": 15.79
+    },
+    {
+      "id": 634,
+      "slug": "petrikov",
+      "name": "Petříkov",
+      "category": "lyzarske-stredisko",
+      "lat": 50.202,
+      "lon": 17.045
+    },
+    {
+      "id": 635,
+      "slug": "praded",
+      "name": "Praděd",
+      "category": "lyzarske-stredisko",
+      "lat": 50.0825,
+      "lon": 17.2326
+    },
+    {
+      "id": 636,
+      "slug": "prkenny-dul-family-skipark",
+      "name": "Prkenný Důl, Family Skipark",
+      "category": "lyzarske-stredisko",
+      "lat": 50.649,
+      "lon": 15.897
+    },
+    {
+      "id": 637,
+      "slug": "premyslov",
+      "name": "Přemyslov",
+      "category": "lyzarske-stredisko",
+      "lat": 50.099,
+      "lon": 17.078
+    },
+    {
+      "id": 638,
+      "slug": "prichovice",
+      "name": "Příchovice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.737,
+      "lon": 15.346
+    },
+    {
+      "id": 639,
+      "slug": "privrat",
+      "name": "Přívrat",
+      "category": "lyzarske-stredisko",
+      "lat": 49.916,
+      "lon": 16.383
+    },
+    {
+      "id": 640,
+      "slug": "pustevny",
+      "name": "Pustevny",
+      "category": "lyzarske-stredisko",
+      "lat": 49.489,
+      "lon": 18.264
+    },
+    {
+      "id": 641,
+      "slug": "radvanice",
+      "name": "Radvanice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.567,
+      "lon": 16.061
+    },
+    {
+      "id": 642,
+      "slug": "raliska",
+      "name": "Rališka",
+      "category": "lyzarske-stredisko",
+      "lat": 49.416,
+      "lon": 18.317
+    },
+    {
+      "id": 643,
+      "slug": "ramzova",
+      "name": "Ramzová",
+      "category": "lyzarske-stredisko",
+      "lat": 50.192,
+      "lon": 17.064
+    },
+    {
+      "id": 644,
+      "slug": "razula",
+      "name": "Razula",
+      "category": "lyzarske-stredisko",
+      "lat": 49.369,
+      "lon": 18.355
+    },
+    {
+      "id": 645,
+      "slug": "rejdice",
+      "name": "Rejdice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.734,
+      "lon": 15.36
+    },
+    {
+      "id": 646,
+      "slug": "rokytnice-nad-jizerou",
+      "name": "Rokytnice nad Jizerou",
+      "category": "lyzarske-stredisko",
+      "lat": 50.736,
+      "lon": 15.487
+    },
+    {
+      "id": 647,
+      "slug": "ricky-v-orlickych-horach",
+      "name": "Říčky v Orlických horách",
+      "category": "lyzarske-stredisko",
+      "lat": 50.2353,
+      "lon": 16.4491
+    },
+    {
+      "id": 648,
+      "slug": "severak",
+      "name": "Severák",
+      "category": "lyzarske-stredisko",
+      "lat": 50.777,
+      "lon": 15.185
+    },
+    {
+      "id": 650,
+      "slug": "snezka",
+      "name": "Sněžka",
+      "category": "lyzarske-stredisko",
+      "lat": 50.736,
+      "lon": 15.74
+    },
+    {
+      "id": 651,
+      "slug": "solan",
+      "name": "Soláň",
+      "category": "lyzarske-stredisko",
+      "lat": 49.394,
+      "lon": 18.25
+    },
+    {
+      "id": 652,
+      "slug": "strazne",
+      "name": "Strážné",
+      "category": "lyzarske-stredisko",
+      "lat": 50.662,
+      "lon": 15.614
+    },
+    {
+      "id": 653,
+      "slug": "stupava",
+      "name": "Stupava",
+      "category": "lyzarske-stredisko",
+      "lat": 49.123,
+      "lon": 17.252
+    },
+    {
+      "id": 654,
+      "slug": "sucha-rudna",
+      "name": "Suchá Rudná",
+      "category": "lyzarske-stredisko",
+      "lat": 50.062,
+      "lon": 17.358
+    },
+    {
+      "id": 655,
+      "slug": "svoboda-nad-upou",
+      "name": "Svoboda nad Úpou",
+      "category": "lyzarske-stredisko",
+      "lat": 50.625,
+      "lon": 15.816
+    },
+    {
+      "id": 656,
+      "slug": "spicak",
+      "name": "Špičák",
+      "category": "lyzarske-stredisko",
+      "lat": 49.1743,
+      "lon": 13.2032
+    },
+    {
+      "id": 657,
+      "slug": "spindleruv-mlyn-medvedin",
+      "name": "Špindlerův Mlýn, Medvědín",
+      "category": "lyzarske-stredisko",
+      "lat": 50.7388,
+      "lon": 15.5817
+    },
+    {
+      "id": 658,
+      "slug": "spindleruv-mlyn-svaty-petr",
+      "name": "Špindlerův Mlýn, Svatý Petr",
+      "category": "lyzarske-stredisko",
+      "lat": 50.72,
+      "lon": 15.623
+    },
+    {
+      "id": 659,
+      "slug": "tanvaldsky-spicak",
+      "name": "Tanvaldský Špičák",
+      "category": "lyzarske-stredisko",
+      "lat": 50.753,
+      "lon": 15.281
+    },
+    {
+      "id": 660,
+      "slug": "tosovice",
+      "name": "Tošovice",
+      "category": "lyzarske-stredisko",
+      "lat": 49.698,
+      "lon": 17.851
+    },
+    {
+      "id": 661,
+      "slug": "trnava",
+      "name": "Trnava",
+      "category": "lyzarske-stredisko",
+      "lat": 49.316,
+      "lon": 17.857
+    },
+    {
+      "id": 662,
+      "slug": "trojak",
+      "name": "Troják",
+      "category": "lyzarske-stredisko",
+      "lat": 49.356,
+      "lon": 17.81
+    },
+    {
+      "id": 664,
+      "slug": "velka-upa",
+      "name": "Velká Úpa",
+      "category": "lyzarske-stredisko",
+      "lat": 50.691,
+      "lon": 15.768
+    },
+    {
+      "id": 665,
+      "slug": "velke-karlovice-kycerka",
+      "name": "Velké Karlovice, Kyčerka",
+      "category": "lyzarske-stredisko",
+      "lat": 49.347,
+      "lon": 18.298
+    },
+    {
+      "id": 666,
+      "slug": "velke-vrbno-paprsek",
+      "name": "Velké Vrbno, Paprsek",
+      "category": "lyzarske-stredisko",
+      "lat": 50.2173,
+      "lon": 16.9808
+    },
+    {
+      "id": 667,
+      "slug": "vitkovice",
+      "name": "Vítkovice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.683,
+      "lon": 15.522
+    },
+    {
+      "id": 668,
+      "slug": "vysoke-nad-jizerou",
+      "name": "Vysoké nad Jizerou",
+      "category": "lyzarske-stredisko",
+      "lat": 50.693,
+      "lon": 15.393
+    },
+    {
+      "id": 670,
+      "slug": "zadov",
+      "name": "Zadov",
+      "category": "lyzarske-stredisko",
+      "lat": 49.066,
+      "lon": 13.63
+    },
+    {
+      "id": 671,
+      "slug": "zdobnice",
+      "name": "Zdobnice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.238,
+      "lon": 16.408
+    },
+    {
+      "id": 672,
+      "slug": "zlate-hory-pricna",
+      "name": "Zlaté Hory, Příčná",
+      "category": "lyzarske-stredisko",
+      "lat": 50.265,
+      "lon": 17.395
+    },
+    {
+      "id": 673,
+      "slug": "zacler",
+      "name": "Žacléř",
+      "category": "lyzarske-stredisko",
+      "lat": 50.661,
+      "lon": 15.91
+    },
+    {
+      "id": 674,
+      "slug": "zelezna-ruda-nadrazi",
+      "name": "Železná Ruda, Nádraží",
+      "category": "lyzarske-stredisko",
+      "lat": 49.121,
+      "lon": 13.23
+    },
+    {
+      "id": 687,
+      "slug": "brnenska-prehrada",
+      "name": "Brněnská přehrada",
+      "category": "vodni-plocha",
+      "lat": 49.234,
+      "lon": 16.511
+    },
+    {
+      "id": 688,
+      "slug": "dalesice-kraj-vysocina-",
+      "name": "Dalešice (kraj Vysočina)",
+      "category": "vodni-plocha",
+      "lat": 49.155,
+      "lon": 16.084
+    },
+    {
+      "id": 689,
+      "slug": "dehtar-ryb",
+      "name": "Dehtář ryb.",
+      "category": "vodni-plocha",
+      "lat": 49.006,
+      "lon": 14.294
+    },
+    {
+      "id": 690,
+      "slug": "hlucinske-jezero",
+      "name": "Hlučínské jezero",
+      "category": "vodni-plocha",
+      "lat": 49.892,
+      "lon": 18.163
+    },
+    {
+      "id": 691,
+      "slug": "hracholusky-v-n",
+      "name": "Hracholusky v. n.",
+      "category": "vodni-plocha",
+      "lat": 49.793,
+      "lon": 13.151
+    },
+    {
+      "id": 692,
+      "slug": "jesenice-v-n",
+      "name": "Jesenice v. n.",
+      "category": "vodni-plocha",
+      "lat": 50.078,
+      "lon": 12.471
+    },
+    {
+      "id": 693,
+      "slug": "lipno-v-n",
+      "name": "Lipno v. n.",
+      "category": "vodni-plocha",
+      "lat": 48.727,
+      "lon": 14.07
+    },
+    {
+      "id": 694,
+      "slug": "machovo-jezero",
+      "name": "Máchovo jezero",
+      "category": "vodni-plocha",
+      "lat": 50.583,
+      "lon": 14.65
+    },
+    {
+      "id": 695,
+      "slug": "medard",
+      "name": "Medard",
+      "category": "vodni-plocha",
+      "lat": 50.179,
+      "lon": 12.594
+    },
+    {
+      "id": 696,
+      "slug": "most",
+      "name": "Most",
+      "category": "vodni-plocha",
+      "lat": 50.539,
+      "lon": 13.646
+    },
+    {
+      "id": 697,
+      "slug": "milada",
+      "name": "Milada",
+      "category": "vodni-plocha",
+      "lat": 50.654,
+      "lon": 13.944
+    },
+    {
+      "id": 698,
+      "slug": "nechranice-v-n",
+      "name": "Nechranice v. n.",
+      "category": "vodni-plocha",
+      "lat": 50.359,
+      "lon": 13.385
+    },
+    {
+      "id": 699,
+      "slug": "nove-mlyny-v-n",
+      "name": "Nové Mlýny v. n.",
+      "category": "vodni-plocha",
+      "lat": 48.883,
+      "lon": 16.685
+    },
+    {
+      "id": 700,
+      "slug": "orlik-v-n",
+      "name": "Orlík v. n.",
+      "category": "vodni-plocha",
+      "lat": 49.542,
+      "lon": 14.171
+    },
+    {
+      "id": 701,
+      "slug": "pastviny-v-n",
+      "name": "Pastviny v. n.",
+      "category": "vodni-plocha",
+      "lat": 50.079,
+      "lon": 16.563
+    },
+    {
+      "id": 702,
+      "slug": "rozkos-v-n",
+      "name": "Rozkoš v. n.",
+      "category": "vodni-plocha",
+      "lat": 50.378,
+      "lon": 16.068
+    },
+    {
+      "id": 703,
+      "slug": "sec-v-n",
+      "name": "Seč v. n.",
+      "category": "vodni-plocha",
+      "lat": 49.836,
+      "lon": 15.648
+    },
+    {
+      "id": 704,
+      "slug": "skalka-v-n",
+      "name": "Skalka v. n.",
+      "category": "vodni-plocha",
+      "lat": 50.09,
+      "lon": 12.321
+    },
+    {
+      "id": 705,
+      "slug": "slapy-v-n",
+      "name": "Slapy v. n.",
+      "category": "vodni-plocha",
+      "lat": 49.795,
+      "lon": 14.429
+    },
+    {
+      "id": 706,
+      "slug": "svet-ryb",
+      "name": "Svět ryb.",
+      "category": "vodni-plocha",
+      "lat": 48.992,
+      "lon": 14.746
+    },
+    {
+      "id": 707,
+      "slug": "terlicko-v-n",
+      "name": "Těrlicko v. n.",
+      "category": "vodni-plocha",
+      "lat": 49.765,
+      "lon": 18.493
+    },
+    {
+      "id": 708,
+      "slug": "vranov-v-n",
+      "name": "Vranov v. n.",
+      "category": "vodni-plocha",
+      "lat": 48.909,
+      "lon": 15.804
+    },
+    {
+      "id": 709,
+      "slug": "zermanice-v-n",
+      "name": "Žermanice v. n.",
+      "category": "vodni-plocha",
+      "lat": 49.718,
+      "lon": 18.466
+    },
+    {
+      "id": 710,
+      "slug": "benesov-lkbe-",
+      "name": "Benešov (LKBE)",
+      "category": "letiste",
+      "lat": 49.741,
+      "lon": 14.645
+    },
+    {
+      "id": 711,
+      "slug": "bohunovice-lkbo-",
+      "name": "Bohuňovice (LKBO)",
+      "category": "letiste",
+      "lat": 49.671,
+      "lon": 17.295
+    },
+    {
+      "id": 712,
+      "slug": "brno-turany-lktb-",
+      "name": "Brno/Tuřany (LKTB)",
+      "category": "letiste",
+      "lat": 49.151,
+      "lon": 16.694
+    },
+    {
+      "id": 713,
+      "slug": "broumov-lkbr-",
+      "name": "Broumov (LKBR)",
+      "category": "letiste",
+      "lat": 50.562,
+      "lon": 16.343
+    },
+    {
+      "id": 714,
+      "slug": "breclav-lkba-",
+      "name": "Břeclav (LKBA)",
+      "category": "letiste",
+      "lat": 48.791,
+      "lon": 16.892
+    },
+    {
+      "id": 715,
+      "slug": "bubovice-lkbu-",
+      "name": "Bubovice (LKBU)",
+      "category": "letiste",
+      "lat": 49.974,
+      "lon": 14.178
+    },
+    {
+      "id": 716,
+      "slug": "ceska-lipa-lkce-",
+      "name": "Česká Lípa (LKCE)",
+      "category": "letiste",
+      "lat": 50.709,
+      "lon": 14.567
+    },
+    {
+      "id": 717,
+      "slug": "ceske-budejovice-lkcs-",
+      "name": "České Budějovice (LKCS)",
+      "category": "letiste",
+      "lat": 48.946,
+      "lon": 14.428
+    },
+    {
+      "id": 718,
+      "slug": "dvur-kralove-lkdk-",
+      "name": "Dvůr Králové (LKDK)",
+      "category": "letiste",
+      "lat": 50.414,
+      "lon": 15.837
+    },
+    {
+      "id": 719,
+      "slug": "erpuzice-lker-",
+      "name": "Erpužice (LKER)",
+      "category": "letiste",
+      "lat": 49.803,
+      "lon": 13.038
+    },
+    {
+      "id": 720,
+      "slug": "frydlant-lkfr-",
+      "name": "Frýdlant (LKFR)",
+      "category": "letiste",
+      "lat": 49.589,
+      "lon": 18.379
+    },
+    {
+      "id": 721,
+      "slug": "havlickuv-brod-lkhb-",
+      "name": "Havlíčkův Brod (LKHB)",
+      "category": "letiste",
+      "lat": 49.597,
+      "lon": 15.549
+    },
+    {
+      "id": 722,
+      "slug": "hodkovice-lkhd-",
+      "name": "Hodkovice (LKHD)",
+      "category": "letiste",
+      "lat": 50.657,
+      "lon": 15.078
+    },
+    {
+      "id": 723,
+      "slug": "horice-lkhc-",
+      "name": "Hořice (LKHC)",
+      "category": "letiste",
+      "lat": 50.357,
+      "lon": 15.577
+    },
+    {
+      "id": 724,
+      "slug": "horovice-lkhv-",
+      "name": "Hořovice (LKHV)",
+      "category": "letiste",
+      "lat": 49.845,
+      "lon": 13.886
+    },
+    {
+      "id": 725,
+      "slug": "hosin-lkhs-",
+      "name": "Hosín (LKHS)",
+      "category": "letiste",
+      "lat": 49.04,
+      "lon": 14.495
+    },
+    {
+      "id": 726,
+      "slug": "hradec-kralove-lkhk-",
+      "name": "Hradec Králové (LKHK)",
+      "category": "letiste",
+      "lat": 50.253,
+      "lon": 15.845
+    },
+    {
+      "id": 727,
+      "slug": "hranice-lkhn-",
+      "name": "Hranice (LKHN)",
+      "category": "letiste",
+      "lat": 49.546,
+      "lon": 17.704
+    },
+    {
+      "id": 728,
+      "slug": "cheb-lkcb-",
+      "name": "Cheb (LKCB)",
+      "category": "letiste",
+      "lat": 50.066,
+      "lon": 12.413
+    },
+    {
+      "id": 729,
+      "slug": "chomutov-lkch-",
+      "name": "Chomutov (LKCH)",
+      "category": "letiste",
+      "lat": 50.469,
+      "lon": 13.468
+    },
+    {
+      "id": 730,
+      "slug": "chotebor-lkct-",
+      "name": "Chotěboř (LKCT)",
+      "category": "letiste",
+      "lat": 49.686,
+      "lon": 15.676
+    },
+    {
+      "id": 731,
+      "slug": "chrudim-lkcr-",
+      "name": "Chrudim (LKCR)",
+      "category": "letiste",
+      "lat": 49.936,
+      "lon": 15.781
+    },
+    {
+      "id": 732,
+      "slug": "jaromer-lkja-",
+      "name": "Jaroměř (LKJA)",
+      "category": "letiste",
+      "lat": 50.331,
+      "lon": 15.954
+    },
+    {
+      "id": 733,
+      "slug": "jicin-lkjc-",
+      "name": "Jičín (LKJC)",
+      "category": "letiste",
+      "lat": 50.43,
+      "lon": 15.333
+    },
+    {
+      "id": 734,
+      "slug": "jihlava-lkji-",
+      "name": "Jihlava (LKJI)",
+      "category": "letiste",
+      "lat": 49.419,
+      "lon": 15.635
+    },
+    {
+      "id": 735,
+      "slug": "jindrichuv-hradec-lkjh-",
+      "name": "Jindřichův Hradec (LKJH)",
+      "category": "letiste",
+      "lat": 49.151,
+      "lon": 14.972
+    },
+    {
+      "id": 736,
+      "slug": "karlovy-vary-lkkv-",
+      "name": "Karlovy Vary (LKKV)",
+      "category": "letiste",
+      "lat": 50.203,
+      "lon": 12.915
+    },
+    {
+      "id": 737,
+      "slug": "kladno-lkkl-",
+      "name": "Kladno (LKKL)",
+      "category": "letiste",
+      "lat": 50.113,
+      "lon": 14.09
+    },
+    {
+      "id": 738,
+      "slug": "klatovy-lkkt-",
+      "name": "Klatovy (LKKT)",
+      "category": "letiste",
+      "lat": 49.418,
+      "lon": 13.322
+    },
+    {
+      "id": 739,
+      "slug": "kolin-lkko-",
+      "name": "Kolín (LKKO)",
+      "category": "letiste",
+      "lat": 50.002,
+      "lon": 15.173
+    },
+    {
+      "id": 740,
+      "slug": "krnov-lkkr-",
+      "name": "Krnov (LKKR)",
+      "category": "letiste",
+      "lat": 50.075,
+      "lon": 17.689
+    },
+    {
+      "id": 741,
+      "slug": "kromeriz-lkkm-",
+      "name": "Kroměříž (LKKM)",
+      "category": "letiste",
+      "lat": 49.286,
+      "lon": 17.416
+    },
+    {
+      "id": 742,
+      "slug": "krizanov-lkka-",
+      "name": "Křižanov (LKKA)",
+      "category": "letiste",
+      "lat": 49.368,
+      "lon": 16.116
+    },
+    {
+      "id": 743,
+      "slug": "krizenec-lkkc-",
+      "name": "Kříženec (LKKC)",
+      "category": "letiste",
+      "lat": 49.871,
+      "lon": 12.773
+    },
+    {
+      "id": 744,
+      "slug": "kunovice-lkku-",
+      "name": "Kunovice (LKKU)",
+      "category": "letiste",
+      "lat": 49.029,
+      "lon": 17.44
+    },
+    {
+      "id": 745,
+      "slug": "kyjov-lkky-",
+      "name": "Kyjov (LKKY)",
+      "category": "letiste",
+      "lat": 48.98,
+      "lon": 17.125
+    },
+    {
+      "id": 746,
+      "slug": "letkov-lkpl-",
+      "name": "Letkov (LKPL)",
+      "category": "letiste",
+      "lat": 49.723,
+      "lon": 13.452
+    },
+    {
+      "id": 747,
+      "slug": "letnany-lklt-",
+      "name": "Letňany (LKLT)",
+      "category": "letiste",
+      "lat": 50.131,
+      "lon": 14.526
+    },
+    {
+      "id": 748,
+      "slug": "liberec-lklb-",
+      "name": "Liberec (LKLB)",
+      "category": "letiste",
+      "lat": 50.768,
+      "lon": 15.025
+    },
+    {
+      "id": 749,
+      "slug": "luhacovice-lklu-",
+      "name": "Luhačovice (LKLU)",
+      "category": "letiste",
+      "lat": 49.092,
+      "lon": 17.725
+    },
+    {
+      "id": 750,
+      "slug": "marianske-lazne-lkmr-",
+      "name": "Mariánské Lázně (LKMR)",
+      "category": "letiste",
+      "lat": 49.923,
+      "lon": 12.725
+    },
+    {
+      "id": 751,
+      "slug": "medlanky-lkcm-",
+      "name": "Medlánky (LKCM)",
+      "category": "letiste",
+      "lat": 49.237,
+      "lon": 16.555
+    },
+    {
+      "id": 752,
+      "slug": "mikulovice-lkmi-",
+      "name": "Mikulovice (LKMI)",
+      "category": "letiste",
+      "lat": 50.302,
+      "lon": 17.298
+    },
+    {
+      "id": 753,
+      "slug": "mlada-boleslav-lkmb-",
+      "name": "Mladá Boleslav (LKMB)",
+      "category": "letiste",
+      "lat": 50.398,
+      "lon": 14.898
+    },
+    {
+      "id": 754,
+      "slug": "mnichovo-hradiste-lkmh-",
+      "name": "Mnichovo Hradiště (LKMH)",
+      "category": "letiste",
+      "lat": 50.54,
+      "lon": 15.007
+    },
+    {
+      "id": 755,
+      "slug": "moravska-trebova-lkmk-",
+      "name": "Moravská Třebová (LKMK)",
+      "category": "letiste",
+      "lat": 49.798,
+      "lon": 16.688
+    },
+    {
+      "id": 756,
+      "slug": "most-lkmo-",
+      "name": "Most (LKMO)",
+      "category": "letiste",
+      "lat": 50.525,
+      "lon": 13.683
+    },
+    {
+      "id": 757,
+      "slug": "nove-mesto-lknm-",
+      "name": "Nové Město (LKNM)",
+      "category": "letiste",
+      "lat": 50.364,
+      "lon": 16.114
+    },
+    {
+      "id": 758,
+      "slug": "olomouc-lkol-",
+      "name": "Olomouc (LKOL)",
+      "category": "letiste",
+      "lat": 49.587,
+      "lon": 17.21
+    },
+    {
+      "id": 759,
+      "slug": "ostrava-mosnov-lkmt-",
+      "name": "Ostrava/Mošnov (LKMT)",
+      "category": "letiste",
+      "lat": 49.696,
+      "lon": 18.111
+    },
+    {
+      "id": 760,
+      "slug": "otrokovice-lkot-",
+      "name": "Otrokovice (LKOT)",
+      "category": "letiste",
+      "lat": 49.198,
+      "lon": 17.518
+    },
+    {
+      "id": 761,
+      "slug": "panensky-tynec-lkpc-",
+      "name": "Panenský Týnec (LKPC)",
+      "category": "letiste",
+      "lat": 50.306,
+      "lon": 13.935
+    },
+    {
+      "id": 762,
+      "slug": "pardubice-lkpd-",
+      "name": "Pardubice (LKPD)",
+      "category": "letiste",
+      "lat": 50.013,
+      "lon": 15.738
+    },
+    {
+      "id": 763,
+      "slug": "plasy-lkps-",
+      "name": "Plasy (LKPS)",
+      "category": "letiste",
+      "lat": 49.92,
+      "lon": 13.377
+    },
+    {
+      "id": 764,
+      "slug": "plzen-line-lkln-",
+      "name": "Plzeň/Líně (LKLN)",
+      "category": "letiste",
+      "lat": 49.675,
+      "lon": 13.274
+    },
+    {
+      "id": 765,
+      "slug": "podhorany-lkpn-",
+      "name": "Podhořany (LKPN)",
+      "category": "letiste",
+      "lat": 49.939,
+      "lon": 15.55
+    },
+    {
+      "id": 766,
+      "slug": "policka-lkpa-",
+      "name": "Polička (LKPA)",
+      "category": "letiste",
+      "lat": 49.739,
+      "lon": 16.259
+    },
+    {
+      "id": 767,
+      "slug": "praha-ruzyne-lkpr-",
+      "name": "Praha/Ruzyně (LKPR)",
+      "category": "letiste",
+      "lat": 50.101,
+      "lon": 14.26
+    },
+    {
+      "id": 768,
+      "slug": "prostejov-lkpj-",
+      "name": "Prostějov (LKPJ)",
+      "category": "letiste",
+      "lat": 49.448,
+      "lon": 17.134
+    },
+    {
+      "id": 769,
+      "slug": "prerov-lkpo-",
+      "name": "Přerov (LKPO)",
+      "category": "letiste",
+      "lat": 49.426,
+      "lon": 17.405
+    },
+    {
+      "id": 770,
+      "slug": "pribram-lkpm-",
+      "name": "Příbram (LKPM)",
+      "category": "letiste",
+      "lat": 49.72,
+      "lon": 14.1
+    },
+    {
+      "id": 771,
+      "slug": "pribyslav-lkpi-",
+      "name": "Přibyslav (LKPI)",
+      "category": "letiste",
+      "lat": 49.581,
+      "lon": 15.763
+    },
+    {
+      "id": 772,
+      "slug": "rakovnik-lkrk-",
+      "name": "Rakovník (LKRK)",
+      "category": "letiste",
+      "lat": 50.094,
+      "lon": 13.689
+    },
+    {
+      "id": 773,
+      "slug": "rana-lkra-",
+      "name": "Raná (LKRA)",
+      "category": "letiste",
+      "lat": 50.404,
+      "lon": 13.752
+    },
+    {
+      "id": 774,
+      "slug": "rokycany-lkry-",
+      "name": "Rokycany (LKRY)",
+      "category": "letiste",
+      "lat": 49.752,
+      "lon": 13.59
+    },
+    {
+      "id": 775,
+      "slug": "roudnice-lkro-",
+      "name": "Roudnice (LKRO)",
+      "category": "letiste",
+      "lat": 50.411,
+      "lon": 14.226
+    },
+    {
+      "id": 776,
+      "slug": "sazena-lksz-",
+      "name": "Sazená (LKSZ)",
+      "category": "letiste",
+      "lat": 50.325,
+      "lon": 14.259
+    },
+    {
+      "id": 777,
+      "slug": "skutec-lksk-",
+      "name": "Skuteč (LKSK)",
+      "category": "letiste",
+      "lat": 49.828,
+      "lon": 16.006
+    },
+    {
+      "id": 778,
+      "slug": "slany-lksn-",
+      "name": "Slaný (LKSN)",
+      "category": "letiste",
+      "lat": 50.217,
+      "lon": 14.089
+    },
+    {
+      "id": 779,
+      "slug": "sobeslav-lkso-",
+      "name": "Soběslav (LKSO)",
+      "category": "letiste",
+      "lat": 49.247,
+      "lon": 14.714
+    },
+    {
+      "id": 780,
+      "slug": "stankov-lksa-",
+      "name": "Staňkov (LKSA)",
+      "category": "letiste",
+      "lat": 49.567,
+      "lon": 13.049
+    },
+    {
+      "id": 781,
+      "slug": "stichovice-lksb-",
+      "name": "Stichovice (LKSB)",
+      "category": "letiste",
+      "lat": 49.486,
+      "lon": 17.056
+    },
+    {
+      "id": 782,
+      "slug": "strakonice-lkst-",
+      "name": "Strakonice (LKST)",
+      "category": "letiste",
+      "lat": 49.252,
+      "lon": 13.893
+    },
+    {
+      "id": 783,
+      "slug": "strunkovice-lksr-",
+      "name": "Strunkovice (LKSR)",
+      "category": "letiste",
+      "lat": 49.083,
+      "lon": 14.076
+    },
+    {
+      "id": 784,
+      "slug": "sumperk-lksu-",
+      "name": "Šumperk (LKSU)",
+      "category": "letiste",
+      "lat": 49.961,
+      "lon": 17.018
+    },
+    {
+      "id": 785,
+      "slug": "tabor-lkta-",
+      "name": "Tábor (LKTA)",
+      "category": "letiste",
+      "lat": 49.391,
+      "lon": 14.708
+    },
+    {
+      "id": 786,
+      "slug": "tachov-lktd-",
+      "name": "Tachov (LKTD)",
+      "category": "letiste",
+      "lat": 49.798,
+      "lon": 12.707
+    },
+    {
+      "id": 787,
+      "slug": "tocna-lktc-",
+      "name": "Točná (LKTC)",
+      "category": "letiste",
+      "lat": 49.985,
+      "lon": 14.426
+    },
+    {
+      "id": 788,
+      "slug": "touzim-lkto-",
+      "name": "Toužim (LKTO)",
+      "category": "letiste",
+      "lat": 50.086,
+      "lon": 12.953
+    },
+    {
+      "id": 789,
+      "slug": "usti-nad-labem-lkul-",
+      "name": "Ústí nad Labem (LKUL)",
+      "category": "letiste",
+      "lat": 50.7,
+      "lon": 13.97
+    },
+    {
+      "id": 790,
+      "slug": "usti-nad-orlici-lkuo-",
+      "name": "Ústí nad Orlicí (LKUO)",
+      "category": "letiste",
+      "lat": 49.979,
+      "lon": 16.426
+    },
+    {
+      "id": 791,
+      "slug": "velke-porici-lkvp-",
+      "name": "Velké Poříčí (LKVP)",
+      "category": "letiste",
+      "lat": 50.468,
+      "lon": 16.206
+    },
+    {
+      "id": 792,
+      "slug": "vlasim-lkvl-",
+      "name": "Vlašim (LKVL)",
+      "category": "letiste",
+      "lat": 49.729,
+      "lon": 14.879
+    },
+    {
+      "id": 793,
+      "slug": "vodochody-lkvo-",
+      "name": "Vodochody (LKVO)",
+      "category": "letiste",
+      "lat": 50.217,
+      "lon": 14.396
+    },
+    {
+      "id": 794,
+      "slug": "vrchlabi-lkvr-",
+      "name": "Vrchlabí (LKVR)",
+      "category": "letiste",
+      "lat": 50.624,
+      "lon": 15.646
+    },
+    {
+      "id": 795,
+      "slug": "vysoke-myto-lkvm-",
+      "name": "Vysoké Mýto (LKVM)",
+      "category": "letiste",
+      "lat": 49.927,
+      "lon": 16.186
+    },
+    {
+      "id": 796,
+      "slug": "vyskov-lkvy-",
+      "name": "Vyškov (LKVY)",
+      "category": "letiste",
+      "lat": 49.3,
+      "lon": 17.025
+    },
+    {
+      "id": 797,
+      "slug": "zabreh-lkza-",
+      "name": "Zábřeh (LKZA)",
+      "category": "letiste",
+      "lat": 49.928,
+      "lon": 18.078
+    },
+    {
+      "id": 798,
+      "slug": "zbraslavice-lkzb-",
+      "name": "Zbraslavice (LKZB)",
+      "category": "letiste",
+      "lat": 49.814,
+      "lon": 15.202
+    },
+    {
+      "id": 799,
+      "slug": "znojmo-lkzn-",
+      "name": "Znojmo (LKZN)",
+      "category": "letiste",
+      "lat": 48.818,
+      "lon": 16.066
+    },
+    {
+      "id": 800,
+      "slug": "zamberk-lkzm-",
+      "name": "Žamberk (LKZM)",
+      "category": "letiste",
+      "lat": 50.084,
+      "lon": 16.444
+    },
+    {
+      "id": 801,
+      "slug": "zatec-macerka-lkzd-",
+      "name": "Žatec/Macerka (LKZD)",
+      "category": "letiste",
+      "lat": 50.318,
+      "lon": 13.513
+    },
+    {
+      "id": 812,
+      "slug": "klet-hvezdarna-",
+      "name": "Kleť (Hvězdárna)",
+      "category": "lyzarske-stredisko",
+      "lat": 48.864,
+      "lon": 14.285
+    },
+    {
+      "id": 813,
+      "slug": "zadni-telnice",
+      "name": "Zadní Telnice",
+      "category": "lyzarske-stredisko",
+      "lat": 50.7298,
+      "lon": 13.9168
+    },
+    {
+      "id": 814,
+      "slug": "cinovec",
+      "name": "Cínovec",
+      "category": "lyzarske-stredisko",
+      "lat": 50.7298,
+      "lon": 13.7629
+    },
+    {
+      "id": 815,
+      "slug": "kliny",
+      "name": "Klíny",
+      "category": "lyzarske-stredisko",
+      "lat": 50.6309,
+      "lon": 13.567
+    },
+    {
+      "id": 816,
+      "slug": "medenec-alsovka",
+      "name": "Měděnec – Alšovka",
+      "category": "lyzarske-stredisko",
+      "lat": 50.4241,
+      "lon": 13.1333
+    },
+    {
+      "id": 817,
+      "slug": "plesivec",
+      "name": "Plešivec",
+      "category": "lyzarske-stredisko",
+      "lat": 50.3612,
+      "lon": 12.8395
+    },
+    {
+      "id": 818,
+      "slug": "potucky",
+      "name": "Potůčky",
+      "category": "lyzarske-stredisko",
+      "lat": 50.4151,
+      "lon": 12.7275
+    },
+    {
+      "id": 819,
+      "slug": "smedava",
+      "name": "Smědava",
+      "category": "lyzarske-stredisko",
+      "lat": 50.847,
+      "lon": 15.274
+    },
+    {
+      "id": 820,
+      "slug": "jizerka",
+      "name": "Jizerka",
+      "category": "lyzarske-stredisko",
+      "lat": 50.811,
+      "lon": 15.358
+    },
+    {
+      "id": 821,
+      "slug": "smrk",
+      "name": "Smrk",
+      "category": "lyzarske-stredisko",
+      "lat": 50.8917,
+      "lon": 15.2739
+    },
+    {
+      "id": 822,
+      "slug": "desna-sous",
+      "name": "Desná – Souš",
+      "category": "lyzarske-stredisko",
+      "lat": 50.7928,
+      "lon": 15.3159
+    },
+    {
+      "id": 823,
+      "slug": "serlich-serlissky-mlyn",
+      "name": "Šerlich – Šerlišský Mlýn",
+      "category": "lyzarske-stredisko",
+      "lat": 50.3252,
+      "lon": 16.3652
+    },
+    {
+      "id": 824,
+      "slug": "velka-destna",
+      "name": "Velká Deštná",
+      "category": "lyzarske-stredisko",
+      "lat": 50.3162,
+      "lon": 16.3932
+    },
+    {
+      "id": 825,
+      "slug": "olesnice-v%C2%A0orlickych-horach",
+      "name": "Olešnice v Orlických horách",
+      "category": "lyzarske-stredisko",
+      "lat": 50.3792,
+      "lon": 16.3232
+    },
+    {
+      "id": 826,
+      "slug": "rokytnice-v%C2%A0orlickych-horach",
+      "name": "Rokytnice v Orlických horách",
+      "category": "lyzarske-stredisko",
+      "lat": 50.1724,
+      "lon": 16.4771
+    },
+    {
+      "id": 827,
+      "slug": "orlicke-zahori",
+      "name": "Orlické Záhoří",
+      "category": "lyzarske-stredisko",
+      "lat": 50.2803,
+      "lon": 16.4351
+    },
+    {
+      "id": 828,
+      "slug": "sedlonov-polom",
+      "name": "Sedloňov – Polom",
+      "category": "lyzarske-stredisko",
+      "lat": 50.3612,
+      "lon": 16.3092
+    },
+    {
+      "id": 829,
+      "slug": "suchy-vrch",
+      "name": "Suchý vrch",
+      "category": "lyzarske-stredisko",
+      "lat": 50.0555,
+      "lon": 16.687
+    },
+    {
+      "id": 830,
+      "slug": "rejviz",
+      "name": "Rejvíz",
+      "category": "lyzarske-stredisko",
+      "lat": 50.2263,
+      "lon": 17.3026
+    },
+    {
+      "id": 831,
+      "slug": "kralicky-sneznik",
+      "name": "Králický Sněžník",
+      "category": "lyzarske-stredisko",
+      "lat": 50.2083,
+      "lon": 16.8409
+    },
+    {
+      "id": 832,
+      "slug": "horni-becva",
+      "name": "Horní Bečva",
+      "category": "lyzarske-stredisko",
+      "lat": 49.4171,
+      "lon": 18.3379
+    },
+    {
+      "id": 833,
+      "slug": "lysa-hora",
+      "name": "Lysá hora",
+      "category": "lyzarske-stredisko",
+      "lat": 49.543,
+      "lon": 18.4498
+    },
+    {
+      "id": 834,
+      "slug": "nove-mesto-na-morave-harusuv-kopec",
+      "name": "Nové Město na Moravě – Harusův kopec",
+      "category": "lyzarske-stredisko",
+      "lat": 49.57,
+      "lon": 16.0434
+    },
+    {
+      "id": 835,
+      "slug": "devet-skal",
+      "name": "Devět Skal",
+      "category": "lyzarske-stredisko",
+      "lat": 49.6689,
+      "lon": 16.0294
+    },
+    {
+      "id": 836,
+      "slug": "svratouch",
+      "name": "Svratouch",
+      "category": "lyzarske-stredisko",
+      "lat": 49.7228,
+      "lon": 16.0294
+    },
+    {
+      "id": 837,
+      "slug": "frysava-frysavsky-ledovec",
+      "name": "Fryšava – Fryšavský ledovec",
+      "category": "lyzarske-stredisko",
+      "lat": 49.6239,
+      "lon": 16.0294
+    },
+    {
+      "id": 838,
+      "slug": "velka-javorina",
+      "name": "Velká Javořina",
+      "category": "lyzarske-stredisko",
+      "lat": 48.8596,
+      "lon": 17.6803
+    },
+    {
+      "id": 839,
+      "slug": "plechy",
+      "name": "Plechý",
+      "category": "lyzarske-stredisko",
+      "lat": 48.7697,
+      "lon": 13.8608
+    },
+    {
+      "id": 840,
+      "slug": "breznik",
+      "name": "Březník",
+      "category": "lyzarske-stredisko",
+      "lat": 48.9675,
+      "lon": 13.483
+    },
+    {
+      "id": 841,
+      "slug": "boubin",
+      "name": "Boubín",
+      "category": "lyzarske-stredisko",
+      "lat": 48.9945,
+      "lon": 13.8188
+    },
+    {
+      "id": 842,
+      "slug": "modrava",
+      "name": "Modrava",
+      "category": "lyzarske-stredisko",
+      "lat": 49.0215,
+      "lon": 13.497
+    },
+    {
+      "id": 843,
+      "slug": "cerchov",
+      "name": "Čerchov",
+      "category": "lyzarske-stredisko",
+      "lat": 49.3811,
+      "lon": 12.7835
+    },
+    {
+      "id": 844,
+      "slug": "primda",
+      "name": "Přimda",
+      "category": "lyzarske-stredisko",
+      "lat": 49.6779,
+      "lon": 12.6716
+    },
+    {
+      "id": 845,
+      "slug": "lazne-kynzvart-kladska",
+      "name": "Lázně Kynžvart, Kladská",
+      "category": "lyzarske-stredisko",
+      "lat": 50.0285,
+      "lon": 12.6716
+    },
+    {
+      "id": 846,
+      "slug": "chotoun",
+      "name": "Chotouň",
+      "category": "lyzarske-stredisko",
+      "lat": 49.9026,
+      "lon": 14.5044
+    },
+    {
+      "id": 6580,
+      "slug": "hostyn",
+      "name": "Hostýn",
+      "category": "lyzarske-stredisko",
+      "lat": 49.3811,
+      "lon": 17.7083
+    },
+    {
+      "id": 6581,
+      "slug": "mikulcin-vrch",
+      "name": "Mikulčin vrch",
+      "category": "lyzarske-stredisko",
+      "lat": 48.9496,
+      "lon": 17.8062
+    },
+    {
+      "id": 6582,
+      "slug": "bumbalka",
+      "name": "Bumbálka",
+      "category": "lyzarske-stredisko",
+      "lat": 49.3991,
+      "lon": 18.4079
+    },
+    {
+      "id": 6583,
+      "slug": "velka-cantoryje",
+      "name": "Velká Čantoryje",
+      "category": "lyzarske-stredisko",
+      "lat": 49.6779,
+      "lon": 18.7996
+    },
+    {
+      "id": 6584,
+      "slug": "severka-skalka",
+      "name": "Severka, Skalka",
+      "category": "lyzarske-stredisko",
+      "lat": 49.516,
+      "lon": 18.7157
+    },
+    {
+      "id": 6585,
+      "slug": "velky-javornik",
+      "name": "Velký Javorník",
+      "category": "lyzarske-stredisko",
+      "lat": 49.525,
+      "lon": 18.156
+    },
+    {
+      "id": 6586,
+      "slug": "javornik",
+      "name": "Javorník",
+      "category": "lyzarske-stredisko",
+      "lat": 49.1384,
+      "lon": 13.6509
+    },
+    {
+      "id": 6587,
+      "slug": "pohori-na-sumave",
+      "name": "Pohoří na Šumavě",
+      "category": "lyzarske-stredisko",
+      "lat": 48.6079,
+      "lon": 14.7003
+    },
+    {
+      "id": 6588,
+      "slug": "mosty-u-jablunkova",
+      "name": "Mosty u Jablunkova",
+      "category": "lyzarske-stredisko",
+      "lat": 49.525,
+      "lon": 18.7716
+    },
+    {
+      "id": 6589,
+      "slug": "grun",
+      "name": "Grúň",
+      "category": "lyzarske-stredisko",
+      "lat": 49.489,
+      "lon": 18.4778
+    },
+    {
+      "id": 6590,
+      "slug": "novy-malin",
+      "name": "Nový Malín",
+      "category": "obec",
+      "lat": 49.9476,
+      "lon": 17.0367
+    }
   ]
 }
