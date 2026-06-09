@@ -5,20 +5,32 @@ from datetime import timedelta
 
 DOMAIN = "chmu_meteogram"
 
-PLATFORMS = ["sensor", "binary_sensor"]
+PLATFORMS = ["sensor", "binary_sensor", "weather"]
 
-CONF_LOCATION_ID = "location_id"
+# config keys
+CONF_MODE = "mode"  # "home" | "poi"
+CONF_LOCATION_ID = "location_id"  # jen pro mode=poi
 CONF_ALERTS_ENABLED = "alerts_enabled"
+
+MODE_HOME = "home"
+MODE_POI = "poi"
 
 DEFAULT_SCAN_INTERVAL = timedelta(minutes=30)
 
 # JSON API ČHMÚ (Liferay portlet "ChmiGraph" + map-component)
 API_BASE = "https://data-provider.chmi.cz/api"
-METEOGRAM_URL = API_BASE + "/graphs/graf.meteogram/{poi_id}"
-ALERT_URL = API_BASE + "/cap/data/poi"  # ?poiId=
-ALERT_URL_ALL = API_BASE + "/cap/data/all/poi"  # ?poiId=  (vrátí seznam aktivních výstrah)
 
-# Veřejná stránka meteogramu pro daný POI (pro configuration_url)
-PUBLIC_URL = "https://www.chmi.cz/meteogram/{poi_id}-{slug}"
+# Meteogram — dvě varianty (POI vs libovolný bod)
+METEOGRAM_URL_POI = API_BASE + "/graphs/graf.meteogram/{poi_id}"
+METEOGRAM_URL_POINT = API_BASE + "/graphs/graf.meteogram"  # ?x=lon&y=lat
 
-USER_AGENT = "ha-chmu-meteogram/0.2 (+https://github.com/hruskin/ha-chmu-meteogram)"
+# Výstrahy — dvě varianty
+ALERT_URL_POI = API_BASE + "/cap/data/poi"          # ?poiId=
+ALERT_URL_POINT = API_BASE + "/cap/data/point"      # ?x=lon&y=lat
+ALERT_URL_ALL_POI = API_BASE + "/cap/data/all/poi"  # ?poiId=
+
+# Veřejná stránka meteogramu (pro configuration_url)
+PUBLIC_URL_POI = "https://www.chmi.cz/meteogram/{poi_id}-{slug}"
+PUBLIC_URL_POINT = "https://www.chmi.cz/predpoved-pocasi/meteogramy-aladin/meteogram-pro-bod-na-mape"
+
+USER_AGENT = "ha-chmu-meteogram/0.3 (+https://github.com/hruskin/ha-chmu-meteogram)"

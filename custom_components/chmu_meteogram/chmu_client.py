@@ -8,7 +8,15 @@ from typing import Any
 
 from aiohttp import ClientSession, ClientTimeout
 
-from .const import ALERT_URL, ALERT_URL_ALL, METEOGRAM_URL, USER_AGENT
+from .const import (
+    ALERT_URL_ALL_POI,
+    ALERT_URL_POI,
+    ALERT_URL_POINT,
+    METEOGRAM_URL_POI,
+    METEOGRAM_URL_POINT,
+    USER_AGENT,
+)
+from .locations import WeatherTarget
 
 _LOGGER = logging.getLogger(__name__)
 _TIMEOUT = ClientTimeout(total=20)
@@ -26,7 +34,7 @@ class MeteogramPoint:
     wind_direction: float | None  # °
     pressure: float | None  # hPa (MSLP)
     clouds: float | None  # %
-    icon: int | None  # ČHMÚ ikona
+    icon: int | None
 
     @classmethod
     def from_api(cls, raw: dict[str, Any]) -> "MeteogramPoint":
@@ -49,7 +57,7 @@ class MeteogramPoint:
 class Meteogram:
     points: list[MeteogramPoint]
     elevation_m: int | None
-    parameters: dict[str, dict[str, str]]  # raw definitions
+    parameters: dict[str, dict[str, str]]
     fetched_at: datetime
 
 
@@ -74,9 +82,16 @@ class ChmuClient:
         self._session = session
         self._headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
 
-    async def fetch_meteogram(self, poi_id: int) -> Meteogram:
-        url = METEOGRAM_URL.format(poi_id=poi_id)
-        async with self._session.get(url, headers=self._headers, timeout=_TIMEOUT) as resp:
+    async def fetch_meteogram(self, target: WeatherTarget) -> Meteogram:
+        if target.is_point:
+            url = METEOGRAM_URL_POINT
+            params = {"x": target.lon, "y": target.lat}
+        else:
+            url = METEOGRAM_URL_POI.format(poi_id=target.poi_id)
+            params = None
+        async with self._session.get(
+            url, params=params, headers=self._headers, timeout=_TIMEOUT
+        ) as resp:
             resp.raise_for_status()
             payload = await resp.json(content_type=None)
         points = [MeteogramPoint.from_api(item) for item in payload.get("data", [])]
@@ -87,13 +102,15 @@ class ChmuClient:
             fetched_at=datetime.now().astimezone(),
         )
 
-    async def fetch_alert(self, poi_id: int) -> Alert:
-        # Krátký endpoint: stav výstrah ano/ne + popis
+    async def fetch_alert(self, target: WeatherTarget) -> Alert:
+        if target.is_point:
+            url = ALERT_URL_POINT
+            params = {"x": target.lon, "y": target.lat}
+        else:
+            url = ALERT_URL_POI
+            params = {"poiId": target.poi_id}
         async with self._session.get(
-            ALERT_URL,
-            params={"poiId": poi_id},
-            headers=self._headers,
-            timeout=_TIMEOUT,
+            url, params=params, headers=self._headers, timeout=_TIMEOUT
         ) as resp:
             resp.raise_for_status()
             data = await resp.json(content_type=None)
@@ -101,19 +118,17 @@ class ChmuClient:
         description = data.get("description") or ""
 
         details: list[dict[str, Any]] = []
-        if is_warning:
-            # Detail kompletního CAP záznamu (může vrátit i mapový PNG v base64)
+        if is_warning and not target.is_point:
+            # Detail máme jen pro POI endpoint
             try:
                 async with self._session.get(
-                    ALERT_URL_ALL,
-                    params={"poiId": poi_id},
+                    ALERT_URL_ALL_POI,
+                    params={"poiId": target.poi_id},
                     headers=self._headers,
                     timeout=_TIMEOUT,
                 ) as resp2:
                     if resp2.status == 200:
                         full = await resp2.json(content_type=None)
-                        # ČHMÚ vrací různý formát; pokud najdeme pole "warnings"
-                        # nebo "items", uložíme jen textové části (vynecháme base64 obrázek)
                         warns = full.get("warnings") or full.get("items") or []
                         if isinstance(warns, list):
                             details = [_strip_binary(w) for w in warns if isinstance(w, dict)]
@@ -146,7 +161,6 @@ def _int(v: Any) -> int | None:
 
 
 def _strip_binary(d: dict[str, Any]) -> dict[str, Any]:
-    """Z odpovědi odstraní pole, která vypadají jako base64 binární data."""
     out: dict[str, Any] = {}
     for k, v in d.items():
         if isinstance(v, str) and len(v) > 2000:

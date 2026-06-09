@@ -26,7 +26,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .chmu_client import MeteogramPoint
-from .const import DOMAIN, PUBLIC_URL
+from .const import DOMAIN
 from .coordinator import ChmuCoordinator
 
 
@@ -132,14 +132,14 @@ class ChmuSensor(CoordinatorEntity[ChmuCoordinator], SensorEntity):
     ) -> None:
         super().__init__(coordinator)
         self.entity_description = description
-        loc = coordinator.location
+        tgt = coordinator.target
         self._attr_unique_id = f"{entry_id}_{description.key}"
         self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, str(loc.id))},
-            name=f"ČHMÚ {loc.name}",
+            identifiers={(DOMAIN, tgt.device_identifier)},
+            name=f"ČHMÚ {tgt.name}",
             manufacturer="ČHMÚ",
-            model=f"ALADIN meteogram ({loc.category})",
-            configuration_url=PUBLIC_URL.format(poi_id=loc.id, slug=loc.slug),
+            model=tgt.model_label,
+            configuration_url=tgt.configuration_url,
         )
 
     def _current_point(self):

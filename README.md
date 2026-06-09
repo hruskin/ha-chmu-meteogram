@@ -4,11 +4,15 @@ Neoficiální custom integrace pro Home Assistant, která stahuje **strukturovan
 z veřejného JSON API Českého hydrometeorologického ústavu (ČHMÚ).
 Lokalita se vybírá automaticky jako nejbližší ALADIN POI k zóně `home`.
 
-> **Status**: 0.2.0 — strukturovaná data jako HA sensory + výstrahy ČHMÚ.
+> **Status**: 0.3.0 — point-based meteogram pro libovolné souřadnice (HA `home` = default),
+> sensory, výstrahy a `WeatherEntity` s hodinovým forecastem.
 
 ## Co dostaneš
 
-Pro vybranou lokalitu (jednu z 830+ ALADIN POI: obce, lyžařská střediska, vodní plochy, letiště) integrace vytvoří:
+Pro vybranou lokalitu — buď **přesné souřadnice tvého HA `home`** (default, ALADIN grid 2,3 km
+funguje pro libovolný bod ČR — ani malá vesnice jako Křížkový Újezdec není problém),
+nebo **pojmenované POI** ze seznamu ČHMÚ (571 obcí, 144 lyžařských středisek, 23 vodních ploch,
+92 letišť) — integrace vytvoří:
 
 **Sensory** (aktuální hodnota = nejbližší hodina forecastu):
 - `sensor.chmu_<misto>_teplota` — `t2m` (°C)
@@ -22,7 +26,12 @@ Pro vybranou lokalitu (jednu z 830+ ALADIN POI: obce, lyžařská střediska, vo
 - `sensor.chmu_<misto>_snih` — `snow` (mm/h)
 
 **Binary sensor:**
-- `binary_sensor.chmu_<misto>_vystrahy_chmu` — aktivní výstraha pro danou obec
+- `binary_sensor.chmu_<misto>_vystrahy_chmu` — aktivní výstraha pro daný bod / POI
+
+**Weather entita:**
+- `weather.chmu_<misto>_predpoved` — aktuální podmínky + **hodinový forecast 73 h**
+  (`async_forecast_hourly`) — funguje s nativní HA `weather-forecast` kartou nebo
+  s [Hourly Weather Card](https://github.com/decompil3d/lovelace-hourly-weather)
 
 Každý sensor má v atributech `validity_time`, `forecast_points` (73 = 3 dny po hodině) a `elevation_m`.
 
@@ -76,8 +85,10 @@ series:
 
 | Účel | URL |
 |---|---|
-| Meteogram (JSON, 73 hodin) | `https://data-provider.chmi.cz/api/graphs/graf.meteogram/{poi_id}` |
+| Meteogram pro POI (JSON, 73 h) | `https://data-provider.chmi.cz/api/graphs/graf.meteogram/{poi_id}` |
+| Meteogram pro libovolný bod | `https://data-provider.chmi.cz/api/graphs/graf.meteogram?x=<lon>&y=<lat>` |
 | Výstraha pro POI | `https://data-provider.chmi.cz/api/cap/data/poi?poiId={poi_id}` |
+| Výstraha pro bod | `https://data-provider.chmi.cz/api/cap/data/point?x=<lon>&y=<lat>` |
 | Seznam POI (per kategorie) | `https://data-provider.chmi.cz/api/poi/data/map/{obce\|voda\|lyze\|letiste}/4` |
 
 POI IDs jsou převzaty z mapového komponentu chmi.cz; integrace si vede vlastní snapshot

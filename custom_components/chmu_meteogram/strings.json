@@ -3,10 +3,17 @@
     "step": {
       "user": {
         "title": "ČHMÚ Weather — meteogram",
-        "description": "Auto-detected nearest ALADIN location to your HA `home` zone: **{auto_name}** (id {auto_id}).",
+        "description": "ALADIN has 2.3 km grid resolution, so you get more accurate data for your exact HA `home` coordinates (**{home}**) than for the nearest named municipality.",
         "data": {
-          "location_id": "Location",
+          "mode": "Location source",
           "alerts_enabled": "Fetch ČHMÚ alerts"
+        }
+      },
+      "poi": {
+        "title": "Pick a POI from the ČHMÚ list",
+        "description": "Auto-detected: **{auto_name}** (id {auto_id}).",
+        "data": {
+          "location_id": "POI"
         }
       }
     },
@@ -19,7 +26,8 @@
       "init": {
         "title": "ČHMÚ Weather settings",
         "data": {
-          "location_id": "Location",
+          "mode": "Location source",
+          "location_id": "POI (only used when mode = POI)",
           "alerts_enabled": "Fetch ČHMÚ alerts"
         }
       }
@@ -39,6 +47,9 @@
     },
     "binary_sensor": {
       "alerts": { "name": "ČHMÚ alerts" }
+    },
+    "weather": {
+      "weather": { "name": "Forecast" }
     }
   }
 }
