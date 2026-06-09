@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import datetime, timezone
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -141,21 +142,35 @@ class ChmuSensor(CoordinatorEntity[ChmuCoordinator], SensorEntity):
             configuration_url=PUBLIC_URL.format(poi_id=loc.id, slug=loc.slug),
         )
 
-    @property
-    def native_value(self) -> float | int | None:
+    def _current_point(self):
         m = self.coordinator.data.meteogram if self.coordinator.data else None
         if not m or not m.points:
+            return None, None
+        now = datetime.now(timezone.utc)
+        # Bod nejbližší k "teď" — preferuje budoucí body (zaokrouhlené nahoru
+        # na nejbližší hodinu, jak je v meteogramu data publikována)
+        current = min(m.points, key=lambda p: abs((p.time - now).total_seconds()))
+        return m, current
+
+    @property
+    def native_value(self) -> float | int | None:
+        _, current = self._current_point()
+        if current is None:
             return None
-        return self.entity_description.value_fn(m.points[0])
+        return self.entity_description.value_fn(current)
 
     @property
     def extra_state_attributes(self) -> dict:
-        m = self.coordinator.data.meteogram if self.coordinator.data else None
-        if not m or not m.points:
+        m, current = self._current_point()
+        if not m or not current:
             return {}
-        first = m.points[0]
+        age = (datetime.now(timezone.utc) - current.time).total_seconds()
         return {
-            "validity_time": first.time.isoformat(),
+            "validity_time": current.time.isoformat(),
+            "data_age_minutes": round(age / 60, 1),
+            "forecast_first": m.points[0].time.isoformat(),
+            "forecast_last": m.points[-1].time.isoformat(),
             "forecast_points": len(m.points),
             "elevation_m": m.elevation_m,
+            "fetched_at": m.fetched_at.isoformat(),
         }
