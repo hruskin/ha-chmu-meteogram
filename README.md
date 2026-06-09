@@ -1,3 +1,5 @@
+<img src="brands/chmu_meteogram/logo.png" align="right" height="64" alt="logo">
+
 # Počasí ČHMÚ — Meteogram pro Home Assistant
 
 Neoficiální custom integrace pro Home Assistant, která stahuje **strukturovaná data meteogramu modelu ALADIN**
