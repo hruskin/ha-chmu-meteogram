@@ -6,8 +6,15 @@ Neoficiální custom integrace pro Home Assistant, která stahuje **strukturovan
 z veřejného JSON API Českého hydrometeorologického ústavu (ČHMÚ).
 Lokalita se vybírá automaticky jako nejbližší ALADIN POI k zóně `home`.
 
-> **Status**: 0.3.0 — point-based meteogram pro libovolné souřadnice (HA `home` = default),
+> **Status**: 0.3.x — point-based meteogram pro libovolné souřadnice (HA `home` = default),
 > sensory, výstrahy a `WeatherEntity` s hodinovým forecastem.
+
+## Vývojový workflow
+
+Release jsou automatické — když bumpneš `version` v `manifest.json` a pushneš
+na `main`, GitHub Action vytvoří tag `vX.Y.Z` a publishne Release s auto-notes
+z commitů. HACS pak verzi vidí okamžitě (po Redownload / Reload data).
+Konfigurace v `.github/workflows/release.yml`.
 
 ## Co dostaneš
 
