@@ -24,10 +24,22 @@ API_BASE = "https://data-provider.chmi.cz/api"
 METEOGRAM_URL_POI = API_BASE + "/graphs/graf.meteogram/{poi_id}"
 METEOGRAM_URL_POINT = API_BASE + "/graphs/graf.meteogram"  # ?x=lon&y=lat
 
-# Výstrahy — dvě varianty
-ALERT_URL_POI = API_BASE + "/cap/data/poi"          # ?poiId=
-ALERT_URL_POINT = API_BASE + "/cap/data/point"      # ?x=lon&y=lat
-ALERT_URL_ALL_POI = API_BASE + "/cap/data/all/poi"  # ?poiId=
+# Výstrahy: data-provider /cap/data/* vrací jen base64 PNG mapu a štítek
+# závažnosti — texty tam nejsou. Skutečná strukturovaná data (description.cz,
+# instruction.cz) jsou v JSON mapy výstrah, členěná po krajích a ORP.
+ALERTS_URL = "https://vystrahy-cr.chmi.cz/data/alerts.json"
+
+# Kategorie, které přeskakujeme:
+#  - outlook: vícedenní výhled, ne výstraha
+#  - ozone/dust/nitrogen-dioxide/sulfur-dioxide: kvalita ovzduší má jiné
+#    členění oblastí (cz.chmi.o3:N, cz.chmi.pm10:N…), ne kraje/ORP
+ALERT_SKIP_CATEGORIES = frozenset(
+    {"outlook", "ozone", "dust", "nitrogen-dioxide", "sulfur-dioxide"}
+)
+
+ALERT_REGION_PREFIX = "cz.chmi.region:"
+
+SEVERITY_ORDER = {"Extreme": 0, "Severe": 1, "Moderate": 2, "Minor": 3}
 
 # Veřejná stránka meteogramu (pro configuration_url)
 PUBLIC_URL_POI = "https://www.chmi.cz/meteogram/{poi_id}-{slug}"

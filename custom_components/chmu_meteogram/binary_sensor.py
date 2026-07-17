@@ -1,4 +1,4 @@
-"""Binary sensor — výstrahy ČHMÚ pro POI."""
+"""Binary sensor — výstrahy ČHMÚ pro lokalitu."""
 from __future__ import annotations
 
 from homeassistant.components.binary_sensor import (
@@ -13,6 +13,14 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 from .coordinator import ChmuCoordinator
+
+# MeteoalarmCard očekává awareness_level jako "N; barva; text"
+_MET_LEVEL = {
+    "Minor": "2; yellow; Minor",
+    "Moderate": "3; orange; Moderate",
+    "Severe": "4; red; Severe",
+    "Extreme": "5; violet; Extreme",
+}
 
 
 async def async_setup_entry(
@@ -43,12 +51,32 @@ class ChmuAlertsBinarySensor(CoordinatorEntity[ChmuCoordinator], BinarySensorEnt
 
     @property
     def is_on(self) -> bool:
-        alert = self.coordinator.data.alert if self.coordinator.data else None
-        return bool(alert and alert.is_warning)
+        alerts = self.coordinator.data.alerts if self.coordinator.data else None
+        return bool(alerts and alerts.is_active)
 
     @property
     def extra_state_attributes(self) -> dict:
-        alert = self.coordinator.data.alert if self.coordinator.data else None
-        if not alert:
+        alerts = self.coordinator.data.alerts if self.coordinator.data else None
+        if not alerts:
             return {}
-        return alert.as_dict()
+
+        items = [a.as_dict() for a in alerts.items]
+        worst = alerts.worst_severity
+        headline = "; ".join(
+            a.phenomenon or a.category for a in alerts.items if a.phenomenon or a.category
+        )
+        return {
+            "alert_count": len(items),
+            "severity": worst,
+            "headline": headline or None,
+            # celý text první (nejzávažnější) výstrahy — pohodlné pro šablony
+            "description": alerts.items[0].description if alerts.items else None,
+            "instruction": alerts.items[0].instruction if alerts.items else None,
+            "alerts": items,
+            "orp": alerts.orp,
+            "region": alerts.region,
+            "area": alerts.area,
+            # MeteoalarmCard kompatibilita
+            "awareness_level": _MET_LEVEL.get(worst) if worst else None,
+            "attribution": "Data: ČHMÚ (vystrahy-cr.chmi.cz)",
+        }

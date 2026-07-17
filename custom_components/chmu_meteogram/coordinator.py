@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .chmu_client import Alert, ChmuClient, Meteogram
+from .chmu_client import Alerts, ChmuClient, Meteogram
 from .const import DEFAULT_SCAN_INTERVAL, DOMAIN
 from .locations import WeatherTarget
 
@@ -17,7 +17,7 @@ _LOGGER = logging.getLogger(__name__)
 @dataclass
 class ChmuData:
     meteogram: Meteogram | None
-    alert: Alert | None
+    alerts: Alerts | None
 
 
 class ChmuCoordinator(DataUpdateCoordinator[ChmuData]):
@@ -44,11 +44,12 @@ class ChmuCoordinator(DataUpdateCoordinator[ChmuData]):
         except Exception as err:  # noqa: BLE001
             raise UpdateFailed(f"Meteogram: {err}") from err
 
-        alert: Alert | None = None
+        alerts: Alerts | None = None
         if self._alerts_enabled:
             try:
-                alert = await self._client.fetch_alert(self.target)
+                alerts = await self._client.fetch_alerts(self.target)
             except Exception as err:  # noqa: BLE001
+                # Selhání výstrah nemá shodit meteogram
                 _LOGGER.warning("Výstrahy ČHMÚ: %s", err)
 
-        return ChmuData(meteogram=meteogram, alert=alert)
+        return ChmuData(meteogram=meteogram, alerts=alerts)

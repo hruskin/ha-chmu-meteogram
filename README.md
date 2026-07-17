@@ -35,7 +35,10 @@ nebo **pojmenované POI** ze seznamu ČHMÚ (571 obcí, 144 lyžařských střed
 - `sensor.chmu_<misto>_snih` — `snow` (mm/h)
 
 **Binary sensor:**
-- `binary_sensor.chmu_<misto>_vystrahy_chmu` — aktivní výstraha pro daný bod / POI
+- `binary_sensor.chmu_<misto>_vystrahy_chmu` — aktivní výstrahy **s plnými texty**
+  (`description`, `instruction`, závažnost, platnost od/do) pro ORP, ve kterém
+  lokalita leží. Atributy jsou kompatibilní s
+  [MeteoalarmCard](https://github.com/MrBartusek/MeteoalarmCard).
 
 **Weather entita:**
 - `weather.chmu_<misto>_predpoved` — aktuální podmínky + **hodinový forecast 73 h**
@@ -87,8 +90,20 @@ series:
     yaxis_id: prec
 ```
 
-> Pozn.: Apex zobrazí jen historické hodnoty. Pro plnohodnotný "meteogram"
-> s celou předpovědí přidáme později `WeatherEntity` s `async_forecast_hourly`.
+> Pozn.: Apex zobrazí jen historické hodnoty sensorů. Pro celou předpověď
+> použij `weather.chmu_<misto>_predpoved` s nativní `weather-forecast` kartou.
+
+Výstrahy s texty:
+
+```yaml
+type: markdown
+content: >
+  {% set a = state_attr('binary_sensor.chmu_brno_vystrahy_chmu', 'alerts') %}
+  {% if a %}{% for x in a %}
+  **{{ x.phenomenon }}** ({{ x.severity }})
+  {{ x.description }}
+  {% endfor %}{% else %}Žádné výstrahy{% endif %}
+```
 
 ## API endpointy
 
@@ -96,17 +111,34 @@ series:
 |---|---|
 | Meteogram pro POI (JSON, 73 h) | `https://data-provider.chmi.cz/api/graphs/graf.meteogram/{poi_id}` |
 | Meteogram pro libovolný bod | `https://data-provider.chmi.cz/api/graphs/graf.meteogram?x=<lon>&y=<lat>` |
-| Výstraha pro POI | `https://data-provider.chmi.cz/api/cap/data/poi?poiId={poi_id}` |
-| Výstraha pro bod | `https://data-provider.chmi.cz/api/cap/data/point?x=<lon>&y=<lat>` |
+| Výstrahy (texty, členěné kraj/ORP) | `https://vystrahy-cr.chmi.cz/data/alerts.json` |
 | Seznam POI (per kategorie) | `https://data-provider.chmi.cz/api/poi/data/map/{obce\|voda\|lyze\|letiste}/4` |
+| Hranice ORP (offline snapshot) | `https://services.cuzk.gov.cz/shp/stat/epsg-5514/1.zip` — vrstva `ORP_P` |
 
 POI IDs jsou převzaty z mapového komponentu chmi.cz; integrace si vede vlastní snapshot
-v `data/aladin_locations.json`, který jde obnovit přes `tools/scrape_locations.py`.
+v `data/aladin_locations.json`, obnovitelný přes `tools/scrape_locations.py`.
+
+### Proč ne `data-provider.chmi.cz/api/cap/data/*`
+
+Ten endpoint texty výstrah **nevrací** — jen base64 PNG mapu ČR a štítek závažnosti
+(„Nízký stupeň"). Oficiální web z něj renderuje jen obrázek a větu „Je vydána výstraha".
+Skutečná strukturovaná data (`description.cz`, `instruction.cz`, platnost) jsou
+v `alerts.json` mapy výstrah, členěná po krajích a ORP.
+
+### Jak se páruje lokalita s výstrahou
+
+Výstrahy jsou vázané na kraje a ORP, ne na souřadnice. Integrace proto obsahuje
+zjednodušené hranice ORP z RÚIAN (ČÚZK, CC-BY 4.0) v `data/orp_boundaries.json`
+(206 ORP, ~500 KB, Douglas-Peucker ~200 m) a dělá point-in-polygon čistě v Pythonu
+(`orp.py`, ray casting) — **žádné závislosti navíc a žádné privátní API**.
+Hranice obnovíš přes `tools/fetch_orp_boundaries.py` (vyžaduje `pyshp` + `pyproj`).
+
+Pozn.: RÚIAN uvádí Prahu jako NUTS3 `CZ010`, ČHMÚ používá `CZ090` — skript to přemapuje.
 
 ## Disclaimer
 
-Projekt není přidružen k ČHMÚ ani jím sponzorován. Data jsou veřejně dostupná na webu chmi.cz.
-Update interval je 30 minut.
+Projekt není přidružen k ČHMÚ ani jím sponzorován. Data jsou veřejně dostupná.
+Hranice ORP © ČÚZK (CC-BY 4.0). Update interval je 30 minut.
 
 ## Licence
 
