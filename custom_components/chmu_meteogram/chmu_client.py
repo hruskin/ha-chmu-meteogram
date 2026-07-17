@@ -10,6 +10,9 @@ from aiohttp import ClientSession, ClientTimeout
 
 from . import orp as orp_lookup
 from .const import (
+    ALERT_CATEGORY_ICONS,
+    ALERT_CATEGORY_LABELS,
+    ALERT_FALLBACK_ICON,
     ALERT_REGION_PREFIX,
     ALERT_SKIP_CATEGORIES,
     ALERTS_URL,
@@ -74,8 +77,19 @@ class AlertItem:
     start: datetime | None
     end: datetime | None
 
+    @property
+    def label(self) -> str:
+        """Čitelný název, např. „Zátěž teplem"."""
+        return ALERT_CATEGORY_LABELS.get(self.category) or self.category
+
+    @property
+    def icon(self) -> str:
+        return ALERT_CATEGORY_ICONS.get(self.category, ALERT_FALLBACK_ICON)
+
     def as_dict(self) -> dict[str, Any]:
         return {
+            "label": self.label,
+            "icon": self.icon,
             "category": self.category,
             "phenomenon": self.phenomenon,
             "description": self.description,
@@ -99,10 +113,15 @@ class Alerts:
         return bool(self.items)
 
     @property
-    def worst_severity(self) -> str | None:
+    def worst(self) -> AlertItem | None:
         if not self.items:
             return None
-        return min(self.items, key=lambda a: SEVERITY_ORDER.get(a.severity, 99)).severity
+        return min(self.items, key=lambda a: SEVERITY_ORDER.get(a.severity, 99))
+
+    @property
+    def worst_severity(self) -> str | None:
+        worst = self.worst
+        return worst.severity if worst else None
 
 
 class ChmuClient:

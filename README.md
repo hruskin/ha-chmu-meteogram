@@ -100,10 +100,28 @@ type: markdown
 content: >
   {% set a = state_attr('binary_sensor.chmu_brno_vystrahy_chmu', 'alerts') %}
   {% if a %}{% for x in a %}
-  **{{ x.phenomenon }}** ({{ x.severity }})
+  **{{ x.label }}** ({{ x.severity }})
   {{ x.description }}
   {% endfor %}{% else %}Žádné výstrahy{% endif %}
 ```
+
+### Atributy `binary_sensor.*_vystrahy_chmu`
+
+| Atribut | Popis |
+|---|---|
+| `alert_count` | počet aktivních výstrah |
+| `severity` | nejvyšší závažnost (`Minor`/`Moderate`/`Severe`/`Extreme`) |
+| `color` | barva dle závažnosti (`yellow`/`orange`/`red`/`purple`) |
+| `headline` | „Zátěž teplem · Bouřky" — hotové do `secondary` v kartě |
+| `labels` | seznam názvů, např. `["Zátěž teplem", "Bouřky"]` |
+| `label`, `alert_icon`, `description`, `instruction` | nejzávažnější výstraha rozbalená |
+| `alerts` | seznam všech (`label`, `icon`, `category`, `severity`, `description`, `instruction`, `start`, `end`, …) |
+| `orp`, `region`, `area` | kam lokalita spadá (např. Říčany / CZ020 / Středočeský kraj) |
+| `awareness_level` | pro [MeteoalarmCard](https://github.com/MrBartusek/MeteoalarmCard) |
+
+Ikona entity se mění podle nejzávažnější výstrahy (`mdi:weather-lightning`, `mdi:fire`…),
+mimo výstrahy je `mdi:shield-check`. Kategorie → název/ikona je v `const.py`
+(`ALERT_CATEGORY_LABELS`, `ALERT_CATEGORY_ICONS`), takže karta nemusí nic mapovat.
 
 ## API endpointy
 

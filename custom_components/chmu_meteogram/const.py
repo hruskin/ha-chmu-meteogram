@@ -41,6 +41,50 @@ ALERT_REGION_PREFIX = "cz.chmi.region:"
 
 SEVERITY_ORDER = {"Extreme": 0, "Severe": 1, "Moderate": 2, "Minor": 3}
 
+# Kategorie výstrahy → čitelný název a ikona. `phenomenon` v datech je jen
+# varianta se stupněm (moderate-heat-stress), kategorie je stabilní klíč.
+ALERT_CATEGORY_LABELS = {
+    "heat": "Vysoké teploty",
+    "heat-stress": "Zátěž teplem",
+    "cold": "Nízké teploty",
+    "cold-stress": "Zátěž chladem",
+    "wind": "Vítr",
+    "rain": "Déšť",
+    "snow": "Sněžení",
+    "thunderstorms": "Bouřky",
+    "floods": "Povodně",
+    "fires": "Riziko požárů",
+    "ice-load": "Námraza",
+    "slippery-roads": "Náledí",
+    "another-phenomena": "Jiné jevy",
+}
+
+ALERT_CATEGORY_ICONS = {
+    "heat": "mdi:thermometer-high",
+    "heat-stress": "mdi:sun-thermometer",
+    "cold": "mdi:thermometer-low",
+    "cold-stress": "mdi:snowflake-thermometer",
+    "wind": "mdi:weather-windy",
+    "rain": "mdi:weather-pouring",
+    "snow": "mdi:weather-snowy-heavy",
+    "thunderstorms": "mdi:weather-lightning",
+    "floods": "mdi:home-flood",
+    "fires": "mdi:fire",
+    "ice-load": "mdi:snowflake-alert",
+    "slippery-roads": "mdi:car-brake-alert",
+    "another-phenomena": "mdi:alert",
+}
+
+ALERT_FALLBACK_ICON = "mdi:alert"
+
+# Barva dle závažnosti — pro Mushroom/karty i MeteoalarmCard
+SEVERITY_COLORS = {
+    "Minor": "yellow",
+    "Moderate": "orange",
+    "Severe": "red",
+    "Extreme": "purple",
+}
+
 # Veřejná stránka meteogramu (pro configuration_url)
 PUBLIC_URL_POI = "https://www.chmi.cz/meteogram/{poi_id}-{slug}"
 PUBLIC_URL_POINT = "https://www.chmi.cz/predpoved-pocasi/meteogramy-aladin/meteogram-pro-bod-na-mape"

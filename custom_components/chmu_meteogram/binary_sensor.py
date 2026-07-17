@@ -11,7 +11,7 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN
+from .const import ALERT_FALLBACK_ICON, DOMAIN, SEVERITY_COLORS
 from .coordinator import ChmuCoordinator
 
 # MeteoalarmCard očekává awareness_level jako "N; barva; text"
@@ -55,28 +55,41 @@ class ChmuAlertsBinarySensor(CoordinatorEntity[ChmuCoordinator], BinarySensorEnt
         return bool(alerts and alerts.is_active)
 
     @property
+    def icon(self) -> str | None:
+        """Ikona nejzávažnější výstrahy — ať karta nemusí mapovat kategorie."""
+        alerts = self.coordinator.data.alerts if self.coordinator.data else None
+        worst = alerts.worst if alerts else None
+        if worst is None:
+            return "mdi:shield-check"
+        return worst.icon
+
+    @property
     def extra_state_attributes(self) -> dict:
         alerts = self.coordinator.data.alerts if self.coordinator.data else None
         if not alerts:
             return {}
 
         items = [a.as_dict() for a in alerts.items]
-        worst = alerts.worst_severity
-        headline = "; ".join(
-            a.phenomenon or a.category for a in alerts.items if a.phenomenon or a.category
-        )
+        worst = alerts.worst
+        severity = worst.severity if worst else None
+        labels = [a.label for a in alerts.items]
         return {
             "alert_count": len(items),
-            "severity": worst,
-            "headline": headline or None,
-            # celý text první (nejzávažnější) výstrahy — pohodlné pro šablony
-            "description": alerts.items[0].description if alerts.items else None,
-            "instruction": alerts.items[0].instruction if alerts.items else None,
+            "severity": severity,
+            "color": SEVERITY_COLORS.get(severity) if severity else None,
+            # „Zátěž teplem · Bouřky" — rovnou do secondary v kartě
+            "headline": " · ".join(labels) if labels else None,
+            "labels": labels,
+            # nejzávažnější výstraha rozbalená — pohodlné pro jednoduché šablony
+            "label": worst.label if worst else None,
+            "alert_icon": worst.icon if worst else ALERT_FALLBACK_ICON,
+            "description": worst.description if worst else None,
+            "instruction": worst.instruction if worst else None,
             "alerts": items,
             "orp": alerts.orp,
             "region": alerts.region,
             "area": alerts.area,
             # MeteoalarmCard kompatibilita
-            "awareness_level": _MET_LEVEL.get(worst) if worst else None,
+            "awareness_level": _MET_LEVEL.get(severity) if severity else None,
             "attribution": "Data: ČHMÚ (vystrahy-cr.chmi.cz)",
         }
