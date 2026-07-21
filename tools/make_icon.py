@@ -77,10 +77,14 @@ def make_icon(size: int) -> Image.Image:
     draw = ImageDraw.Draw(img)
 
     # rámeček (zaoblený čtverec) + vnitřek
-    pad = s * 0.03
+    # POZOR: home-assistant/brands vyžaduje „trimmed" obrázek (bez plně
+    # průhledných okrajových řad). Kreslíme proto od hrany k hraně (pad=0);
+    # zaoblené rohy vytvoří průhledné rohy, ale střed každé hrany je
+    # neprůhledný, takže getbbox() = celý čtverec a trim projde. Vypadá to
+    # jako app-icon.
     radius = s * 0.20
     draw.rounded_rectangle(
-        (pad, pad, s - pad, s - pad),
+        (0, 0, s - 1, s - 1),
         radius=radius,
         fill=SKY,
         outline=NAVY,
