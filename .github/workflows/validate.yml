@@ -28,3 +28,14 @@ jobs:
           # brands: domén v home-assistant/brands zatím nejsme (PR čeká na
           # submit) — po mergi PR tento ignore odstranit
           ignore: brands
+
+  tests:
+    name: Pytest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install -r requirements-test.txt
+      - run: python -m pytest tests/ -q

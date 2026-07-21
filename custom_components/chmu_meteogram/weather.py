@@ -22,6 +22,7 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
+from . import icons
 from .chmu_client import MeteogramPoint
 from .const import DOMAIN
 from .coordinator import ChmuCoordinator
@@ -141,23 +142,6 @@ class ChmuWeather(CoordinatorEntity[ChmuCoordinator], WeatherEntity):
         self.hass.async_create_task(self.async_update_listeners(("hourly",)))
 
 
-def _condition(p: MeteogramPoint) -> str:
-    """Heuristika ALADIN → HA WeatherCondition."""
-    if p.snow and p.snow > 0:
-        return "snowy"
-    if p.precipitation is not None:
-        if p.precipitation >= 2.0:
-            return "pouring"
-        if p.precipitation >= 0.1:
-            return "rainy"
-    if p.wind_speed and p.wind_speed >= 17:
-        return "windy"
-    if p.clouds is None:
-        return "sunny"
-    if p.clouds >= 80:
-        return "cloudy"
-    if p.clouds >= 30:
-        return "partlycloudy"
-    # Den vs noc — jednoduchá heuristika podle UTC hodiny
-    hour = p.time.astimezone().hour
-    return "sunny" if 6 <= hour <= 20 else "clear-night"
+def _condition(p: MeteogramPoint) -> str | None:
+    """ČHMÚ icon → HA WeatherCondition (den/noc i typ srážek rozliší kód)."""
+    return icons.condition(p.icon, p.precipitation, p.snow)

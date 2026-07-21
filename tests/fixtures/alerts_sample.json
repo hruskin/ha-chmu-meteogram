@@ -1,0 +1,165 @@
+{
+  "sent": "2026-07-17T08:55:57Z",
+  "phenomenon_groups": [
+    {
+      "phenomenon_category": "heat",
+      "area_groups": [
+        {
+          "areas": [
+            {
+              "id": "cz.chmi.region:CZ064",
+              "name": "Jihomoravský kraj",
+              "whole_area": false,
+              "subareas": [
+                {"id": "cz.chmi.orp:6201", "name": "Blansko"},
+                {"id": "cz.chmi.orp:6203", "name": "Brno"}
+              ]
+            }
+          ],
+          "single_alerts": [
+            {
+              "severity": "Moderate",
+              "certainty": "Likely",
+              "phenomenon": "moderate-heat-related-impact",
+              "description": {"cz": "Maximální teploty 30 až 34 °C."},
+              "instruction": {"cz": "Prověřit chlazení."},
+              "t_from": "2026-07-17T09:00:00+00:00",
+              "t_to": "2099-07-17T17:00:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phenomenon_category": "thunderstorms",
+      "area_groups": [
+        {
+          "areas": [
+            {
+              "id": "cz.chmi.region:CZ064",
+              "name": "Jihomoravský kraj",
+              "whole_area": true,
+              "subareas": []
+            },
+            {
+              "id": "cz.chmi.region:CZ090",
+              "name": "Hlavní město Praha",
+              "whole_area": true,
+              "subareas": []
+            }
+          ],
+          "single_alerts": [
+            {
+              "severity": "Severe",
+              "certainty": "Likely",
+              "phenomenon": "severe-thunderstorm-impact",
+              "description": {"cz": "Riziko silných bouřek."},
+              "instruction": {"cz": "Vyhledat úkryt."},
+              "t_from": "2026-07-17T11:00:00+00:00",
+              "t_to": "2099-07-17T22:00:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phenomenon_category": "wind",
+      "area_groups": [
+        {
+          "areas": [
+            {"id": "cz.chmi.region:CZ064", "name": "Jihomoravský kraj", "whole_area": true, "subareas": []}
+          ],
+          "single_alerts": [
+            {
+              "severity": "Minor",
+              "certainty": "Possible",
+              "phenomenon": "no-wind",
+              "description": {"cz": ""},
+              "instruction": {"cz": ""},
+              "t_from": null,
+              "t_to": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phenomenon_category": "rain",
+      "area_groups": [
+        {
+          "areas": [
+            {"id": "cz.chmi.region:CZ064", "name": "Jihomoravský kraj", "whole_area": true, "subareas": []}
+          ],
+          "single_alerts": [
+            {
+              "severity": "Moderate",
+              "certainty": "Likely",
+              "phenomenon": "expired-rain",
+              "description": {"cz": "Déšť, který už skončil."},
+              "instruction": {"cz": ""},
+              "t_from": "2020-01-01T00:00:00+00:00",
+              "t_to": "2020-01-02T00:00:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phenomenon_category": "snow",
+      "area_groups": [
+        {
+          "areas": [
+            {"id": "cz.chmi.region:CZ064", "name": "Jihomoravský kraj", "whole_area": true, "subareas": []}
+          ],
+          "single_alerts": [
+            {
+              "severity": "Moderate",
+              "certainty": "Likely",
+              "phenomenon": "cancelled-snow",
+              "is_cancellation": true,
+              "description": {"cz": "Zrušeno."},
+              "t_from": "2026-07-17T09:00:00+00:00",
+              "t_to": "2099-07-17T17:00:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phenomenon_category": "ozone",
+      "area_groups": [
+        {
+          "areas": [
+            {"id": "cz.chmi.o3:6", "name": "Ozónová oblast", "whole_area": true, "subareas": []}
+          ],
+          "single_alerts": [
+            {
+              "severity": "Severe",
+              "description": {"cz": "Ozon — jiné členění, musí být přeskočeno."},
+              "t_from": "2026-07-17T09:00:00+00:00",
+              "t_to": "2099-07-17T17:00:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phenomenon_category": "outlook",
+      "area_groups": [
+        {
+          "areas": [
+            {"id": "cz.chmi.region:CZ064", "name": "Jihomoravský kraj", "whole_area": true, "subareas": []}
+          ],
+          "single_alerts": [
+            {
+              "severity": "Moderate",
+              "description": {"cz": "Vícedenní výhled — přeskočit."},
+              "t_from": "2026-07-17T09:00:00+00:00",
+              "t_to": "2099-07-17T17:00:00+00:00"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
