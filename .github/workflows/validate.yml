@@ -25,8 +25,9 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
-          # brands: domén v home-assistant/brands zatím nejsme (PR čeká na
-          # submit) — po mergi PR tento ignore odstranit
+          # brands: home-assistant/brands už custom integrace nepřijímá
+          # (od HA 2026.3 dodáváme ikonu lokálně v custom_components/
+          # chmu_meteogram/brand/). Tento ignore je proto trvalý.
           ignore: brands
 
   tests:

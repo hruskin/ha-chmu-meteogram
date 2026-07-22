@@ -1,4 +1,4 @@
-<img src="brands/chmu_meteogram/logo.png" align="right" height="64" alt="logo">
+<img src="custom_components/chmu_meteogram/brand/logo.png" align="right" height="64" alt="logo">
 
 # Počasí ČHMÚ — Meteogram pro Home Assistant
 

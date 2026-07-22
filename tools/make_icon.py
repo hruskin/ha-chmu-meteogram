@@ -19,7 +19,14 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-OUT_DIR = Path(__file__).resolve().parents[1] / "brands" / "chmu_meteogram"
+# HA 2026.3+ čte lokální brand obrázky z custom_components/<domain>/brand/.
+# Brands repo (home-assistant/brands) už custom integrace nepřijímá.
+OUT_DIR = (
+    Path(__file__).resolve().parents[1]
+    / "custom_components"
+    / "chmu_meteogram"
+    / "brand"
+)
 
 # Paleta — neutrální, čitelná, ladí s ČHMÚ ale není to jejich logo
 NAVY = (16, 50, 100, 255)        # rámeček / pozadí
