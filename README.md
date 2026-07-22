@@ -42,8 +42,10 @@ nebo **pojmenované POI** ze seznamu ČHMÚ (571 obcí, 144 lyžařských střed
 
 **Weather entita:**
 - `weather.chmu_<misto>_predpoved` — aktuální podmínky + **hodinový forecast 73 h**
-  (`async_forecast_hourly`) — funguje s nativní HA `weather-forecast` kartou nebo
-  s [Hourly Weather Card](https://github.com/decompil3d/lovelace-hourly-weather)
+  a **denní forecast** (agregace na 3–4 dny: max/min teplota, srážky, vítr).
+  Podmínky (jasno/oblačno/déšť/bouřka, den/noc) se odvozují přímo z ČHMÚ ikony.
+  Funguje s nativní HA `weather-forecast` kartou (hourly i daily) nebo
+  s [Hourly Weather Card](https://github.com/decompil3d/lovelace-hourly-weather).
 
 Každý sensor má v atributech `validity_time`, `forecast_points` (73 = 3 dny po hodině) a `elevation_m`.
 

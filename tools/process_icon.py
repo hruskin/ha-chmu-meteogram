@@ -41,6 +41,23 @@ def _heal_artifact(im: Image.Image) -> Image.Image:
     return Image.fromarray(a)
 
 
+def _recolor_bg(im: Image.Image, to_bg=(38, 108, 188)) -> Image.Image:
+    """Posune tmavě modré pozadí na světlejší (dark_icon pro tmavý režim HA).
+
+    Blenduje podle podobnosti pixelu s původním pozadím → mrak/křivka/sloupce
+    zůstanou, hrany se prolnou bez halo.
+    """
+    a = np.array(im).astype(np.float32)
+    h, w = a.shape[:2]
+    bg = np.median(a[10:200, 10:200, :3].reshape(-1, 3), axis=0)
+    to = np.array(to_bg, np.float32)
+    dist = np.sqrt(((a[..., :3] - bg) ** 2).sum(axis=2))
+    sim = np.clip(1.0 - dist / 90.0, 0.0, 1.0)[..., None]  # 1 = pozadí
+    a[..., :3] += (to - bg) * sim
+    a[..., :3] = np.clip(a[..., :3], 0, 255)
+    return Image.fromarray(a.astype(np.uint8))
+
+
 def _center_square(im: Image.Image) -> Image.Image:
     w, h = im.size
     if w == h:
@@ -67,10 +84,12 @@ def _rounded(im: Image.Image) -> Image.Image:
     return out
 
 
-def load_icon() -> Image.Image:
+def load_icon(dark: bool = False) -> Image.Image:
     im = Image.open(SRC).convert("RGBA")
     im = _center_square(im)
     im = _heal_artifact(im)
+    if dark:
+        im = _recolor_bg(im)
     return _rounded(im)
 
 
@@ -106,6 +125,11 @@ def main() -> int:
     icon_full = load_icon()  # čtverec v původním rozlišení, zaoblený
     icon_full.resize((512, 512), Image.LANCZOS).save(OUT_DIR / "icon@2x.png", optimize=True)
     icon_full.resize((256, 256), Image.LANCZOS).save(OUT_DIR / "icon.png", optimize=True)
+
+    # varianta pro tmavý režim (světlejší pozadí)
+    dark_full = load_icon(dark=True)
+    dark_full.resize((512, 512), Image.LANCZOS).save(OUT_DIR / "dark_icon@2x.png", optimize=True)
+    dark_full.resize((256, 256), Image.LANCZOS).save(OUT_DIR / "dark_icon.png", optimize=True)
 
     logo = make_logo(icon_full, 880, 192)
     logo.save(OUT_DIR / "logo@2x.png", optimize=True)

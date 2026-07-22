@@ -1,9 +1,7 @@
-"""Weather entita — meteogram jako hodinový forecast."""
+"""Weather entita — meteogram jako hodinový i denní forecast."""
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-
-_ONE_HOUR = timedelta(hours=1)
 
 from homeassistant.components.weather import (
     Forecast,
@@ -21,11 +19,14 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.util import dt as dt_util
 
 from . import icons
 from .chmu_client import MeteogramPoint
 from .const import DOMAIN
 from .coordinator import ChmuCoordinator
+
+_ONE_HOUR = timedelta(hours=1)
 
 
 async def async_setup_entry(
@@ -41,7 +42,9 @@ class ChmuWeather(CoordinatorEntity[ChmuCoordinator], WeatherEntity):
     _attr_has_entity_name = True
     _attr_translation_key = "weather"
     _attr_attribution = "Data: ČHMÚ (data-provider.chmi.cz), model ALADIN"
-    _attr_supported_features = WeatherEntityFeature.FORECAST_HOURLY
+    _attr_supported_features = (
+        WeatherEntityFeature.FORECAST_HOURLY | WeatherEntityFeature.FORECAST_DAILY
+    )
 
     _attr_native_temperature_unit = UnitOfTemperature.CELSIUS
     _attr_native_pressure_unit = UnitOfPressure.HPA
@@ -135,11 +138,48 @@ class ChmuWeather(CoordinatorEntity[ChmuCoordinator], WeatherEntity):
             if p.time >= now - _ONE_HOUR
         ]
 
+    async def async_forecast_daily(self) -> list[Forecast] | None:
+        """Agreguje 73 hodinových bodů na denní souhrny (dle lokální TZ)."""
+        m = self.coordinator.data.meteogram if self.coordinator.data else None
+        if not m or not m.points:
+            return None
+
+        # seskup podle lokálního data
+        by_day: dict[object, list[tuple[datetime, MeteogramPoint]]] = {}
+        for p in m.points:
+            local = dt_util.as_local(p.time)
+            by_day.setdefault(local.date(), []).append((local, p))
+
+        out: list[Forecast] = []
+        for _day, items in sorted(by_day.items()):
+            temps = [p.temperature for _, p in items if p.temperature is not None]
+            if not temps:
+                continue
+            # reprezentativní bod = nejblíž 13:00 (denní ikona/vítr)
+            mid_local, mid = min(items, key=lambda it: abs(it[0].hour - 13))
+            precs = [p.precipitation for _, p in items if p.precipitation is not None]
+            winds = [p.wind_speed for _, p in items if p.wind_speed is not None]
+            gusts = [p.wind_gust for _, p in items if p.wind_gust is not None]
+            out.append(
+                Forecast(
+                    datetime=dt_util.start_of_local_day(mid_local).isoformat(),
+                    condition=_condition(mid),
+                    native_temperature=max(temps),
+                    native_templow=min(temps),
+                    native_precipitation=round(sum(precs), 1) if precs else None,
+                    native_wind_speed=round(max(winds), 1) if winds else None,
+                    native_wind_gust_speed=round(max(gusts), 1) if gusts else None,
+                    wind_bearing=mid.wind_direction,
+                    humidity=mid.humidity,
+                )
+            )
+        return out
+
     @callback
     def _handle_coordinator_update(self) -> None:
-        # Trigger update of forecast listeners (HA 2024.4+)
+        # Přepočítat stav + oznámit odběratelům obou typů předpovědi (HA 2024.4+)
         super()._handle_coordinator_update()
-        self.hass.async_create_task(self.async_update_listeners(("hourly",)))
+        self.hass.async_create_task(self.async_update_listeners(("daily", "hourly")))
 
 
 def _condition(p: MeteogramPoint) -> str | None:
