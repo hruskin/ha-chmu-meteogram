@@ -25,6 +25,7 @@ from . import icons
 from .chmu_client import MeteogramPoint
 from .const import DOMAIN
 from .coordinator import ChmuCoordinator
+from .runtime import ChmuRuntime
 
 _ONE_HOUR = timedelta(hours=1)
 
@@ -34,8 +35,8 @@ async def async_setup_entry(
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    coordinator: ChmuCoordinator = hass.data[DOMAIN][entry.entry_id]
-    async_add_entities([ChmuWeather(coordinator, entry.entry_id)])
+    runtime: ChmuRuntime = hass.data[DOMAIN][entry.entry_id]
+    async_add_entities([ChmuWeather(runtime.coordinator, entry.entry_id)])
 
 
 class ChmuWeather(CoordinatorEntity[ChmuCoordinator], WeatherEntity):

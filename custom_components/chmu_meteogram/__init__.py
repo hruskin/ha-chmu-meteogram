@@ -12,6 +12,8 @@ from .const import (
     CONF_ALERTS_ENABLED,
     CONF_LOCATION_ID,
     CONF_MODE,
+    CONF_RADAR_ENABLED,
+    CONF_RADAR_RADIUS,
     DOMAIN,
     MODE_HOME,
     MODE_POI,
@@ -19,6 +21,9 @@ from .const import (
 )
 from .coordinator import ChmuCoordinator
 from .locations import by_id, target_for_point, target_from_poi
+from .radar import DEFAULT_RADIUS_KM, RadarClient
+from .radar_coordinator import ChmuRadarCoordinator
+from .runtime import ChmuRuntime
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -67,7 +72,20 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     )
     await coordinator.async_config_entry_first_refresh()
 
-    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = coordinator
+    radar_coordinator: ChmuRadarCoordinator | None = None
+    if data.get(CONF_RADAR_ENABLED, True):
+        radar_coordinator = ChmuRadarCoordinator(
+            hass=hass,
+            client=RadarClient(session),
+            target=target,
+            radius_km=float(data.get(CONF_RADAR_RADIUS, DEFAULT_RADIUS_KM)),
+        )
+        # Selhání radaru nesmí zablokovat zbytek integrace
+        await radar_coordinator.async_config_entry_first_refresh()
+
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = ChmuRuntime(
+        coordinator=coordinator, radar=radar_coordinator
+    )
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     entry.async_on_unload(entry.add_update_listener(_async_update_listener))
     return True

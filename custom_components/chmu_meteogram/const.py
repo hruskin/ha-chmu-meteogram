@@ -11,6 +11,10 @@ PLATFORMS = ["sensor", "binary_sensor", "weather"]
 CONF_MODE = "mode"  # "home" | "poi"
 CONF_LOCATION_ID = "location_id"  # jen pro mode=poi
 CONF_ALERTS_ENABLED = "alerts_enabled"
+CONF_RADAR_ENABLED = "radar_enabled"
+CONF_RADAR_RADIUS = "radar_radius_km"
+
+DEFAULT_RADAR_SCAN_INTERVAL = timedelta(minutes=5)
 
 MODE_HOME = "home"
 MODE_POI = "poi"

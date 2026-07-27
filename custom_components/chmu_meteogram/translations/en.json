@@ -43,10 +43,14 @@
       "wind_gust":       { "name": "Wind gust" },
       "wind_direction":  { "name": "Wind direction" },
       "cloud_coverage":  { "name": "Cloud coverage" },
-      "snow":            { "name": "Snow" }
+      "snow":            { "name": "Snow" },
+      "rain_starts_in":  { "name": "Rain starts in" },
+      "radar_intensity": { "name": "Radar rain intensity" }
     },
     "binary_sensor": {
-      "alerts": { "name": "ČHMÚ alerts" }
+      "alerts":        { "name": "ČHMÚ alerts" },
+      "raining":       { "name": "Raining" },
+      "rain_expected": { "name": "Rain expected" }
     },
     "weather": {
       "weather": { "name": "Forecast" }

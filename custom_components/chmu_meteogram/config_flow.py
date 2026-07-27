@@ -17,10 +17,13 @@ from .const import (
     CONF_ALERTS_ENABLED,
     CONF_LOCATION_ID,
     CONF_MODE,
+    CONF_RADAR_ENABLED,
+    CONF_RADAR_RADIUS,
     DOMAIN,
     MODE_HOME,
     MODE_POI,
 )
+from .radar import DEFAULT_RADIUS_KM
 from .locations import all_locations, by_id, nearest
 
 
@@ -58,6 +61,7 @@ class ChmuConfigFlow(ConfigFlow, domain=DOMAIN):
     def __init__(self) -> None:
         self._mode: str = MODE_HOME
         self._alerts: bool = True
+        self._radar: bool = True
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -68,6 +72,7 @@ class ChmuConfigFlow(ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             self._mode = user_input[CONF_MODE]
             self._alerts = user_input.get(CONF_ALERTS_ENABLED, True)
+            self._radar = user_input.get(CONF_RADAR_ENABLED, True)
             if self._mode == MODE_HOME:
                 name = self.hass.config.location_name or "Domov"
                 return self.async_create_entry(
@@ -75,6 +80,7 @@ class ChmuConfigFlow(ConfigFlow, domain=DOMAIN):
                     data={
                         CONF_MODE: MODE_HOME,
                         CONF_ALERTS_ENABLED: self._alerts,
+                        CONF_RADAR_ENABLED: self._radar,
                     },
                 )
             return await self.async_step_poi()
@@ -83,6 +89,7 @@ class ChmuConfigFlow(ConfigFlow, domain=DOMAIN):
             {
                 vol.Required(CONF_MODE, default=MODE_HOME): _mode_selector(),
                 vol.Required(CONF_ALERTS_ENABLED, default=True): bool,
+                vol.Required(CONF_RADAR_ENABLED, default=True): bool,
             }
         )
         home_name = self.hass.config.location_name or "Domov"
@@ -146,6 +153,14 @@ class ChmuOptionsFlow(OptionsFlow):
                     CONF_ALERTS_ENABLED,
                     default=current.get(CONF_ALERTS_ENABLED, True),
                 ): bool,
+                vol.Required(
+                    CONF_RADAR_ENABLED,
+                    default=current.get(CONF_RADAR_ENABLED, True),
+                ): bool,
+                vol.Required(
+                    CONF_RADAR_RADIUS,
+                    default=float(current.get(CONF_RADAR_RADIUS, DEFAULT_RADIUS_KM)),
+                ): vol.All(vol.Coerce(float), vol.Range(min=1, max=25)),
             }
         )
         return self.async_show_form(step_id="init", data_schema=schema)

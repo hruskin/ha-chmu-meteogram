@@ -34,6 +34,12 @@ nebo **pojmenované POI** ze seznamu ČHMÚ (571 obcí, 144 lyžařských střed
 - `sensor.chmu_<misto>_oblacnost` — `cloudsTot` (%)
 - `sensor.chmu_<misto>_snih` — `snow` (mm/h)
 
+**Meteoradar** (CZRAD, obnova po 5 min):
+- `binary_sensor.chmu_<misto>_prsi` — prší podle radaru v okolí lokality
+- `binary_sensor.chmu_<misto>_bude_prset` — radarová předpověď hlásí déšť do hodiny
+- `sensor.chmu_<misto>_dest_za` — za kolik minut déšť dorazí (0 = prší, jinak prázdné)
+- `sensor.chmu_<misto>_intenzita_srazek_radar_` — mm/h odvozené z odrazivosti
+
 **Binary sensor:**
 - `binary_sensor.chmu_<misto>_vystrahy_chmu` — aktivní výstrahy **s plnými texty**
   (`description`, `instruction`, závažnost, platnost od/do) pro ORP, ve kterém
@@ -133,6 +139,8 @@ mimo výstrahy je `mdi:shield-check`. Kategorie → název/ikona je v `const.py`
 | Meteogram pro libovolný bod | `https://data-provider.chmi.cz/api/graphs/graf.meteogram?x=<lon>&y=<lat>` |
 | Výstrahy (texty, členěné kraj/ORP) | `https://vystrahy-cr.chmi.cz/data/alerts.json` |
 | Seznam POI (per kategorie) | `https://data-provider.chmi.cz/api/poi/data/map/{obce\|voda\|lyze\|letiste}/4` |
+| Radar — aktuální | `https://opendata.chmi.cz/.../radar/composite/maxz/png/pacz2gmaps3.z_max3d.<YYYYMMDD.HHMM>.0.png` |
+| Radar — předpověď | `https://opendata.chmi.cz/.../radar/composite/fct_maxz/png/pacz2gmaps3.fct_z_max.<YYYYMMDD.HHMM>.ft60s10.tar` |
 | Hranice ORP (offline snapshot) | `https://services.cuzk.gov.cz/shp/stat/epsg-5514/1.zip` — vrstva `ORP_P` |
 
 POI IDs jsou převzaty z mapového komponentu chmi.cz; integrace si vede vlastní snapshot
@@ -144,6 +152,25 @@ Ten endpoint texty výstrah **nevrací** — jen base64 PNG mapu ČR a štítek 
 („Nízký stupeň"). Oficiální web z něj renderuje jen obrázek a větu „Je vydána výstraha".
 Skutečná strukturovaná data (`description.cz`, `instruction.cz`, platnost) jsou
 v `alerts.json` mapy výstrah, členěná po krajích a ORP.
+
+### Jak funguje radar
+
+Radarový kompozit CZRAD je paletové PNG 680×460 (~0,8 km/px). Hlavní mapa je
+výřez `[82:460, 0:597]` — okolo jsou svislé/vodorovné řezy a popisky, které se
+nesmí číst. Paletové indexy **182–195** nesou odrazivost (nižší index = silnější
+echo, `dBZ ≈ 4·(196−index)`, tj. 4–56 dBZ); ostatní indexy jsou rámeček a
+anotace. Intenzita se počítá Marshall-Palmerem (`Z = 200·R^1.6`).
+
+Georeference je ověřená překrytím s hranicemi ORP (viz `tools/`), převod bodu na
+pixel je ve Web Mercatoru. Čte se **okolí** lokality (výchozí poloměr 3 km,
+nastavitelné 1–25 km), protože radar je zrnitý.
+
+PNG se dekóduje čistě v Pythonu přes `zlib` ze standardní knihovny (~1 ms),
+takže integrace ani kvůli radaru nemá žádné závislosti. Předpověď (tar se šesti
+snímky +10…+60 min) se stahuje jen tehdy, když je echo do 60 km — za jasného
+počasí tím odpadne ~100 kB na každou aktualizaci.
+
+Práh pro hlášení deště je 12 dBZ (≈ 0,2 mm/h); slabší echa bývají virga nebo šum.
 
 ### Jak se páruje lokalita s výstrahou
 

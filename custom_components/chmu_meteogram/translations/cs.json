@@ -43,10 +43,14 @@
       "wind_gust":       { "name": "Nárazy větru" },
       "wind_direction":  { "name": "Směr větru" },
       "cloud_coverage":  { "name": "Oblačnost" },
-      "snow":            { "name": "Sníh" }
+      "snow":            { "name": "Sníh" },
+      "rain_starts_in":  { "name": "Déšť za" },
+      "radar_intensity": { "name": "Intenzita srážek (radar)" }
     },
     "binary_sensor": {
-      "alerts": { "name": "Výstrahy ČHMÚ" }
+      "alerts":        { "name": "Výstrahy ČHMÚ" },
+      "raining":       { "name": "Prší" },
+      "rain_expected": { "name": "Bude pršet" }
     },
     "weather": {
       "weather": { "name": "Předpověď" }
