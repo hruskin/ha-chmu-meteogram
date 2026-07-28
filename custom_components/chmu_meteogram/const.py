@@ -5,7 +5,7 @@ from datetime import timedelta
 
 DOMAIN = "chmu_meteogram"
 
-PLATFORMS = ["sensor", "binary_sensor", "weather"]
+PLATFORMS = ["sensor", "binary_sensor", "weather", "image"]
 
 # config keys
 CONF_MODE = "mode"  # "home" | "poi"

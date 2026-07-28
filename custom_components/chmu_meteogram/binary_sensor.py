@@ -160,6 +160,8 @@ class ChmuRainingBinarySensor(_RadarBinary):
                 "dbz": d.now.max_dbz,
                 "mm_h": d.now.rate_mm_h,
                 "coverage": round(d.now.coverage, 2),
+                "trend": d.trend,
+                "ends_in_minutes": d.ends_in,
                 "threshold_dbz": d.threshold_dbz,
             }
         return attrs

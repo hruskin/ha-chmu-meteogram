@@ -60,6 +60,10 @@ DEFAULT_RADIUS_KM = 3.0
 # Bouřka se přesune ~30–50 km/h, takže hodinová předpověď dosáhne zhruba sem.
 SCAN_RADIUS_KM = 60.0
 
+# O kolik dBZ se musí intenzita změnit, aby se to bralo jako trend
+# (škála má krok 4 dBZ, takže menší rozdíl je v šumu kvantizace).
+TREND_DELTA_DBZ = 4.0
+
 FORECAST_STEPS = (10, 20, 30, 40, 50, 60)
 
 
@@ -104,13 +108,16 @@ def px_per_km(lat: float) -> tuple[float, float]:
 # ---------------------------------------------------------------- PNG dekodér
 
 
-def _png_chunks(raw: bytes) -> tuple[int, int, int, bytes, bytes | None]:
-    """Vrátí (šířka, výška, colorType, IDAT, tRNS)."""
+def _png_chunks(
+    raw: bytes,
+) -> tuple[int, int, int, bytes, bytes | None, bytes | None]:
+    """Vrátí (šířka, výška, colorType, IDAT, PLTE, tRNS)."""
     if raw[:8] != b"\x89PNG\r\n\x1a\n":
         raise ValueError("není PNG")
     pos = 8
     width = height = color_type = 0
     idat = bytearray()
+    plte: bytes | None = None
     trns: bytes | None = None
     while pos + 8 <= len(raw):
         length = struct.unpack(">I", raw[pos : pos + 4])[0]
@@ -120,6 +127,8 @@ def _png_chunks(raw: bytes) -> tuple[int, int, int, bytes, bytes | None]:
             width, height, bit_depth, color_type = struct.unpack(">IIBB", data[:10])
             if bit_depth != 8:
                 raise ValueError(f"nepodporovaná bitová hloubka {bit_depth}")
+        elif ctype == b"PLTE":
+            plte = data
         elif ctype == b"IDAT":
             idat += data
         elif ctype == b"tRNS":
@@ -127,7 +136,7 @@ def _png_chunks(raw: bytes) -> tuple[int, int, int, bytes, bytes | None]:
         elif ctype == b"IEND":
             break
         pos += 12 + length
-    return width, height, color_type, bytes(idat), trns
+    return width, height, color_type, bytes(idat), plte, trns
 
 
 def _unfilter(data: bytes, width: int, channels: int, rows_needed: int) -> list[bytes]:
@@ -173,6 +182,8 @@ class RadarFrame:
 
     rows: list[bytes]  # řádky celého snímku (indexy palety)
     channels: int
+    palette: bytes | None = None  # PLTE (768 B) — potřeba pro vykreslení výřezu
+    transparency: bytes | None = None  # tRNS
 
     def index_at(self, x: int, y: int) -> int | None:
         """Paletový index na pozici ve výřezu, None mimo mapu."""
@@ -189,14 +200,157 @@ class RadarFrame:
 
 
 def decode_frame(raw: bytes, rows_needed: int | None = None) -> RadarFrame:
-    width, height, color_type, idat, _ = _png_chunks(raw)
+    width, height, color_type, idat, plte, trns = _png_chunks(raw)
     channels = {0: 1, 2: 3, 3: 1, 4: 2, 6: 4}[color_type]
     if color_type != 3:
         _LOGGER.debug("radarový snímek není paletový (colorType %s)", color_type)
     need = height if rows_needed is None else min(height, rows_needed)
     stride = width * channels
     data = zlib.decompressobj().decompress(idat, (stride + 1) * need + 4096)
-    return RadarFrame(rows=_unfilter(data, width, channels, need), channels=channels)
+    return RadarFrame(
+        rows=_unfilter(data, width, channels, need),
+        channels=channels,
+        palette=plte,
+        transparency=trns,
+    )
+
+
+# ---------------------------------------------------------------- PNG enkodér
+
+
+def _chunk(ctype: bytes, data: bytes) -> bytes:
+    return (
+        struct.pack(">I", len(data))
+        + ctype
+        + data
+        + struct.pack(">I", zlib.crc32(ctype + data) & 0xFFFFFFFF)
+    )
+
+
+def encode_indexed_png(
+    rows: list[bytearray], palette: bytes, transparency: bytes | None
+) -> bytes:
+    """Složí paletové PNG. Filtr 0 (None) — snímky jsou malé a dobře se balí."""
+    height = len(rows)
+    width = len(rows[0]) if height else 0
+    raw = bytearray()
+    for row in rows:
+        raw.append(0)
+        raw += row
+    out = bytearray(b"\x89PNG\r\n\x1a\n")
+    out += _chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 3, 0, 0, 0))
+    out += _chunk(b"PLTE", palette)
+    if transparency:
+        out += _chunk(b"tRNS", transparency)
+    out += _chunk(b"IDAT", zlib.compress(bytes(raw), 9))
+    out += _chunk(b"IEND", b"")
+    return bytes(out)
+
+
+# ------------------------------------------------------------- výřez a marker
+
+# Výchozí velikost náhledu kolem lokality (v pixelech ≈ 0,8 km/px).
+PREVIEW_W, PREVIEW_H = 180, 135
+# Kružnice měřítka kolem polohy
+PREVIEW_RINGS_KM = (25, 50)
+
+# Barvy dokreslené do volných slotů palety
+_MARKER_RGB = (255, 0, 255)  # poloha — výrazná magenta
+_RING_RGB = (150, 150, 150)  # kružnice vzdálenosti
+_BG_RGB = (18, 22, 30)       # podklad místo průhledné (jinak splyne s kartou)
+
+
+def _free_palette_slots(rows: list[bytearray], count: int) -> list[int]:
+    """Najde indexy palety, které se ve výřezu nepoužívají."""
+    used = set()
+    for row in rows:
+        used.update(row)
+    free = [i for i in range(1, 256) if i not in used]
+    if len(free) < count:
+        raise ValueError("v paletě nezbývá místo pro vykreslení")
+    return free[:count]
+
+
+def _set_palette(palette: bytearray, index: int, rgb: tuple[int, int, int]) -> None:
+    palette[index * 3 : index * 3 + 3] = bytes(rgb)
+
+
+def render_preview(
+    frame: RadarFrame,
+    lat: float,
+    lon: float,
+    width: int = PREVIEW_W,
+    height: int = PREVIEW_H,
+) -> bytes | None:
+    """Vyřízne okolí lokality a doplní značku polohy a kružnice vzdálenosti."""
+    if not frame.palette or frame.channels != 1:
+        return None
+
+    cx, cy = latlon_to_px(lat, lon)
+    x0 = int(round(cx)) - width // 2
+    y0 = int(round(cy)) - height // 2
+
+    # Vykreslíme jen skutečná echa. Snímek obsahuje i rámeček, titulek a šedý
+    # roh (indexy mimo echo škálu) — ty do náhledu nepatří.
+    rows: list[bytearray] = []
+    for y in range(y0, y0 + height):
+        row = bytearray(width)
+        for i, x in enumerate(range(x0, x0 + width)):
+            idx = frame.index_at(x, y)
+            row[i] = idx if idx is not None and IDX_MAX_ECHO <= idx <= IDX_MIN_ECHO else 0
+        rows.append(row)
+
+    palette = bytearray(frame.palette.ljust(768, b"\x00"))
+    try:
+        bg_i, ring_i, marker_i = _free_palette_slots(rows, 3)
+    except ValueError:
+        return None
+    _set_palette(palette, bg_i, _BG_RGB)
+    _set_palette(palette, ring_i, _RING_RGB)
+    _set_palette(palette, marker_i, _MARKER_RGB)
+
+    # prázdné plochy dostanou podklad, ať je náhled čitelný na jakékoli kartě
+    for row in rows:
+        for i, v in enumerate(row):
+            if v == 0:
+                row[i] = bg_i
+
+    mx, my = width // 2, height // 2
+    sx, sy = px_per_km(lat)
+    for km in PREVIEW_RINGS_KM:
+        _draw_ellipse(rows, mx, my, km * sx, km * sy, ring_i)
+    _draw_marker(rows, mx, my, marker_i)
+
+    # index 0 se už nikde nevyskytuje, průhlednost není potřeba
+    return encode_indexed_png(rows, bytes(palette), None)
+
+
+def _put(rows: list[bytearray], x: int, y: int, value: int) -> None:
+    if 0 <= y < len(rows) and 0 <= x < len(rows[0]):
+        rows[y][x] = value
+
+
+def _draw_ellipse(
+    rows: list[bytearray], cx: int, cy: int, rx: float, ry: float, value: int
+) -> None:
+    """Tečkovaná elipsa (v pixelech) = kružnice v kilometrech."""
+    if rx < 1 or ry < 1:
+        return
+    steps = max(48, int(4 * (rx + ry)))
+    for i in range(steps):
+        if i % 6 < 3:  # tečkovaně, ať nepřekrývá data
+            continue
+        a = 2 * math.pi * i / steps
+        _put(rows, cx + round(rx * math.cos(a)), cy + round(ry * math.sin(a)), value)
+
+
+def _draw_marker(rows: list[bytearray], cx: int, cy: int, value: int) -> None:
+    """Křížek s mezerou uprostřed — nezakrývá echo přímo nad lokalitou."""
+    for d in range(2, 6):
+        _put(rows, cx + d, cy, value)
+        _put(rows, cx - d, cy, value)
+        _put(rows, cx, cy + d, value)
+        _put(rows, cx, cy - d, value)
 
 
 # ------------------------------------------------------------------- odečet
@@ -267,6 +421,7 @@ class RadarData:
     forecast: list[tuple[int, Sample]]  # (minut dopředu, odečet)
     threshold_dbz: float = DEFAULT_DBZ_THRESHOLD
     forecast_threshold_dbz: float = DEFAULT_FORECAST_DBZ_THRESHOLD
+    preview_png: bytes | None = None
 
     @staticmethod
     def _over(sample: Sample | None, threshold: float) -> bool:
@@ -291,6 +446,47 @@ class RadarData:
     @property
     def rain_expected(self) -> bool:
         return self.starts_in is not None
+
+    @property
+    def ends_in(self) -> int | None:
+        """Za kolik minut déšť ustane.
+
+        Bere první snímek pod prahem, po kterém už se déšť ve zbytku
+        předpovědi nevrátí. None znamená „neprší" nebo „do konce předpovědi
+        neustane".
+        """
+        if not self.raining or not self.forecast:
+            return None
+        for i, (minutes, sample) in enumerate(self.forecast):
+            if self._over(sample, self.threshold_dbz):
+                continue
+            if any(
+                self._over(s, self.threshold_dbz) for _, s in self.forecast[i + 1 :]
+            ):
+                continue  # jen mezera mezi přeháňkami
+            return minutes
+        return None
+
+    @property
+    def trend(self) -> str | None:
+        """Vývoj intenzity v nejbližší půlhodině: rising / falling / steady."""
+        if not self.forecast:
+            return None
+        current = self.now.max_dbz if self.now and self.now.has_echo else 0.0
+        soon = [
+            (s.max_dbz or 0.0) for minutes, s in self.forecast if minutes <= 30
+        ]
+        if not soon:
+            return None
+        peak = max(soon)
+        if current <= 0 and peak <= 0:
+            return None  # sucho, není co hodnotit
+        delta = peak - current
+        if delta >= TREND_DELTA_DBZ:
+            return "rising"
+        if delta <= -TREND_DELTA_DBZ:
+            return "falling"
+        return "steady"
 
 
 class RadarClient:
@@ -321,12 +517,14 @@ class RadarClient:
         with_forecast: bool = True,
         threshold_dbz: float = DEFAULT_DBZ_THRESHOLD,
         forecast_threshold_dbz: float = DEFAULT_FORECAST_DBZ_THRESHOLD,
+        with_preview: bool = True,
     ) -> RadarData:
         now = datetime.now(timezone.utc)
         observed: datetime | None = None
         current: Sample | None = None
         stamp_used: str | None = None
         nearby = False
+        preview: bytes | None = None
 
         for stamp in _stamps(now):
             raw = await self._get(_MAXZ.format(stamp=stamp))
@@ -334,6 +532,11 @@ class RadarClient:
                 continue
             frame = decode_frame(raw)
             current = sample_area(frame, lat, lon, radius_km)
+            if with_preview:
+                try:
+                    preview = render_preview(frame, lat, lon)
+                except Exception as err:  # noqa: BLE001
+                    _LOGGER.debug("náhled radaru se nepodařilo vykreslit: %s", err)
             # Předpověď má smysl stahovat jen když je vůbec co přitáhnout;
             # za bezoblačné situace tím ušetříme ~100 kB na každou aktualizaci.
             nearby = sample_area(frame, lat, lon, SCAN_RADIUS_KM).has_echo
@@ -360,6 +563,7 @@ class RadarClient:
             forecast=forecast,
             threshold_dbz=threshold_dbz,
             forecast_threshold_dbz=forecast_threshold_dbz,
+            preview_png=preview,
         )
 
     def _read_forecast(

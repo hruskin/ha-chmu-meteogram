@@ -71,6 +71,9 @@
       "rain_starts_in": {
         "name": "Rain starts in"
       },
+      "rain_ends_in": {
+        "name": "Rain ends in"
+      },
       "radar_intensity": {
         "name": "Radar rain intensity"
       }
@@ -89,6 +92,11 @@
     "weather": {
       "weather": {
         "name": "Forecast"
+      }
+    },
+    "image": {
+      "radar": {
+        "name": "Weather radar"
       }
     }
   }

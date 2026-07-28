@@ -124,6 +124,7 @@ async def async_setup_entry(
     if runtime.radar:
         entities += [
             ChmuRainStartsSensor(runtime.radar, entry.entry_id),
+            ChmuRainEndsSensor(runtime.radar, entry.entry_id),
             ChmuRadarIntensitySensor(runtime.radar, entry.entry_id),
         ]
     async_add_entities(entities)
@@ -231,6 +232,7 @@ class ChmuRainStartsSensor(_RadarEntity):
         return {
             "radar_time": d.observed_at.isoformat() if d.observed_at else None,
             "raining_now": d.raining,
+            "trend": d.trend,
             "threshold_dbz": d.forecast_threshold_dbz,
             "forecast": {
                 f"+{minutes}min": {
@@ -240,6 +242,37 @@ class ChmuRainStartsSensor(_RadarEntity):
                 }
                 for minutes, s in d.forecast
             },
+            "radius_km": self.coordinator.radius_km,
+            "attribution": "Data: ČHMÚ (opendata.chmi.cz), radar CZRAD",
+        }
+
+
+class ChmuRainEndsSensor(_RadarEntity):
+    """Za kolik minut podle radaru déšť ustane."""
+
+    _attr_translation_key = "rain_ends_in"
+    _attr_icon = "mdi:weather-sunny"
+    _attr_native_unit_of_measurement = UnitOfTime.MINUTES
+    _attr_device_class = SensorDeviceClass.DURATION
+
+    def __init__(self, coordinator: ChmuRadarCoordinator, entry_id: str) -> None:
+        super().__init__(coordinator, entry_id, "rain_ends_in")
+
+    @property
+    def native_value(self) -> int | None:
+        d = self._radar
+        return d.ends_in if d else None
+
+    @property
+    def extra_state_attributes(self) -> dict:
+        d = self._radar
+        if not d:
+            return {}
+        return {
+            "radar_time": d.observed_at.isoformat() if d.observed_at else None,
+            "raining_now": d.raining,
+            "trend": d.trend,
+            "threshold_dbz": d.threshold_dbz,
             "radius_km": self.coordinator.radius_km,
             "attribution": "Data: ČHMÚ (opendata.chmi.cz), radar CZRAD",
         }
@@ -271,6 +304,8 @@ class ChmuRadarIntensitySensor(_RadarEntity):
         return {
             "dbz": d.now.max_dbz,
             "coverage": round(d.now.coverage, 2),
+            "trend": d.trend,
+            "ends_in_minutes": d.ends_in,
             "radar_time": d.observed_at.isoformat() if d.observed_at else None,
             "radius_km": self.coordinator.radius_km,
             "attribution": "Data: ČHMÚ (opendata.chmi.cz), radar CZRAD",

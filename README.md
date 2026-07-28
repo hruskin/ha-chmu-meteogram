@@ -41,7 +41,14 @@ nebo **pojmenované POI** ze seznamu ČHMÚ (571 obcí, 144 lyžařských střed
 - `binary_sensor.chmu_<misto>_prsi` — prší podle radaru v okolí lokality
 - `binary_sensor.chmu_<misto>_bude_prset` — radarová předpověď hlásí déšť do hodiny
 - `sensor.chmu_<misto>_dest_za` — za kolik minut déšť dorazí (0 = prší, jinak prázdné)
+- `sensor.chmu_<misto>_dest_skonci_za` — za kolik minut ustane (prázdné = neprší
+  nebo do hodiny neustane)
 - `sensor.chmu_<misto>_intenzita_srazek_radar_` — mm/h odvozené z odrazivosti
+- `image.chmu_<misto>_meteoradar` — výřez radaru kolem lokality se značkou
+  polohy a kružnicemi 25 a 50 km
+
+Radarové entity nesou v atributu `trend` vývoj na nejbližší půlhodinu:
+`rising` (zesiluje) / `falling` (slábne) / `steady`.
 
 **Binary sensor:**
 - `binary_sensor.chmu_<misto>_vystrahy_chmu` — aktivní výstrahy **s plnými texty**
@@ -200,6 +207,12 @@ Prahy jsou dva a **oba se dají nastavit** (integrace → Konfigurovat):
 Orientační převod: 12 dBZ ≈ 0,2 mm/h · 18 ≈ 0,5 · 28 ≈ 2 · 40 ≈ 10 mm/h (silný déšť).
 Vyšší práh = méně planých hlášení, ale slabý déšť unikne. Aktuálně platný práh
 je vždy v atributu `threshold_dbz` příslušné entity.
+
+Konec deště bere první snímek pod prahem, po kterém se srážky ve zbytku
+předpovědi už nevrátí — krátká pauza mezi přeháňkami se tedy jako konec nepočítá.
+
+Náhled radaru se skládá přímo z paletového snímku (kreslí se jen echa, ne rámeček
+a titulek) a zapisuje se zpět jako PNG opět jen přes `zlib`.
 
 ### Jak se páruje lokalita s výstrahou
 

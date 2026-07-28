@@ -142,6 +142,76 @@ def test_no_rain_expected_when_all_weak():
     assert not d.rain_expected
 
 
+def test_ends_in_first_dry_frame():
+    d = _data(now_dbz=30, forecast=[(10, 30), (20, 20), (30, 4), (40, 0)])
+    assert d.ends_in == 30
+
+
+def test_ends_in_ignores_gap_between_showers():
+    """Krátká pauza mezi přeháňkami není konec deště."""
+    d = _data(now_dbz=30, forecast=[(10, 4), (20, 30), (30, 4), (40, 0)])
+    assert d.ends_in == 30
+
+
+def test_ends_in_none_when_rain_persists():
+    d = _data(now_dbz=30, forecast=[(10, 30), (20, 30), (30, 30)])
+    assert d.ends_in is None
+
+
+def test_ends_in_none_when_not_raining():
+    assert _data(now_dbz=None, forecast=[(10, 0)]).ends_in is None
+
+
+def test_trend_rising_falling_steady():
+    assert _data(now_dbz=12, forecast=[(10, 30), (20, 30)]).trend == "rising"
+    assert _data(now_dbz=40, forecast=[(10, 20), (20, 12)]).trend == "falling"
+    assert _data(now_dbz=20, forecast=[(10, 20), (20, 20)]).trend == "steady"
+
+
+def test_trend_none_when_dry():
+    assert _data(now_dbz=None, forecast=[(10, 0), (20, 0)]).trend is None
+    assert _data(now_dbz=None, forecast=[]).trend is None
+
+
+def test_trend_looks_only_half_hour_ahead():
+    """Déšť za hodinu ještě neznamená, že intenzita roste teď."""
+    d = _data(now_dbz=20, forecast=[(10, 20), (20, 20), (30, 20), (60, 50)])
+    assert d.trend == "steady"
+
+
+def test_encode_decode_indexed_png_roundtrip():
+    palette = bytearray(768)
+    palette[3:6] = b"\xff\x00\xff"
+    rows = [bytearray([0, 1, 1, 0]), bytearray([1, 0, 0, 1])]
+    png = radar.encode_indexed_png([bytearray(r) for r in rows], bytes(palette), None)
+    assert png[:8] == b"\x89PNG\r\n\x1a\n"
+    frame = radar.decode_frame(png)
+    assert [bytes(r) for r in frame.rows] == [bytes(r) for r in rows]
+    assert frame.palette[3:6] == b"\xff\x00\xff"
+
+
+def test_render_preview_marks_position_and_keeps_echo():
+    lat, lon = 50.0, 15.0
+    cx, cy = radar.latlon_to_px(lat, lon)
+    palette = bytearray(768)
+    palette[190 * 3 : 190 * 3 + 3] = b"\x00\xbc\x00"
+    rows = [bytearray(680) for _ in range(460)]
+    # echo přímo nad lokalitou + rámeček, který se do náhledu nesmí dostat
+    rows[radar.CROP_Y0 + round(cy)][radar.CROP_X0 + round(cx)] = 190
+    for x in range(680):
+        rows[radar.CROP_Y0 + round(cy) + 20][x] = 145  # anotace snímku
+    frame = radar.RadarFrame(
+        rows=[bytes(r) for r in rows], channels=1, palette=bytes(palette)
+    )
+    png = radar.render_preview(frame, lat, lon, width=60, height=40)
+    assert png is not None
+    out = radar.decode_frame(png)
+    used = {v for row in out.rows for v in row}
+    assert 190 in used, "echo musí zůstat"
+    assert 145 not in used, "rámeček snímku se nesmí vykreslit"
+    assert len(used) >= 4, "chybí podklad, kružnice nebo značka"
+
+
 def test_stamps_are_five_minute_steps():
     from datetime import datetime, timezone
 

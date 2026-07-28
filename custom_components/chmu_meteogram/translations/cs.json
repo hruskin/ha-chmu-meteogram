@@ -51,6 +51,7 @@
       "cloud_coverage":  { "name": "Oblačnost" },
       "snow":            { "name": "Sníh" },
       "rain_starts_in":  { "name": "Déšť za" },
+      "rain_ends_in":    { "name": "Déšť skončí za" },
       "radar_intensity": { "name": "Intenzita srážek (radar)" }
     },
     "binary_sensor": {
@@ -60,6 +61,9 @@
     },
     "weather": {
       "weather": { "name": "Předpověď" }
+    },
+    "image": {
+      "radar": { "name": "Meteoradar" }
     }
   }
 }
