@@ -170,11 +170,17 @@ takže integrace ani kvůli radaru nemá žádné závislosti. Předpověď (tar
 snímky +10…+60 min) se stahuje jen tehdy, když je echo do 60 km — za jasného
 počasí tím odpadne ~100 kB na každou aktualizaci.
 
-Prahy jsou dva. Pro **„prší teď"** stačí 12 dBZ (≈ 0,2 mm/h) — mrholení sice
-slabé, ale reálně padá. Pro **přicházející déšť** je práh 18 dBZ (≈ 0,5 mm/h),
-protože slabá echa se cestou často rozpustí a hlásila by plané poplachy.
-Ještě slabší signál bývá virga nebo šum. Oba prahy jsou v atributu
-`threshold_dbz` příslušné entity.
+Prahy jsou dva a **oba se dají nastavit** (integrace → Konfigurovat):
+
+| Nastavení | Výchozí | K čemu |
+|---|---|---|
+| Práh pro „Prší" | 12 dBZ (≈ 0,2 mm/h) | mrholení je slabé, ale reálně padá |
+| Práh pro „Bude pršet" | 18 dBZ (≈ 0,5 mm/h) | slabá echa se cestou rozpustí → plané poplachy |
+| Poloměr okolí | 3 km | radar je zrnitý, čte se okolí bodu |
+
+Orientační převod: 12 dBZ ≈ 0,2 mm/h · 18 ≈ 0,5 · 28 ≈ 2 · 40 ≈ 10 mm/h (silný déšť).
+Vyšší práh = méně planých hlášení, ale slabý déšť unikne. Aktuálně platný práh
+je vždy v atributu `threshold_dbz` příslušné entity.
 
 ### Jak se páruje lokalita s výstrahou
 

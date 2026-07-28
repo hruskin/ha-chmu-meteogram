@@ -6,7 +6,8 @@
         "description": "ALADIN has 2.3 km grid resolution, so you get more accurate data for your exact HA `home` coordinates (**{home}**) than for the nearest named municipality.",
         "data": {
           "mode": "Location source",
-          "alerts_enabled": "Fetch ČHMÚ alerts"
+          "alerts_enabled": "Fetch ČHMÚ alerts",
+          "radar_enabled": "Track weather radar (raining / rain expected)"
         }
       },
       "poi": {
@@ -25,10 +26,15 @@
     "step": {
       "init": {
         "title": "ČHMÚ Weather settings",
+        "description": "Thresholds are in dBZ (radar reflectivity). Roughly: 12 dBZ ≈ 0.2 mm/h (drizzle), 18 dBZ ≈ 0.5 mm/h, 28 dBZ ≈ 2 mm/h, 40 dBZ ≈ 10 mm/h (heavy rain). Higher value = fewer false alarms but light rain is missed.",
         "data": {
           "mode": "Location source",
           "location_id": "POI (only used when mode = POI)",
-          "alerts_enabled": "Fetch ČHMÚ alerts"
+          "alerts_enabled": "Fetch ČHMÚ alerts",
+          "radar_enabled": "Track weather radar",
+          "radar_radius_km": "Sampled area radius",
+          "radar_threshold_dbz": "Threshold for “Raining”",
+          "radar_forecast_threshold_dbz": "Threshold for “Rain expected”"
         }
       }
     }

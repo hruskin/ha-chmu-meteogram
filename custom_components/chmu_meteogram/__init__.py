@@ -13,7 +13,9 @@ from .const import (
     CONF_LOCATION_ID,
     CONF_MODE,
     CONF_RADAR_ENABLED,
+    CONF_RADAR_FORECAST_THRESHOLD,
     CONF_RADAR_RADIUS,
+    CONF_RADAR_THRESHOLD,
     DOMAIN,
     MODE_HOME,
     MODE_POI,
@@ -21,7 +23,12 @@ from .const import (
 )
 from .coordinator import ChmuCoordinator
 from .locations import by_id, target_for_point, target_from_poi
-from .radar import DEFAULT_RADIUS_KM, RadarClient
+from .radar import (
+    DEFAULT_DBZ_THRESHOLD,
+    DEFAULT_FORECAST_DBZ_THRESHOLD,
+    DEFAULT_RADIUS_KM,
+    RadarClient,
+)
 from .radar_coordinator import ChmuRadarCoordinator
 from .runtime import ChmuRuntime
 
@@ -79,6 +86,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             client=RadarClient(session),
             target=target,
             radius_km=float(data.get(CONF_RADAR_RADIUS, DEFAULT_RADIUS_KM)),
+            threshold_dbz=float(data.get(CONF_RADAR_THRESHOLD, DEFAULT_DBZ_THRESHOLD)),
+            forecast_threshold_dbz=float(
+                data.get(CONF_RADAR_FORECAST_THRESHOLD, DEFAULT_FORECAST_DBZ_THRESHOLD)
+            ),
         )
         # Selhání radaru nesmí zablokovat zbytek integrace
         await radar_coordinator.async_config_entry_first_refresh()

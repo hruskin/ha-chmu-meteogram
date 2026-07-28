@@ -8,7 +8,13 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 
 from .const import DEFAULT_RADAR_SCAN_INTERVAL, DOMAIN
 from .locations import WeatherTarget
-from .radar import DEFAULT_RADIUS_KM, RadarClient, RadarData
+from .radar import (
+    DEFAULT_DBZ_THRESHOLD,
+    DEFAULT_FORECAST_DBZ_THRESHOLD,
+    DEFAULT_RADIUS_KM,
+    RadarClient,
+    RadarData,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -20,6 +26,8 @@ class ChmuRadarCoordinator(DataUpdateCoordinator[RadarData]):
         client: RadarClient,
         target: WeatherTarget,
         radius_km: float = DEFAULT_RADIUS_KM,
+        threshold_dbz: float = DEFAULT_DBZ_THRESHOLD,
+        forecast_threshold_dbz: float = DEFAULT_FORECAST_DBZ_THRESHOLD,
     ) -> None:
         super().__init__(
             hass,
@@ -30,11 +38,17 @@ class ChmuRadarCoordinator(DataUpdateCoordinator[RadarData]):
         self._client = client
         self.target = target
         self.radius_km = radius_km
+        self.threshold_dbz = threshold_dbz
+        self.forecast_threshold_dbz = forecast_threshold_dbz
 
     async def _async_update_data(self) -> RadarData:
         try:
             return await self._client.fetch(
-                self.target.lat, self.target.lon, radius_km=self.radius_km
+                self.target.lat,
+                self.target.lon,
+                radius_km=self.radius_km,
+                threshold_dbz=self.threshold_dbz,
+                forecast_threshold_dbz=self.forecast_threshold_dbz,
             )
         except Exception as err:  # noqa: BLE001
             raise UpdateFailed(f"Radar: {err}") from err

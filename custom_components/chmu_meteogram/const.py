@@ -13,6 +13,8 @@ CONF_LOCATION_ID = "location_id"  # jen pro mode=poi
 CONF_ALERTS_ENABLED = "alerts_enabled"
 CONF_RADAR_ENABLED = "radar_enabled"
 CONF_RADAR_RADIUS = "radar_radius_km"
+CONF_RADAR_THRESHOLD = "radar_threshold_dbz"
+CONF_RADAR_FORECAST_THRESHOLD = "radar_forecast_threshold_dbz"
 
 DEFAULT_RADAR_SCAN_INTERVAL = timedelta(minutes=5)
 

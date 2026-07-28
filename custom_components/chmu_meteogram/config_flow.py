@@ -7,6 +7,9 @@ import voluptuous as vol
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult, OptionsFlow
 from homeassistant.core import callback
 from homeassistant.helpers.selector import (
+    NumberSelector,
+    NumberSelectorConfig,
+    NumberSelectorMode,
     SelectOptionDict,
     SelectSelector,
     SelectSelectorConfig,
@@ -18,13 +21,31 @@ from .const import (
     CONF_LOCATION_ID,
     CONF_MODE,
     CONF_RADAR_ENABLED,
+    CONF_RADAR_FORECAST_THRESHOLD,
     CONF_RADAR_RADIUS,
+    CONF_RADAR_THRESHOLD,
     DOMAIN,
     MODE_HOME,
     MODE_POI,
 )
-from .radar import DEFAULT_RADIUS_KM
+from .radar import (
+    DEFAULT_DBZ_THRESHOLD,
+    DEFAULT_FORECAST_DBZ_THRESHOLD,
+    DEFAULT_RADIUS_KM,
+)
 from .locations import all_locations, by_id, nearest
+
+
+def _number(minimum: float, maximum: float, step: float, unit: str) -> NumberSelector:
+    return NumberSelector(
+        NumberSelectorConfig(
+            min=minimum,
+            max=maximum,
+            step=step,
+            mode=NumberSelectorMode.SLIDER,
+            unit_of_measurement=unit,
+        )
+    )
 
 
 def _mode_selector() -> SelectSelector:
@@ -160,7 +181,19 @@ class ChmuOptionsFlow(OptionsFlow):
                 vol.Required(
                     CONF_RADAR_RADIUS,
                     default=float(current.get(CONF_RADAR_RADIUS, DEFAULT_RADIUS_KM)),
-                ): vol.All(vol.Coerce(float), vol.Range(min=1, max=25)),
+                ): _number(1, 25, 0.5, "km"),
+                vol.Required(
+                    CONF_RADAR_THRESHOLD,
+                    default=float(current.get(CONF_RADAR_THRESHOLD, DEFAULT_DBZ_THRESHOLD)),
+                ): _number(4, 40, 1, "dBZ"),
+                vol.Required(
+                    CONF_RADAR_FORECAST_THRESHOLD,
+                    default=float(
+                        current.get(
+                            CONF_RADAR_FORECAST_THRESHOLD, DEFAULT_FORECAST_DBZ_THRESHOLD
+                        )
+                    ),
+                ): _number(4, 40, 1, "dBZ"),
             }
         )
         return self.async_show_form(step_id="init", data_schema=schema)

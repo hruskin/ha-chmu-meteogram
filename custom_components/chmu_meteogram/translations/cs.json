@@ -6,7 +6,8 @@
         "description": "ALADIN má rozlišení 2,3 km, takže přesnější data dostaneš pro tvoje souřadnice (HA `home`: **{home}**), než když vybereš nejbližší obec.",
         "data": {
           "mode": "Zdroj lokality",
-          "alerts_enabled": "Stahovat výstrahy ČHMÚ"
+          "alerts_enabled": "Stahovat výstrahy ČHMÚ",
+          "radar_enabled": "Sledovat meteoradar (prší / bude pršet)"
         }
       },
       "poi": {
@@ -25,10 +26,15 @@
     "step": {
       "init": {
         "title": "Nastavení Počasí ČHMÚ",
+        "description": "Prahy jsou v dBZ (odrazivost radaru). Orientačně: 12 dBZ ≈ 0,2 mm/h (mrholení), 18 dBZ ≈ 0,5 mm/h, 28 dBZ ≈ 2 mm/h, 40 dBZ ≈ 10 mm/h (silný déšť). Vyšší hodnota = méně planých hlášení, ale slabý déšť unikne.",
         "data": {
           "mode": "Zdroj lokality",
           "location_id": "POI (jen pro režim POI)",
-          "alerts_enabled": "Stahovat výstrahy ČHMÚ"
+          "alerts_enabled": "Stahovat výstrahy ČHMÚ",
+          "radar_enabled": "Sledovat meteoradar",
+          "radar_radius_km": "Poloměr sledovaného okolí",
+          "radar_threshold_dbz": "Práh pro „Prší“",
+          "radar_forecast_threshold_dbz": "Práh pro „Bude pršet“"
         }
       }
     }
