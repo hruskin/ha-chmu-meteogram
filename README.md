@@ -22,7 +22,7 @@ ne pro celou republiku.
 **🌧️ Meteoradar — prší / bude pršet**
 Obnovuje se po 5 minutách a odpoví na to nejpraktičtější: *prší u nás teď?*
 a *za jak dlouho začne, případně přestane?* Ideální pro automatizace typu
-„zavři okna, než přijde déšť".
+„zavři okna, než přijde déšť". V zimě zachytí i sněžení.
 
 ## Instalace
 
@@ -51,12 +51,12 @@ Později můžete v **Konfigurovat** doladit meteoradar:
 | Volba | Výchozí | Co dělá |
 |---|---|---|
 | Poloměr sledovaného okolí | 3 km | Jak velké okolí se kolem vás sleduje |
-| Práh pro „Prší" | 12 dBZ | Citlivost na aktuální déšť (≈ mrholení) |
-| Práh pro „Bude pršet" | 18 dBZ | Citlivost předpovědi (≈ slabý déšť) |
+| Práh pro „Prší" | 12 dBZ | Citlivost na aktuální srážky (≈ mrholení) |
+| Práh pro „Bude pršet" | 18 dBZ | Citlivost předpovědi (≈ slabé srážky) |
 
 > **Tip:** Když vám „Bude pršet" hlásí plané poplachy, zvyšte práh na 22–24 dBZ.
 > Naopak když vám utíkají přeháňky, snižte na 14–16.
-> Orientačně: 12 dBZ ≈ mrholení · 28 dBZ ≈ vydatný déšť · 40 dBZ ≈ liják.
+> Orientačně: 12 dBZ ≈ mrholení · 28 dBZ ≈ vydatné srážky · 40 dBZ ≈ liják.
 
 ## Co dostanete
 
@@ -77,11 +77,11 @@ Vše je pod jedním zařízením **ČHMÚ &lt;místo&gt;**.
 ### Meteoradar
 | Entita | Popis |
 |---|---|
-| `binary_sensor.…_prsi` | Prší právě teď ve vašem okolí |
-| `binary_sensor.…_bude_prset` | Déšť se blíží (do hodiny) |
-| `sensor.…_dest_za` | Za kolik minut začne pršet |
-| `sensor.…_dest_skonci_za` | Za kolik minut přestane |
-| `sensor.…_intenzita_deste` | Jak silně prší (mm/h) |
+| `binary_sensor.…_prsi` | Ve vašem okolí právě padají srážky |
+| `binary_sensor.…_bude_prset` | Srážky se blíží (do hodiny) |
+| `sensor.…_dest_za` | Za kolik minut začnou |
+| `sensor.…_dest_skonci_za` | Za kolik minut přestanou |
+| `sensor.…_intenzita_srazek` | Jak silně prší nebo sněží (mm/h) |
 | `image.…_meteoradar` | Radarový snímek okolí se značkou vaší polohy |
 
 ### Výstrahy
@@ -116,7 +116,7 @@ entities:
   - binary_sensor.chmu_home_prsi
   - sensor.chmu_home_dest_za
   - sensor.chmu_home_dest_skonci_za
-  - sensor.chmu_home_intenzita_deste
+  - sensor.chmu_home_intenzita_srazek
 ```
 
 **Výstrahy s texty:**
@@ -183,9 +183,14 @@ conditions:
 **Jak často se data obnovují?**
 Radar po 5 minutách, předpověď a výstrahy po 30 minutách.
 
-**Radar hlásí déšť, ale venku nic (nebo naopak).**
+**Radar hlásí srážky, ale venku nic (nebo naopak).**
 Radar měří srážky ve výšce — část se cestou k zemi vypaří, jindy prší jen kousek
 vedle. Pomůže doladit poloměr a prahy v nastavení (viz výše).
+
+**Rozliší radar déšť od sněhu?**
+Ne — měří jen intenzitu srážek, ne jejich druh. Proto entity mluví o dešti,
+i když v zimě jde o sněžení. Typ srážek napoví předpověď
+(`sensor.…_snih`) nebo teplota.
 
 **Předpověď se liší od aplikace Počasí ČHMÚ.**
 Data jsou stejná. Aplikace ale ukazuje předpověď pro vybrané město, kdežto tady
