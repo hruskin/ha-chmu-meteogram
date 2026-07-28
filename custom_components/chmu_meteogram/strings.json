@@ -83,10 +83,18 @@
         "name": "ČHMÚ alerts"
       },
       "raining": {
-        "name": "Raining"
+        "name": "Raining",
+        "state": {
+          "off": "No",
+          "on": "Yes"
+        }
       },
       "rain_expected": {
-        "name": "Rain expected"
+        "name": "Rain expected",
+        "state": {
+          "off": "No",
+          "on": "Yes"
+        }
       }
     },
     "weather": {

@@ -134,10 +134,13 @@ class _RadarBinary(CoordinatorEntity[ChmuRadarCoordinator], BinarySensorEntity):
 
 
 class ChmuRainingBinarySensor(_RadarBinary):
-    """Prší podle radaru v okolí lokality."""
+    """Prší podle radaru v okolí lokality.
+
+    Bez device_class: `moisture` by stav zobrazoval jako „Vlhko / Sucho", což
+    patří senzoru zatopení. Bez ní si stavy pojmenujeme sami v překladech.
+    """
 
     _attr_translation_key = "raining"
-    _attr_device_class = BinarySensorDeviceClass.MOISTURE
 
     def __init__(self, coordinator: ChmuRadarCoordinator, entry_id: str) -> None:
         super().__init__(coordinator, entry_id, "raining")
@@ -168,10 +171,9 @@ class ChmuRainingBinarySensor(_RadarBinary):
 
 
 class ChmuRainExpectedBinarySensor(_RadarBinary):
-    """Radarová předpověď hlásí déšť během následující hodiny."""
+    """Radarová předpověď hlásí srážky během následující hodiny."""
 
     _attr_translation_key = "rain_expected"
-    _attr_device_class = BinarySensorDeviceClass.MOISTURE
 
     def __init__(self, coordinator: ChmuRadarCoordinator, entry_id: str) -> None:
         super().__init__(coordinator, entry_id, "rain_expected")

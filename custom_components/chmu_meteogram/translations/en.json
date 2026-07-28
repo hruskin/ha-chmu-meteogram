@@ -55,9 +55,15 @@
       "radar_intensity": { "name": "Precipitation intensity" }
     },
     "binary_sensor": {
-      "alerts":        { "name": "ČHMÚ alerts" },
-      "raining":       { "name": "Raining" },
-      "rain_expected": { "name": "Rain expected" }
+      "alerts": { "name": "ČHMÚ alerts" },
+      "raining": {
+        "name": "Raining",
+        "state": { "off": "No", "on": "Yes" }
+      },
+      "rain_expected": {
+        "name": "Rain expected",
+        "state": { "off": "No", "on": "Yes" }
+      }
     },
     "weather": {
       "weather": { "name": "Forecast" }

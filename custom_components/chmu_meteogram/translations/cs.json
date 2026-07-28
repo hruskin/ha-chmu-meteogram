@@ -55,9 +55,15 @@
       "radar_intensity": { "name": "Intenzita srážek" }
     },
     "binary_sensor": {
-      "alerts":        { "name": "Výstrahy ČHMÚ" },
-      "raining":       { "name": "Prší" },
-      "rain_expected": { "name": "Bude pršet" }
+      "alerts": { "name": "Výstrahy ČHMÚ" },
+      "raining": {
+        "name": "Prší",
+        "state": { "off": "Ne", "on": "Ano" }
+      },
+      "rain_expected": {
+        "name": "Bude pršet",
+        "state": { "off": "Ne", "on": "Ano" }
+      }
     },
     "weather": {
       "weather": { "name": "Předpověď" }
