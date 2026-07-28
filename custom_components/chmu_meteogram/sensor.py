@@ -231,6 +231,7 @@ class ChmuRainStartsSensor(_RadarEntity):
         return {
             "radar_time": d.observed_at.isoformat() if d.observed_at else None,
             "raining_now": d.raining,
+            "threshold_dbz": d.forecast_threshold_dbz,
             "forecast": {
                 f"+{minutes}min": {
                     "dbz": s.max_dbz,

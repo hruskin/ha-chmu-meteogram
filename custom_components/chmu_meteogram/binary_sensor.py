@@ -160,6 +160,7 @@ class ChmuRainingBinarySensor(_RadarBinary):
                 "dbz": d.now.max_dbz,
                 "mm_h": d.now.rate_mm_h,
                 "coverage": round(d.now.coverage, 2),
+                "threshold_dbz": d.threshold_dbz,
             }
         return attrs
 
@@ -190,6 +191,7 @@ class ChmuRainExpectedBinarySensor(_RadarBinary):
             attrs |= {
                 "starts_in_minutes": d.starts_in,
                 "raining_now": d.raining,
+                "threshold_dbz": d.forecast_threshold_dbz,
                 "forecast": {
                     f"+{m}min": {"dbz": s.max_dbz, "mm_h": s.rate_mm_h}
                     for m, s in d.forecast

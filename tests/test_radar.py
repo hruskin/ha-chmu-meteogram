@@ -90,7 +90,7 @@ def test_sample_area_ignores_annotation_indices():
         assert not s.has_echo, f"index {junk} nesmí být brán jako srážky"
 
 
-def _data(now_dbz=None, forecast=(), threshold=12):
+def _data(now_dbz=None, forecast=(), threshold=None, fc_threshold=None):
     def mk(d):
         return radar.Sample(d, radar.rain_rate(d) if d else None, 1.0 if d else 0.0)
 
@@ -98,18 +98,36 @@ def _data(now_dbz=None, forecast=(), threshold=12):
         observed_at=None,
         now=mk(now_dbz),
         forecast=[(m, mk(d)) for m, d in forecast],
-        threshold_dbz=threshold,
+        threshold_dbz=threshold if threshold is not None else radar.DEFAULT_DBZ_THRESHOLD,
+        forecast_threshold_dbz=(
+            fc_threshold if fc_threshold is not None else radar.DEFAULT_FORECAST_DBZ_THRESHOLD
+        ),
     )
+
+
+def test_default_thresholds():
+    """Předpověď je přísnější — slabá echa se cestou rozpustí."""
+    assert radar.DEFAULT_DBZ_THRESHOLD == 12
+    assert radar.DEFAULT_FORECAST_DBZ_THRESHOLD == 18
 
 
 def test_raining_respects_threshold():
     assert _data(now_dbz=20).raining
+    assert _data(now_dbz=12).raining         # mrholení, ale reálně padá
     assert not _data(now_dbz=8).raining      # pod prahem = virga/šum
     assert not _data(now_dbz=None).raining
 
 
+def test_forecast_uses_stricter_threshold():
+    """Echo 12–17 dBZ stačí na „prší", ale ne na hlášení příchozího deště."""
+    d = _data(now_dbz=None, forecast=[(10, 14), (20, 16)])
+    assert d.starts_in is None
+    assert not d.rain_expected
+    assert _data(now_dbz=14).raining
+
+
 def test_starts_in_picks_first_over_threshold():
-    d = _data(now_dbz=None, forecast=[(10, 4), (20, 8), (30, 30), (40, 40)])
+    d = _data(now_dbz=None, forecast=[(10, 4), (20, 16), (30, 30), (40, 40)])
     assert d.starts_in == 30
     assert d.rain_expected
 

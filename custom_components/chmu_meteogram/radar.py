@@ -50,7 +50,10 @@ IDX_MAX_ECHO, IDX_MIN_ECHO = 182, 195
 _DBZ_STEP = 4  # dBZ = 4 × (196 − index) → 4…56 dBZ
 
 # Slabá echa bývají virga nebo šum — pod tímto prahem neohlásíme déšť.
-DEFAULT_DBZ_THRESHOLD = 12  # ≈ 0,2 mm/h
+DEFAULT_DBZ_THRESHOLD = 12  # ≈ 0,2 mm/h — mrholení, které ale reálně padá
+# Pro předpověď je práh vyšší: slabá echa se cestou často rozpustí, takže by
+# hlásila plané poplachy.
+DEFAULT_FORECAST_DBZ_THRESHOLD = 18  # ≈ 0,5 mm/h
 DEFAULT_RADIUS_KM = 3.0
 
 # Okruh, ve kterém hledáme echa, než se vyplatí stahovat předpověď.
@@ -263,21 +266,25 @@ class RadarData:
     now: Sample | None
     forecast: list[tuple[int, Sample]]  # (minut dopředu, odečet)
     threshold_dbz: float = DEFAULT_DBZ_THRESHOLD
+    forecast_threshold_dbz: float = DEFAULT_FORECAST_DBZ_THRESHOLD
 
-    def _over(self, sample: Sample | None) -> bool:
-        return bool(sample and sample.max_dbz is not None and sample.max_dbz >= self.threshold_dbz)
+    @staticmethod
+    def _over(sample: Sample | None, threshold: float) -> bool:
+        return bool(
+            sample and sample.max_dbz is not None and sample.max_dbz >= threshold
+        )
 
     @property
     def raining(self) -> bool:
-        return self._over(self.now)
+        return self._over(self.now, self.threshold_dbz)
 
     @property
     def starts_in(self) -> int | None:
-        """Za kolik minut dorazí déšť; None když se nečeká (nebo už prší)."""
+        """Za kolik minut dorazí déšť; None když se nečeká (0 = prší už teď)."""
         if self.raining:
             return 0
         for minutes, sample in self.forecast:
-            if self._over(sample):
+            if self._over(sample, self.forecast_threshold_dbz):
                 return minutes
         return None
 
@@ -313,6 +320,7 @@ class RadarClient:
         radius_km: float = DEFAULT_RADIUS_KM,
         with_forecast: bool = True,
         threshold_dbz: float = DEFAULT_DBZ_THRESHOLD,
+        forecast_threshold_dbz: float = DEFAULT_FORECAST_DBZ_THRESHOLD,
     ) -> RadarData:
         now = datetime.now(timezone.utc)
         observed: datetime | None = None
@@ -351,6 +359,7 @@ class RadarClient:
             now=current,
             forecast=forecast,
             threshold_dbz=threshold_dbz,
+            forecast_threshold_dbz=forecast_threshold_dbz,
         )
 
     def _read_forecast(
