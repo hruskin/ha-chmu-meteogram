@@ -212,6 +212,45 @@ def test_render_preview_marks_position_and_keeps_echo():
     assert len(used) >= 4, "chybí podklad, kružnice nebo značka"
 
 
+def _png_with_ihdr(width, height, bit_depth=8, color_type=3):
+    """Minimální PNG jen s IHDR — pro test validace hlavičky."""
+    import struct
+    import zlib
+
+    ihdr = struct.pack(">IIBBBBB", width, height, bit_depth, color_type, 0, 0, 0)
+    chunk = (
+        struct.pack(">I", len(ihdr))
+        + b"IHDR"
+        + ihdr
+        + struct.pack(">I", zlib.crc32(b"IHDR" + ihdr) & 0xFFFFFFFF)
+    )
+    return b"\x89PNG\r\n\x1a\n" + chunk
+
+
+@pytest.mark.parametrize("w,h", [(100000, 100000), (0, 10), (10, 0), (2**31, 8)])
+def test_rejects_absurd_png_dimensions(w, h):
+    """Podvržený IHDR nesmí vést k alokaci obřího řádku."""
+    with pytest.raises(ValueError):
+        radar.decode_frame(_png_with_ihdr(w, h))
+
+
+def test_rejects_unsupported_bit_depth():
+    with pytest.raises(ValueError):
+        radar.decode_frame(_png_with_ihdr(100, 100, bit_depth=16))
+
+
+def test_rejects_non_png_data():
+    with pytest.raises(ValueError):
+        radar.decode_frame(b"not a PNG at all" * 10)
+
+
+def test_tar_limits_are_sane():
+    """Limity musí být nad reálnými daty (6 snímků po ~25 kB)."""
+    assert radar.MAX_TAR_MEMBERS >= 8
+    assert radar.MAX_TAR_MEMBER_BYTES >= 512 * 1024
+    assert radar.MAX_IMAGE_DIM >= 1024
+
+
 def test_stamps_are_five_minute_steps():
     from datetime import datetime, timezone
 

@@ -1,4 +1,5 @@
 # Závislosti pro spuštění testů (pytest tests/).
 # Integrace samotná nemá žádné requirements — tyto jsou jen pro testy.
 pytest>=8.0
+pytest-asyncio>=0.23
 aiohttp>=3.9

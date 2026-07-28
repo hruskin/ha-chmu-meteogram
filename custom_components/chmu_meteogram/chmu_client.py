@@ -1,6 +1,7 @@
 """HTTP klient pro data ČHMÚ (JSON meteogram + výstrahy)."""
 from __future__ import annotations
 
+import json
 import logging
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -22,6 +23,7 @@ from .const import (
     USER_AGENT,
 )
 from .locations import WeatherTarget
+from .net import read_limited
 
 _LOGGER = logging.getLogger(__name__)
 _TIMEOUT = ClientTimeout(total=20)
@@ -142,7 +144,7 @@ class ChmuClient:
             url, params=params, headers=self._headers, timeout=_TIMEOUT
         ) as resp:
             resp.raise_for_status()
-            payload = await resp.json(content_type=None)
+            payload = json.loads(await read_limited(resp))
         points = [MeteogramPoint.from_api(item) for item in payload.get("data", [])]
         return Meteogram(
             points=points,
@@ -162,7 +164,7 @@ class ChmuClient:
             ALERTS_URL, headers=self._headers, timeout=_TIMEOUT
         ) as resp:
             resp.raise_for_status()
-            payload = await resp.json(content_type=None)
+            payload = json.loads(await read_limited(resp))
 
         return _match_alerts(payload, found)
 

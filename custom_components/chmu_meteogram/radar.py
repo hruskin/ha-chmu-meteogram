@@ -28,6 +28,7 @@ from datetime import datetime, timedelta, timezone
 from aiohttp import ClientSession, ClientTimeout
 
 from .const import USER_AGENT
+from .net import read_limited
 
 _LOGGER = logging.getLogger(__name__)
 _TIMEOUT = ClientTimeout(total=30)
@@ -63,6 +64,11 @@ SCAN_RADIUS_KM = 60.0
 # O kolik dBZ se musí intenzita změnit, aby se to bralo jako trend
 # (škála má krok 4 dBZ, takže menší rozdíl je v šumu kvantizace).
 TREND_DELTA_DBZ = 4.0
+
+# Pojistky proti nečekaně velkým datům (snímek je 680×460, tar má 6 souborů).
+MAX_IMAGE_DIM = 4096
+MAX_TAR_MEMBERS = 32
+MAX_TAR_MEMBER_BYTES = 4 * 1024 * 1024
 
 FORECAST_STEPS = (10, 20, 30, 40, 50, 60)
 
@@ -127,6 +133,10 @@ def _png_chunks(
             width, height, bit_depth, color_type = struct.unpack(">IIBB", data[:10])
             if bit_depth != 8:
                 raise ValueError(f"nepodporovaná bitová hloubka {bit_depth}")
+            # Rozměry jsou v hlavičce 32bitové. Bez kontroly by stačil
+            # podvržený IHDR a alokace řádku by spolkla gigabajty.
+            if not (0 < width <= MAX_IMAGE_DIM and 0 < height <= MAX_IMAGE_DIM):
+                raise ValueError(f"nepřijatelné rozměry snímku {width}×{height}")
         elif ctype == b"PLTE":
             plte = data
         elif ctype == b"IDAT":
@@ -504,7 +514,7 @@ class RadarClient:
                 if resp.status == 404:
                     return None
                 resp.raise_for_status()
-                return await resp.read()
+                return await read_limited(resp)
         except Exception as err:  # noqa: BLE001
             _LOGGER.debug("radar %s: %s", url, err)
             return None
@@ -572,8 +582,16 @@ class RadarClient:
         out: list[tuple[int, Sample]] = []
         try:
             with tarfile.open(fileobj=io.BytesIO(raw)) as tar:
-                for member in tar.getmembers():
+                # Archiv se nikdy nerozbaluje na disk — čte se jen do paměti,
+                # takže na názvech souborů (".." apod.) nezáleží. Omezíme ale
+                # jejich počet i velikost, aby archiv nešel zneužít k zahlcení.
+                for member in tar.getmembers()[:MAX_TAR_MEMBERS]:
                     if not member.isfile() or not member.name.endswith(".png"):
+                        continue
+                    if member.size > MAX_TAR_MEMBER_BYTES:
+                        _LOGGER.debug(
+                            "přeskakuji %s: %d B nad limitem", member.name, member.size
+                        )
                         continue
                     # …fct_z_max.YYYYMMDD.HHMM.<offset>.png
                     parts = member.name.rsplit("/", 1)[-1].split(".")
@@ -584,7 +602,10 @@ class RadarClient:
                     handle = tar.extractfile(member)
                     if handle is None:
                         continue
-                    frame = decode_frame(handle.read())
+                    payload = handle.read(MAX_TAR_MEMBER_BYTES + 1)
+                    if len(payload) > MAX_TAR_MEMBER_BYTES:
+                        continue  # deklarovaná velikost lhala
+                    frame = decode_frame(payload)
                     out.append((minutes, sample_area(frame, lat, lon, radius_km)))
         except (tarfile.TarError, ValueError, zlib.error) as err:
             _LOGGER.debug("radarová předpověď: %s", err)

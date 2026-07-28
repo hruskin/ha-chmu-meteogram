@@ -224,6 +224,27 @@ Hranice obnovíš přes `tools/fetch_orp_boundaries.py` (viz `requirements-dev.t
 
 Pozn.: RÚIAN uvádí Prahu jako NUTS3 `CZ010`, ČHMÚ používá `CZ090` — skript to přemapuje.
 
+## Bezpečnost
+
+Integrace jen **čte** veřejná data ČHMÚ přes HTTPS — neposílá nikam žádné
+přihlašovací údaje ani osobní data (kromě souřadnic v dotazu, což je nutné) a
+nic nezapisuje na disk mimo vlastní adresář.
+
+Protože si data parsuje vlastními parsery (PNG, tar), má pojistky proti tomu,
+aby nečekaně velká odpověď vyčerpala paměť Home Assistantu:
+
+| Pojistka | Limit |
+|---|---|
+| Velikost odpovědi | 8 MB (reálně ≤ 110 kB) |
+| Rozměry snímku z hlavičky PNG | 4096 px (reálně 680×460) |
+| Počet souborů v archivu předpovědi | 32 (reálně 6) |
+| Velikost jednoho souboru v archivu | 4 MB (reálně ~25 kB) |
+| Dekomprese zlib | omezená očekávanou velikostí obrázku |
+| Časový limit dotazu | 20 s / 30 s |
+
+Archiv s předpovědí se nikdy nerozbaluje na disk, čte se jen do paměti —
+podvržené cesty v názvech (`../`) proto nemají kam uškodit.
+
 ## Disclaimer
 
 Projekt není přidružen k ČHMÚ ani jím sponzorován. Data jsou veřejně dostupná.
