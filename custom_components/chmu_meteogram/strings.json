@@ -75,7 +75,7 @@
         "name": "Rain ends in"
       },
       "radar_intensity": {
-        "name": "Radar rain intensity"
+        "name": "Rain intensity"
       }
     },
     "binary_sensor": {

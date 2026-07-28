@@ -52,7 +52,7 @@
       "snow":            { "name": "Snow" },
       "rain_starts_in":  { "name": "Rain starts in" },
       "rain_ends_in":    { "name": "Rain ends in" },
-      "radar_intensity": { "name": "Radar rain intensity" }
+      "radar_intensity": { "name": "Rain intensity" }
     },
     "binary_sensor": {
       "alerts":        { "name": "ČHMÚ alerts" },

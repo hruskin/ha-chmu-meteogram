@@ -1,255 +1,210 @@
 <img src="custom_components/chmu_meteogram/brand/logo.png" align="right" height="64" alt="logo">
 
-# Počasí ČHMÚ — Meteogram pro Home Assistant
+# Počasí ČHMÚ pro Home Assistant
 
-Neoficiální custom integrace pro Home Assistant nad veřejnými daty Českého
-hydrometeorologického ústavu (ČHMÚ). Pro tvoje souřadnice (výchozí je zóna
-`home`) poskytuje:
+Předpověď počasí, výstrahy a meteoradar Českého hydrometeorologického ústavu
+přímo ve vašem Home Assistantu — pro vaši adresu, ne pro nejbližší velké město.
 
-- **meteogram modelu ALADIN** — hodinová i denní předpověď na 3 dny
-- **výstrahy ČHMÚ** s plnými texty, spárované přes hranice ORP
-- **meteoradar CZRAD** — prší teď / bude pršet, s odhadem za kolik minut
+Bez registrace, bez API klíčů, zdarma.
 
-Bez API klíčů, bez přihlašování a **bez jediné závislosti navíc**.
+## Co to umí
 
-## Vývojový workflow
+**🌡️ Předpověď na 3 dny** z modelu ALADIN
+Teplota, srážky, vítr a nárazy, vlhkost, tlak, oblačnost, sníh — po hodinách
+i po dnech. Model počítá v síti 2,3 km, takže i malá vesnice dostane vlastní
+předpověď.
 
-Release jsou automatické — když bumpneš `version` v `manifest.json` a pushneš
-na `main`, GitHub Action vytvoří tag `vX.Y.Z` a publishne Release s auto-notes
-z commitů. HACS pak verzi vidí okamžitě (po Redownload / Reload data).
-Konfigurace v `.github/workflows/release.yml`.
+**⚠️ Výstrahy ČHMÚ s plnými texty**
+Bouřky, vysoké teploty, vítr, povodně… včetně doporučení, co dělat, a doby
+platnosti. Výstrahy platí pro obec s rozšířenou působností, do které spadáte —
+ne pro celou republiku.
 
-## Co dostaneš
-
-Pro vybranou lokalitu — buď **přesné souřadnice tvého HA `home`** (default, ALADIN grid 2,3 km
-funguje pro libovolný bod ČR — ani malá vesnice jako Křížkový Újezdec není problém),
-nebo **pojmenované POI** ze seznamu ČHMÚ (571 obcí, 144 lyžařských středisek, 23 vodních ploch,
-92 letišť) — integrace vytvoří:
-
-**Sensory** (aktuální hodnota = nejbližší hodina forecastu):
-- `sensor.chmu_<misto>_teplota` — `t2m` (°C)
-- `sensor.chmu_<misto>_vlhkost` — `rh2m` (%)
-- `sensor.chmu_<misto>_srazky` — `prec` (mm/h)
-- `sensor.chmu_<misto>_tlak` — `mslp` (hPa, MSLP)
-- `sensor.chmu_<misto>_rychlost_vetru` — `windSpeed` (m/s)
-- `sensor.chmu_<misto>_narazy_vetru` — `windGustSpeed` (m/s)
-- `sensor.chmu_<misto>_smer_vetru` — `windDirection` (°)
-- `sensor.chmu_<misto>_oblacnost` — `cloudsTot` (%)
-- `sensor.chmu_<misto>_snih` — `snow` (mm/h)
-
-**Meteoradar** (CZRAD, obnova po 5 min):
-- `binary_sensor.chmu_<misto>_prsi` — prší podle radaru v okolí lokality
-- `binary_sensor.chmu_<misto>_bude_prset` — radarová předpověď hlásí déšť do hodiny
-- `sensor.chmu_<misto>_dest_za` — za kolik minut déšť dorazí (0 = prší, jinak prázdné)
-- `sensor.chmu_<misto>_dest_skonci_za` — za kolik minut ustane (prázdné = neprší
-  nebo do hodiny neustane)
-- `sensor.chmu_<misto>_intenzita_srazek_radar_` — mm/h odvozené z odrazivosti
-- `image.chmu_<misto>_meteoradar` — výřez radaru kolem lokality se značkou
-  polohy a kružnicemi 25 a 50 km
-
-Radarové entity nesou v atributu `trend` vývoj na nejbližší půlhodinu:
-`rising` (zesiluje) / `falling` (slábne) / `steady`.
-
-**Binary sensor:**
-- `binary_sensor.chmu_<misto>_vystrahy_chmu` — aktivní výstrahy **s plnými texty**
-  (`description`, `instruction`, závažnost, platnost od/do) pro ORP, ve kterém
-  lokalita leží. Atributy jsou kompatibilní s
-  [MeteoalarmCard](https://github.com/MrBartusek/MeteoalarmCard).
-
-**Weather entita:**
-- `weather.chmu_<misto>_predpoved` — aktuální podmínky + **hodinový forecast 73 h**
-  a **denní forecast** (agregace na 3–4 dny: max/min teplota, srážky, vítr).
-  Podmínky (jasno/oblačno/déšť/bouřka, den/noc) se odvozují přímo z ČHMÚ ikony.
-  Funguje s nativní HA `weather-forecast` kartou (hourly i daily) nebo
-  s [Hourly Weather Card](https://github.com/decompil3d/lovelace-hourly-weather).
-
-Každý sensor má v atributech `validity_time`, `forecast_points` (73 = 3 dny po hodině) a `elevation_m`.
+**🌧️ Meteoradar — prší / bude pršet**
+Obnovuje se po 5 minutách a odpoví na to nejpraktičtější: *prší u nás teď?*
+a *za jak dlouho začne, případně přestane?* Ideální pro automatizace typu
+„zavři okna, než přijde déšť".
 
 ## Instalace
 
-### Přes HACS
+### Přes HACS (doporučeno)
 
-HACS → ⋮ → **Custom repositories** → `https://github.com/hruskin/ha-chmu-meteogram`,
-Category **Integration** → nainstalovat → restart Home Assistantu.
+1. HACS → **⋮** → **Custom repositories**
+2. Vložte `https://github.com/hruskin/ha-chmu-meteogram`, kategorie **Integration**
+3. Nainstalujte a restartujte Home Assistant
+4. **Nastavení → Zařízení a služby → Přidat integraci → „Počasí ČHMÚ"**
 
 ### Ručně
 
-```bash
-cp -r custom_components/chmu_meteogram /path/to/ha/config/custom_components/
-# restart Home Assistant
+Zkopírujte složku `custom_components/chmu_meteogram` do adresáře
+`custom_components` ve své konfiguraci a restartujte Home Assistant.
+
+## Nastavení
+
+Při přidání integrace zvolíte, odkud se bere lokalita:
+
+- **Home** *(doporučeno)* — použijí se přesné souřadnice vašeho Home Assistantu
+- **POI ze seznamu** — konkrétní místo ze seznamu ČHMÚ (obce, lyžařská
+  střediska, vodní plochy, letiště). Hodí se, když vás zajímá třeba sjezdovka.
+
+Později můžete v **Konfigurovat** doladit meteoradar:
+
+| Volba | Výchozí | Co dělá |
+|---|---|---|
+| Poloměr sledovaného okolí | 3 km | Jak velké okolí se kolem vás sleduje |
+| Práh pro „Prší" | 12 dBZ | Citlivost na aktuální déšť (≈ mrholení) |
+| Práh pro „Bude pršet" | 18 dBZ | Citlivost předpovědi (≈ slabý déšť) |
+
+> **Tip:** Když vám „Bude pršet" hlásí plané poplachy, zvyšte práh na 22–24 dBZ.
+> Naopak když vám utíkají přeháňky, snižte na 14–16.
+> Orientačně: 12 dBZ ≈ mrholení · 28 dBZ ≈ vydatný déšť · 40 dBZ ≈ liják.
+
+## Co dostanete
+
+Vše je pod jedním zařízením **ČHMÚ &lt;místo&gt;**.
+
+### Počasí
+| Entita | Popis |
+|---|---|
+| `weather.…_predpoved` | Předpověď po hodinách i dnech pro standardní kartu počasí |
+| `sensor.…_teplota` | Teplota (°C) |
+| `sensor.…_srazky` | Srážky (mm/h) |
+| `sensor.…_vlhkost` | Relativní vlhkost (%) |
+| `sensor.…_tlak` | Tlak přepočtený na hladinu moře (hPa) |
+| `sensor.…_rychlost_vetru`, `…_narazy_vetru`, `…_smer_vetru` | Vítr |
+| `sensor.…_oblacnost` | Oblačnost (%) |
+| `sensor.…_snih` | Sněžení (mm/h) |
+
+### Meteoradar
+| Entita | Popis |
+|---|---|
+| `binary_sensor.…_prsi` | Prší právě teď ve vašem okolí |
+| `binary_sensor.…_bude_prset` | Déšť se blíží (do hodiny) |
+| `sensor.…_dest_za` | Za kolik minut začne pršet |
+| `sensor.…_dest_skonci_za` | Za kolik minut přestane |
+| `sensor.…_intenzita_deste` | Jak silně prší (mm/h) |
+| `image.…_meteoradar` | Radarový snímek okolí se značkou vaší polohy |
+
+### Výstrahy
+| Entita | Popis |
+|---|---|
+| `binary_sensor.…_vystrahy_chmu` | Je vydána výstraha; texty najdete v atributech |
+
+## Na dashboard
+
+**Předpověď** — stačí standardní karta počasí:
+
+```yaml
+type: weather-forecast
+entity: weather.chmu_home_predpoved
+forecast_type: daily     # nebo hourly
 ```
 
-Pak Nastavení → Zařízení a služby → **Přidat integraci** → „Počasí ČHMÚ".
+**Radar s aktuální situací:**
 
-## Závislosti
+```yaml
+type: picture-entity
+entity: image.chmu_home_meteoradar
+camera_view: auto
+```
 
-**Integrace nemá žádné** — `requirements` v `manifest.json` je prázdné a běží
-jen na tom, co je součástí Home Assistantu. I věci, které by závislost obvykle
-vyžadovaly, jsou řešené standardní knihovnou:
-
-| Úloha | Obvyklé řešení | Zde |
-|---|---|---|
-| Dekódování radarového PNG | Pillow | `zlib` (~1 ms) |
-| Bod v polygonu ORP | shapely | ray casting v `orp.py` |
-| Rozbalení předpovědi | — | `tarfile` |
-
-Závislosti mají jen **vývojářské nástroje** (`requirements-dev.txt`) a **testy**
-(`requirements-test.txt`). Do Home Assistantu se nic z toho neinstaluje — nástroje
-se spouštějí ručně při obnově přibalených dat.
-
-## Použití v dashboardu
+**Přehled deště:**
 
 ```yaml
 type: entities
+title: Déšť
 entities:
-  - sensor.chmu_brno_teplota
-  - sensor.chmu_brno_srazky
-  - sensor.chmu_brno_rychlost_vetru
-  - binary_sensor.chmu_brno_vystrahy_chmu
+  - binary_sensor.chmu_home_prsi
+  - sensor.chmu_home_dest_za
+  - sensor.chmu_home_dest_skonci_za
+  - sensor.chmu_home_intenzita_deste
 ```
 
-Pro pěkný graf (hodinový průběh) doporučujeme [ApexCharts Card](https://github.com/RomRider/apexcharts-card):
-
-```yaml
-type: custom:apexcharts-card
-header:
-  title: Meteogram ČHMÚ
-graph_span: 72h
-series:
-  - entity: sensor.chmu_brno_teplota
-    name: Teplota
-  - entity: sensor.chmu_brno_srazky
-    name: Srážky
-    type: column
-    yaxis_id: prec
-```
-
-> Pozn.: Apex zobrazí jen historické hodnoty sensorů. Pro celou předpověď
-> použij `weather.chmu_<misto>_predpoved` s nativní `weather-forecast` kartou.
-
-Výstrahy s texty:
+**Výstrahy s texty:**
 
 ```yaml
 type: markdown
 content: >
-  {% set a = state_attr('binary_sensor.chmu_brno_vystrahy_chmu', 'alerts') %}
+  {% set a = state_attr('binary_sensor.chmu_home_vystrahy_chmu', 'alerts') %}
   {% if a %}{% for x in a %}
-  **{{ x.label }}** ({{ x.severity }})
+  ### {{ x.label }}
   {{ x.description }}
+
+  {% if x.instruction %}**Doporučení:** {{ x.instruction }}{% endif %}
   {% endfor %}{% else %}Žádné výstrahy{% endif %}
 ```
 
-### Atributy `binary_sensor.*_vystrahy_chmu`
+Výstrahy fungují i s hotovou kartou
+[MeteoalarmCard](https://github.com/MrBartusek/MeteoalarmCard).
 
-| Atribut | Popis |
-|---|---|
-| `alert_count` | počet aktivních výstrah |
-| `severity` | nejvyšší závažnost (`Minor`/`Moderate`/`Severe`/`Extreme`) |
-| `color` | barva dle závažnosti (`yellow`/`orange`/`red`/`purple`) |
-| `headline` | „Zátěž teplem · Bouřky" — hotové do `secondary` v kartě |
-| `labels` | seznam názvů, např. `["Zátěž teplem", "Bouřky"]` |
-| `label`, `alert_icon`, `description`, `instruction` | nejzávažnější výstraha rozbalená |
-| `alerts` | seznam všech (`label`, `icon`, `category`, `severity`, `description`, `instruction`, `start`, `end`, …) |
-| `orp`, `region`, `area` | kam lokalita spadá (např. Říčany / CZ020 / Středočeský kraj) |
-| `awareness_level` | pro [MeteoalarmCard](https://github.com/MrBartusek/MeteoalarmCard) |
+## Příklady automatizací
 
-Ikona entity se mění podle nejzávažnější výstrahy (`mdi:weather-lightning`, `mdi:fire`…),
-mimo výstrahy je `mdi:shield-check`. Kategorie → název/ikona je v `const.py`
-(`ALERT_CATEGORY_LABELS`, `ALERT_CATEGORY_ICONS`), takže karta nemusí nic mapovat.
+**Zavřít okna, než začne pršet:**
 
-## API endpointy
+```yaml
+triggers:
+  - trigger: numeric_state
+    entity_id: sensor.chmu_home_dest_za
+    below: 15
+actions:
+  - action: cover.close_cover
+    target:
+      entity_id: cover.okna
+```
 
-| Účel | URL |
-|---|---|
-| Meteogram pro POI (JSON, 73 h) | `https://data-provider.chmi.cz/api/graphs/graf.meteogram/{poi_id}` |
-| Meteogram pro libovolný bod | `https://data-provider.chmi.cz/api/graphs/graf.meteogram?x=<lon>&y=<lat>` |
-| Výstrahy (texty, členěné kraj/ORP) | `https://vystrahy-cr.chmi.cz/data/alerts.json` |
-| Seznam POI (per kategorie) | `https://data-provider.chmi.cz/api/poi/data/map/{obce\|voda\|lyze\|letiste}/4` |
-| Radar — aktuální | `https://opendata.chmi.cz/.../radar/composite/maxz/png/pacz2gmaps3.z_max3d.<YYYYMMDD.HHMM>.0.png` |
-| Radar — předpověď | `https://opendata.chmi.cz/.../radar/composite/fct_maxz/png/pacz2gmaps3.fct_z_max.<YYYYMMDD.HHMM>.ft60s10.tar` |
-| Hranice ORP (offline snapshot) | `https://services.cuzk.gov.cz/shp/stat/epsg-5514/1.zip` — vrstva `ORP_P` |
+**Upozornit na výstrahu:**
 
-POI IDs jsou převzaty z mapového komponentu chmi.cz; integrace si vede vlastní snapshot
-v `data/aladin_locations.json`, obnovitelný přes `tools/scrape_locations.py`.
+```yaml
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.chmu_home_vystrahy_chmu
+    to: "on"
+actions:
+  - action: notify.mobile_app
+    data:
+      title: >
+        Výstraha ČHMÚ: {{ state_attr(trigger.entity_id, 'headline') }}
+      message: "{{ state_attr(trigger.entity_id, 'description') }}"
+```
 
-### Proč ne `data-provider.chmi.cz/api/cap/data/*`
+**Nezalévat, když prší nebo bude pršet:**
 
-Ten endpoint texty výstrah **nevrací** — jen base64 PNG mapu ČR a štítek závažnosti
-(„Nízký stupeň"). Oficiální web z něj renderuje jen obrázek a větu „Je vydána výstraha".
-Skutečná strukturovaná data (`description.cz`, `instruction.cz`, platnost) jsou
-v `alerts.json` mapy výstrah, členěná po krajích a ORP.
+```yaml
+conditions:
+  - condition: state
+    entity_id: binary_sensor.chmu_home_prsi
+    state: "off"
+  - condition: state
+    entity_id: binary_sensor.chmu_home_bude_prset
+    state: "off"
+```
 
-### Jak funguje radar
+## Časté dotazy
 
-Radarový kompozit CZRAD je paletové PNG 680×460 (~0,8 km/px). Hlavní mapa je
-výřez `[82:460, 0:597]` — okolo jsou svislé/vodorovné řezy a popisky, které se
-nesmí číst. Paletové indexy **182–195** nesou odrazivost (nižší index = silnější
-echo, `dBZ ≈ 4·(196−index)`, tj. 4–56 dBZ); ostatní indexy jsou rámeček a
-anotace. Intenzita se počítá Marshall-Palmerem (`Z = 200·R^1.6`).
+**Jak často se data obnovují?**
+Radar po 5 minutách, předpověď a výstrahy po 30 minutách.
 
-Georeference je ověřená překrytím s hranicemi ORP (viz `tools/`), převod bodu na
-pixel je ve Web Mercatoru. Čte se **okolí** lokality (výchozí poloměr 3 km,
-nastavitelné 1–25 km), protože radar je zrnitý.
+**Radar hlásí déšť, ale venku nic (nebo naopak).**
+Radar měří srážky ve výšce — část se cestou k zemi vypaří, jindy prší jen kousek
+vedle. Pomůže doladit poloměr a prahy v nastavení (viz výše).
 
-PNG se dekóduje čistě v Pythonu přes `zlib` ze standardní knihovny (~1 ms),
-takže integrace ani kvůli radaru nemá žádné závislosti. Předpověď (tar se šesti
-snímky +10…+60 min) se stahuje jen tehdy, když je echo do 60 km — za jasného
-počasí tím odpadne ~100 kB na každou aktualizaci.
+**Předpověď se liší od aplikace Počasí ČHMÚ.**
+Data jsou stejná. Aplikace ale ukazuje předpověď pro vybrané město, kdežto tady
+se počítá pro vaše souřadnice.
 
-Prahy jsou dva a **oba se dají nastavit** (integrace → Konfigurovat):
+**„Déšť za" je prázdné.**
+To je v pořádku — znamená to, že se do hodiny žádný déšť nečeká.
 
-| Nastavení | Výchozí | K čemu |
-|---|---|---|
-| Práh pro „Prší" | 12 dBZ (≈ 0,2 mm/h) | mrholení je slabé, ale reálně padá |
-| Práh pro „Bude pršet" | 18 dBZ (≈ 0,5 mm/h) | slabá echa se cestou rozpustí → plané poplachy |
-| Poloměr okolí | 3 km | radar je zrnitý, čte se okolí bodu |
+**V HACS chybí ikona integrace.**
+HACS bere ikony z centrálního katalogu, který ikony neoficiálních integrací
+nepřijímá. V samotném Home Assistantu (Zařízení a služby) se ikona zobrazuje
+normálně.
 
-Orientační převod: 12 dBZ ≈ 0,2 mm/h · 18 ≈ 0,5 · 28 ≈ 2 · 40 ≈ 10 mm/h (silný déšť).
-Vyšší práh = méně planých hlášení, ale slabý déšť unikne. Aktuálně platný práh
-je vždy v atributu `threshold_dbz` příslušné entity.
+## Poznámky
 
-Konec deště bere první snímek pod prahem, po kterém se srážky ve zbytku
-předpovědi už nevrátí — krátká pauza mezi přeháňkami se tedy jako konec nepočítá.
+Neoficiální projekt, není přidružený k ČHMÚ ani jím podporovaný. Data jsou
+veřejně dostupná; hranice správních obvodů © ČÚZK (CC-BY 4.0).
 
-Náhled radaru se skládá přímo z paletového snímku (kreslí se jen echa, ne rámeček
-a titulek) a zapisuje se zpět jako PNG opět jen přes `zlib`.
+Zajímá vás, jak to uvnitř funguje? Podívejte se do
+[technické dokumentace](docs/TECHNICAL.md).
 
-### Jak se páruje lokalita s výstrahou
-
-Výstrahy jsou vázané na kraje a ORP, ne na souřadnice. Integrace proto obsahuje
-zjednodušené hranice ORP z RÚIAN (ČÚZK, CC-BY 4.0) v `data/orp_boundaries.json`
-(206 ORP, ~500 KB, Douglas-Peucker ~200 m) a dělá point-in-polygon čistě v Pythonu
-(`orp.py`, ray casting) — **žádné závislosti navíc a žádné privátní API**.
-Hranice obnovíš přes `tools/fetch_orp_boundaries.py` (viz `requirements-dev.txt`).
-
-Pozn.: RÚIAN uvádí Prahu jako NUTS3 `CZ010`, ČHMÚ používá `CZ090` — skript to přemapuje.
-
-## Bezpečnost
-
-Integrace jen **čte** veřejná data ČHMÚ přes HTTPS — neposílá nikam žádné
-přihlašovací údaje ani osobní data (kromě souřadnic v dotazu, což je nutné) a
-nic nezapisuje na disk mimo vlastní adresář.
-
-Protože si data parsuje vlastními parsery (PNG, tar), má pojistky proti tomu,
-aby nečekaně velká odpověď vyčerpala paměť Home Assistantu:
-
-| Pojistka | Limit |
-|---|---|
-| Velikost odpovědi | 8 MB (reálně ≤ 110 kB) |
-| Rozměry snímku z hlavičky PNG | 4096 px (reálně 680×460) |
-| Počet souborů v archivu předpovědi | 32 (reálně 6) |
-| Velikost jednoho souboru v archivu | 4 MB (reálně ~25 kB) |
-| Dekomprese zlib | omezená očekávanou velikostí obrázku |
-| Časový limit dotazu | 20 s / 30 s |
-
-Archiv s předpovědí se nikdy nerozbaluje na disk, čte se jen do paměti —
-podvržené cesty v názvech (`../`) proto nemají kam uškodit.
-
-## Disclaimer
-
-Projekt není přidružen k ČHMÚ ani jím sponzorován. Data jsou veřejně dostupná.
-Hranice ORP © ČÚZK (CC-BY 4.0). Update interval je 30 minut.
-
-## Licence
-
-Apache 2.0
+Licence: Apache 2.0

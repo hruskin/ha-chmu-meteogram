@@ -52,7 +52,7 @@
       "snow":            { "name": "Sníh" },
       "rain_starts_in":  { "name": "Déšť za" },
       "rain_ends_in":    { "name": "Déšť skončí za" },
-      "radar_intensity": { "name": "Intenzita srážek (radar)" }
+      "radar_intensity": { "name": "Intenzita deště" }
     },
     "binary_sensor": {
       "alerts":        { "name": "Výstrahy ČHMÚ" },
