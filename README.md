@@ -2,12 +2,15 @@
 
 # Počasí ČHMÚ — Meteogram pro Home Assistant
 
-Neoficiální custom integrace pro Home Assistant, která stahuje **strukturovaná data meteogramu modelu ALADIN**
-z veřejného JSON API Českého hydrometeorologického ústavu (ČHMÚ).
-Lokalita se vybírá automaticky jako nejbližší ALADIN POI k zóně `home`.
+Neoficiální custom integrace pro Home Assistant nad veřejnými daty Českého
+hydrometeorologického ústavu (ČHMÚ). Pro tvoje souřadnice (výchozí je zóna
+`home`) poskytuje:
 
-> **Status**: 0.3.x — point-based meteogram pro libovolné souřadnice (HA `home` = default),
-> sensory, výstrahy a `WeatherEntity` s hodinovým forecastem.
+- **meteogram modelu ALADIN** — hodinová i denní předpověď na 3 dny
+- **výstrahy ČHMÚ** s plnými texty, spárované přes hranice ORP
+- **meteoradar CZRAD** — prší teď / bude pršet, s odhadem za kolik minut
+
+Bez API klíčů, bez přihlašování a **bez jediné závislosti navíc**.
 
 ## Vývojový workflow
 
@@ -57,7 +60,12 @@ Každý sensor má v atributech `validity_time`, `forecast_points` (73 = 3 dny p
 
 ## Instalace
 
-### Ručně (vývojový režim)
+### Přes HACS
+
+HACS → ⋮ → **Custom repositories** → `https://github.com/hruskin/ha-chmu-meteogram`,
+Category **Integration** → nainstalovat → restart Home Assistantu.
+
+### Ručně
 
 ```bash
 cp -r custom_components/chmu_meteogram /path/to/ha/config/custom_components/
@@ -66,10 +74,21 @@ cp -r custom_components/chmu_meteogram /path/to/ha/config/custom_components/
 
 Pak Nastavení → Zařízení a služby → **Přidat integraci** → „Počasí ČHMÚ".
 
-### Přes HACS
+## Závislosti
 
-Repo je private, HACS [private repa nepodporuje](https://www.hacs.xyz/docs/faq/private_repositories/).
-Pokud bude public: HACS → ⋮ → Custom repositories → URL → Type **Integration**.
+**Integrace nemá žádné** — `requirements` v `manifest.json` je prázdné a běží
+jen na tom, co je součástí Home Assistantu. I věci, které by závislost obvykle
+vyžadovaly, jsou řešené standardní knihovnou:
+
+| Úloha | Obvyklé řešení | Zde |
+|---|---|---|
+| Dekódování radarového PNG | Pillow | `zlib` (~1 ms) |
+| Bod v polygonu ORP | shapely | ray casting v `orp.py` |
+| Rozbalení předpovědi | — | `tarfile` |
+
+Závislosti mají jen **vývojářské nástroje** (`requirements-dev.txt`) a **testy**
+(`requirements-test.txt`). Do Home Assistantu se nic z toho neinstaluje — nástroje
+se spouštějí ručně při obnově přibalených dat.
 
 ## Použití v dashboardu
 
@@ -188,7 +207,7 @@ Výstrahy jsou vázané na kraje a ORP, ne na souřadnice. Integrace proto obsah
 zjednodušené hranice ORP z RÚIAN (ČÚZK, CC-BY 4.0) v `data/orp_boundaries.json`
 (206 ORP, ~500 KB, Douglas-Peucker ~200 m) a dělá point-in-polygon čistě v Pythonu
 (`orp.py`, ray casting) — **žádné závislosti navíc a žádné privátní API**.
-Hranice obnovíš přes `tools/fetch_orp_boundaries.py` (vyžaduje `pyshp` + `pyproj`).
+Hranice obnovíš přes `tools/fetch_orp_boundaries.py` (viz `requirements-dev.txt`).
 
 Pozn.: RÚIAN uvádí Prahu jako NUTS3 `CZ010`, ČHMÚ používá `CZ090` — skript to přemapuje.
 

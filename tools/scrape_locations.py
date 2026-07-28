@@ -2,10 +2,13 @@
 
 Zdroj API:
   https://data-provider.chmi.cz/api/poi/data/map/{category}/{level}
-  category: obce | vodni-plochy | hory | letiste
+  category: obce | voda | lyze | letiste
   level:    2 | 3 | 4   (level 4 = nejdetailnější, obsahuje vše z 2 a 3)
 
 POI vrací GeoJSON s coords v EPSG:32633 (UTM 33N). Převedeme na WGS84.
+
+Závislosti (jen pro tento skript, integrace sama je bez requirements):
+    pip install requests pyproj
 
 Spuštění:
     python tools/scrape_locations.py

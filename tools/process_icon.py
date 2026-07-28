@@ -10,7 +10,10 @@ Kroky:
 - icon@2x 512, icon 256
 - logo = ikona + text „ČHMÚ Meteogram"
 
-Závislosti: pillow, numpy. Spuštění:
+Závislosti (jen pro tento skript, integrace sama je bez requirements):
+    pip install pillow numpy
+
+Spuštění:
     python tools/process_icon.py
 """
 from __future__ import annotations

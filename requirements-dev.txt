@@ -1,0 +1,13 @@
+# Závislosti POUZE pro vývojářské nástroje v tools/.
+# Integrace samotná nemá žádné requirements (viz manifest.json) — běží jen na
+# tom, co je součástí Home Assistantu. Nic z tohoto souboru se do HA neinstaluje.
+#
+#   tools/fetch_orp_boundaries.py  → pyshp, pyproj
+#   tools/scrape_locations.py      → requests, pyproj
+#   tools/process_icon.py          → pillow, numpy
+
+pyshp>=2.3
+pyproj>=3.6
+requests>=2.31
+pillow>=10.0
+numpy>=1.26
