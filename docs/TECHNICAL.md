@@ -30,6 +30,38 @@ Navíc: query parametr `?poiId=` ten endpoint **tiše ignoruje** a vrací výcho
 odpověď „žádné nebezpečí" — web používá cestu, ne query. Kvůli tomu hlásila
 integrace v POI režimu vždy „bez výstrah".
 
+## Desetidenní výhled
+
+ALADIN počítá na tři dny. Delší výhled vydává ČHMÚ zvlášť a veřejná opendata
+ho nemají — jsou tam jen slovní předpovědi po krajích, ze kterých by se čísla
+musela tahat regexem z vět typu „24 až 19 °C, na západě kolem 17".
+
+Strukturovaně ho vrací backend mobilní aplikace:
+
+```
+POST https://chmu.rails.cz/api/v1/jwt/login
+     {"device": {"device_token": "<cokoli>", "platform": "android"}}
+  → {"access_token": …, "refresh_token": …}
+
+GET  https://chmu.rails.cz/api/v1/weather_bulletins/cr
+     Authorization: Bearer <token>
+```
+
+Token je anonymní — `device_token` se neověřuje, posílá se náhodné UUID.
+Platí řádově týdny; klient si ho obnovuje po sedmi dnech a hned při 401.
+
+Odpověď je pole dnů. Spolehlivě naplněné je jen `date_at`,
+`temperature_min`/`max`, `cloudiness_value` a `phenomenon_value`; pole pro
+vítr, pravděpodobnost srážek, pocitovou teplotu a biopředpověď v odpovědi jsou,
+ale bývají `null`. Stav počasí se odvozuje ze slovního popisu (jev má přednost
+před oblačností), ne z `*_icon` — ikonový číselník neznáme celý.
+
+Denní řada pak vzniká složením: dny z modelu ALADIN a za posledním z nich
+navazuje výhled. Rozhoduje se podle data, ne podle pořadí.
+
+Není to dokumentované rozhraní, takže výpadek nesmí ovlivnit zbytek integrace —
+`async_refresh` se nechá selhat a předpověď zůstane jen na třech dnech.
+
 ## Radar (CZRAD)
 
 Kompozit je paletové PNG 680×460 (~0,8 km/px). Hlavní mapa je výřez

@@ -12,6 +12,7 @@ from .const import (
     CONF_ALERTS_ENABLED,
     CONF_LOCATION_ID,
     CONF_MODE,
+    CONF_OUTLOOK_ENABLED,
     CONF_RADAR_ENABLED,
     CONF_RADAR_FORECAST_THRESHOLD,
     CONF_RADAR_RADIUS,
@@ -23,6 +24,8 @@ from .const import (
 )
 from .coordinator import ChmuCoordinator
 from .locations import by_id, target_for_point, target_from_poi
+from .outlook import OutlookClient
+from .outlook_coordinator import ChmuOutlookCoordinator
 from .radar import (
     DEFAULT_DBZ_THRESHOLD,
     DEFAULT_FORECAST_DBZ_THRESHOLD,
@@ -94,8 +97,20 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         # Selhání radaru nesmí zablokovat zbytek integrace
         await radar_coordinator.async_config_entry_first_refresh()
 
+    outlook_coordinator: ChmuOutlookCoordinator | None = None
+    if data.get(CONF_OUTLOOK_ENABLED, True):
+        outlook_coordinator = ChmuOutlookCoordinator(hass, OutlookClient(session))
+        # Výhled je jen doplněk delších dnů — když nedojede, zbytek běží dál.
+        await outlook_coordinator.async_refresh()
+        if not outlook_coordinator.last_update_success:
+            _LOGGER.warning(
+                "Desetidenní výhled se nepodařilo načíst, předpověď bude jen z modelu ALADIN"
+            )
+
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = ChmuRuntime(
-        coordinator=coordinator, radar=radar_coordinator
+        coordinator=coordinator,
+        radar=radar_coordinator,
+        outlook=outlook_coordinator,
     )
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     entry.async_on_unload(entry.add_update_listener(_async_update_listener))

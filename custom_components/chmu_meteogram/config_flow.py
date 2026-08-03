@@ -20,6 +20,7 @@ from .const import (
     CONF_ALERTS_ENABLED,
     CONF_LOCATION_ID,
     CONF_MODE,
+    CONF_OUTLOOK_ENABLED,
     CONF_RADAR_ENABLED,
     CONF_RADAR_FORECAST_THRESHOLD,
     CONF_RADAR_RADIUS,
@@ -83,6 +84,7 @@ class ChmuConfigFlow(ConfigFlow, domain=DOMAIN):
         self._mode: str = MODE_HOME
         self._alerts: bool = True
         self._radar: bool = True
+        self._outlook: bool = True
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -94,6 +96,7 @@ class ChmuConfigFlow(ConfigFlow, domain=DOMAIN):
             self._mode = user_input[CONF_MODE]
             self._alerts = user_input.get(CONF_ALERTS_ENABLED, True)
             self._radar = user_input.get(CONF_RADAR_ENABLED, True)
+            self._outlook = user_input.get(CONF_OUTLOOK_ENABLED, True)
             if self._mode == MODE_HOME:
                 name = self.hass.config.location_name or "Domov"
                 return self.async_create_entry(
@@ -102,6 +105,7 @@ class ChmuConfigFlow(ConfigFlow, domain=DOMAIN):
                         CONF_MODE: MODE_HOME,
                         CONF_ALERTS_ENABLED: self._alerts,
                         CONF_RADAR_ENABLED: self._radar,
+                        CONF_OUTLOOK_ENABLED: self._outlook,
                     },
                 )
             return await self.async_step_poi()
@@ -111,6 +115,7 @@ class ChmuConfigFlow(ConfigFlow, domain=DOMAIN):
                 vol.Required(CONF_MODE, default=MODE_HOME): _mode_selector(),
                 vol.Required(CONF_ALERTS_ENABLED, default=True): bool,
                 vol.Required(CONF_RADAR_ENABLED, default=True): bool,
+                vol.Required(CONF_OUTLOOK_ENABLED, default=True): bool,
             }
         )
         home_name = self.hass.config.location_name or "Domov"
@@ -186,6 +191,10 @@ class ChmuOptionsFlow(OptionsFlow):
                     CONF_RADAR_THRESHOLD,
                     default=float(current.get(CONF_RADAR_THRESHOLD, DEFAULT_DBZ_THRESHOLD)),
                 ): _number(4, 40, 1, "dBZ"),
+                vol.Required(
+                    CONF_OUTLOOK_ENABLED,
+                    default=current.get(CONF_OUTLOOK_ENABLED, True),
+                ): bool,
                 vol.Required(
                     CONF_RADAR_FORECAST_THRESHOLD,
                     default=float(

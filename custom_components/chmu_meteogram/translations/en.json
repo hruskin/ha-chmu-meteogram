@@ -7,7 +7,8 @@
         "data": {
           "mode": "Location source",
           "alerts_enabled": "Fetch ČHMÚ alerts",
-          "radar_enabled": "Track weather radar (raining / rain expected)"
+          "radar_enabled": "Track weather radar (raining / rain expected)",
+          "outlook_enabled": "Ten-day ČHMÚ outlook"
         }
       },
       "poi": {
@@ -34,42 +35,82 @@
           "radar_enabled": "Track weather radar",
           "radar_radius_km": "Sampled area radius",
           "radar_threshold_dbz": "Threshold for “Raining”",
-          "radar_forecast_threshold_dbz": "Threshold for “Rain expected”"
+          "radar_forecast_threshold_dbz": "Threshold for “Rain expected”",
+          "outlook_enabled": "Ten-day ČHMÚ outlook"
         }
       }
     }
   },
   "entity": {
     "sensor": {
-      "temperature":     { "name": "Temperature" },
-      "humidity":        { "name": "Humidity" },
-      "precipitation":   { "name": "Precipitation" },
-      "pressure":        { "name": "Pressure" },
-      "wind_speed":      { "name": "Wind speed" },
-      "wind_gust":       { "name": "Wind gust" },
-      "wind_direction":  { "name": "Wind direction" },
-      "cloud_coverage":  { "name": "Cloud coverage" },
-      "snow":            { "name": "Snow" },
-      "rain_starts_in":  { "name": "Rain starts in" },
-      "rain_ends_in":    { "name": "Rain ends in" },
-      "radar_intensity": { "name": "Precipitation intensity" }
+      "temperature": {
+        "name": "Temperature"
+      },
+      "humidity": {
+        "name": "Humidity"
+      },
+      "precipitation": {
+        "name": "Precipitation"
+      },
+      "pressure": {
+        "name": "Pressure"
+      },
+      "wind_speed": {
+        "name": "Wind speed"
+      },
+      "wind_gust": {
+        "name": "Wind gust"
+      },
+      "wind_direction": {
+        "name": "Wind direction"
+      },
+      "cloud_coverage": {
+        "name": "Cloud coverage"
+      },
+      "snow": {
+        "name": "Snow"
+      },
+      "rain_starts_in": {
+        "name": "Rain starts in"
+      },
+      "rain_ends_in": {
+        "name": "Rain ends in"
+      },
+      "radar_intensity": {
+        "name": "Precipitation intensity"
+      }
     },
     "binary_sensor": {
-      "alerts": { "name": "ČHMÚ alerts" },
+      "alerts": {
+        "name": "ČHMÚ alerts"
+      },
       "raining": {
         "name": "Raining",
-        "state": { "off": "No", "on": "Yes" }
+        "state": {
+          "off": "No",
+          "on": "Yes"
+        }
       },
       "rain_expected": {
         "name": "Rain expected",
-        "state": { "off": "No", "on": "Yes" }
+        "state": {
+          "off": "No",
+          "on": "Yes"
+        }
       }
     },
     "weather": {
-      "weather": { "name": "Forecast" }
+      "meteogram": {
+        "name": "Meteogram"
+      },
+      "forecast": {
+        "name": "Forecast"
+      }
     },
     "image": {
-      "radar": { "name": "Weather radar" }
+      "radar": {
+        "name": "Weather radar"
+      }
     }
   }
 }

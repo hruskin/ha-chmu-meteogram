@@ -7,7 +7,8 @@
         "data": {
           "mode": "Zdroj lokality",
           "alerts_enabled": "Stahovat výstrahy ČHMÚ",
-          "radar_enabled": "Sledovat meteoradar (prší / bude pršet)"
+          "radar_enabled": "Sledovat meteoradar (prší / bude pršet)",
+          "outlook_enabled": "Desetidenní výhled ČHMÚ"
         }
       },
       "poi": {
@@ -34,42 +35,82 @@
           "radar_enabled": "Sledovat meteoradar",
           "radar_radius_km": "Poloměr sledovaného okolí",
           "radar_threshold_dbz": "Práh pro „Prší“",
-          "radar_forecast_threshold_dbz": "Práh pro „Bude pršet“"
+          "radar_forecast_threshold_dbz": "Práh pro „Bude pršet“",
+          "outlook_enabled": "Desetidenní výhled ČHMÚ"
         }
       }
     }
   },
   "entity": {
     "sensor": {
-      "temperature":     { "name": "Teplota" },
-      "humidity":        { "name": "Vlhkost" },
-      "precipitation":   { "name": "Srážky" },
-      "pressure":        { "name": "Tlak" },
-      "wind_speed":      { "name": "Rychlost větru" },
-      "wind_gust":       { "name": "Nárazy větru" },
-      "wind_direction":  { "name": "Směr větru" },
-      "cloud_coverage":  { "name": "Oblačnost" },
-      "snow":            { "name": "Sníh" },
-      "rain_starts_in":  { "name": "Déšť za" },
-      "rain_ends_in":    { "name": "Déšť skončí za" },
-      "radar_intensity": { "name": "Intenzita srážek" }
+      "temperature": {
+        "name": "Teplota"
+      },
+      "humidity": {
+        "name": "Vlhkost"
+      },
+      "precipitation": {
+        "name": "Srážky"
+      },
+      "pressure": {
+        "name": "Tlak"
+      },
+      "wind_speed": {
+        "name": "Rychlost větru"
+      },
+      "wind_gust": {
+        "name": "Nárazy větru"
+      },
+      "wind_direction": {
+        "name": "Směr větru"
+      },
+      "cloud_coverage": {
+        "name": "Oblačnost"
+      },
+      "snow": {
+        "name": "Sníh"
+      },
+      "rain_starts_in": {
+        "name": "Déšť za"
+      },
+      "rain_ends_in": {
+        "name": "Déšť skončí za"
+      },
+      "radar_intensity": {
+        "name": "Intenzita srážek"
+      }
     },
     "binary_sensor": {
-      "alerts": { "name": "Výstrahy ČHMÚ" },
+      "alerts": {
+        "name": "Výstrahy ČHMÚ"
+      },
       "raining": {
         "name": "Prší",
-        "state": { "off": "Ne", "on": "Ano" }
+        "state": {
+          "off": "Ne",
+          "on": "Ano"
+        }
       },
       "rain_expected": {
         "name": "Bude pršet",
-        "state": { "off": "Ne", "on": "Ano" }
+        "state": {
+          "off": "Ne",
+          "on": "Ano"
+        }
       }
     },
     "weather": {
-      "weather": { "name": "Předpověď" }
+      "meteogram": {
+        "name": "Meteogram"
+      },
+      "forecast": {
+        "name": "Předpověď"
+      }
     },
     "image": {
-      "radar": { "name": "Meteoradar" }
+      "radar": {
+        "name": "Meteoradar"
+      }
     }
   }
 }

@@ -9,10 +9,14 @@ Bez registrace, bez API klíčů, zdarma.
 
 ## Co to umí
 
-**🌡️ Předpověď na 3 dny** z modelu ALADIN
+**🌡️ Předpověď z modelu ALADIN**
 Teplota, srážky, vítr a nárazy, vlhkost, tlak, oblačnost, sníh — po hodinách
-i po dnech. Model počítá v síti 2,3 km, takže i malá vesnice dostane vlastní
+na tři dny. Model počítá v síti 2,3 km, takže i malá vesnice dostane vlastní
 předpověď.
+
+**📅 Denní přehled na 10 dní**
+První tři dny přesně pro vaši lokalitu, dál navazuje desetidenní výhled ČHMÚ
+pro celou republiku (min/max teplota a stav počasí).
 
 **⚠️ Výstrahy ČHMÚ s plnými texty**
 Bouřky, vysoké teploty, vítr, povodně… včetně doporučení, co dělat, a doby
@@ -65,7 +69,8 @@ Vše je pod jedním zařízením **ČHMÚ &lt;místo&gt;**.
 ### Počasí
 | Entita | Popis |
 |---|---|
-| `weather.…_predpoved` | Předpověď po hodinách i dnech pro standardní kartu počasí |
+| `weather.…_meteogram` | Hodinová předpověď na 3 dny pro vaši lokalitu |
+| `weather.…_predpoved` | Denní přehled na 10 dní |
 | `sensor.…_teplota` | Teplota (°C) |
 | `sensor.…_srazky` | Srážky (mm/h) |
 | `sensor.…_vlhkost` | Relativní vlhkost (%) |
@@ -96,7 +101,15 @@ Vše je pod jedním zařízením **ČHMÚ &lt;místo&gt;**.
 ```yaml
 type: weather-forecast
 entity: weather.chmu_home_predpoved
-forecast_type: daily     # nebo hourly
+forecast_type: daily
+```
+
+Pro hodinový průběh použijte druhou entitu:
+
+```yaml
+type: weather-forecast
+entity: weather.chmu_home_meteogram
+forecast_type: hourly
 ```
 
 **Radar s aktuální situací:**
@@ -195,6 +208,11 @@ i když v zimě jde o sněžení. Typ srážek napoví předpověď
 **Předpověď se liší od aplikace Počasí ČHMÚ.**
 Data jsou stejná. Aplikace ale ukazuje předpověď pro vybrané město, kdežto tady
 se počítá pro vaše souřadnice.
+
+**Proč mají dny 4–10 méně údajů?**
+Model ALADIN počítá jen tři dny dopředu. Delší výhled vydává ČHMÚ zvlášť, a to
+pouze jako min/max teplotu a stav počasí — vítr ani srážky v něm nejsou. Platí
+navíc pro celou republiku, ne pro konkrétní místo.
 
 **„Déšť za" je prázdné.**
 To je v pořádku — znamená to, že se do hodiny žádný déšť nečeká.

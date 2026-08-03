@@ -15,8 +15,11 @@ CONF_RADAR_ENABLED = "radar_enabled"
 CONF_RADAR_RADIUS = "radar_radius_km"
 CONF_RADAR_THRESHOLD = "radar_threshold_dbz"
 CONF_RADAR_FORECAST_THRESHOLD = "radar_forecast_threshold_dbz"
+CONF_OUTLOOK_ENABLED = "outlook_enabled"
 
 DEFAULT_RADAR_SCAN_INTERVAL = timedelta(minutes=5)
+# Výhled ČHMÚ vydává jednou denně; hodinový interval bohatě stačí.
+DEFAULT_OUTLOOK_SCAN_INTERVAL = timedelta(hours=1)
 
 MODE_HOME = "home"
 MODE_POI = "poi"
