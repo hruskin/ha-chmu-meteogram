@@ -56,8 +56,19 @@ vítr, pravděpodobnost srážek, pocitovou teplotu a biopředpověď v odpověd
 ale bývají `null`. Stav počasí se odvozuje ze slovního popisu (jev má přednost
 před oblačností), ne z `*_icon` — ikonový číselník neznáme celý.
 
-Denní řada pak vzniká složením: dny z modelu ALADIN a za posledním z nich
-navazuje výhled. Rozhoduje se podle data, ne podle pořadí.
+Denní řada vzniká složením obou zdrojů. Model má u své lokality přednost, ale
+jen u dnů, kde se dá věřit extrémům: meteogram končí uprostřed dne, takže jeho
+poslední den bývá jen pár nočních hodin a „maximum" by z nich vyšlo jako
+nejteplejší noční hodnota (viděno: 17,8–18,4 °C proti 13–27 °C ve výhledu).
+
+Den z modelu se proto použije jen tehdy, když pokrývá ranní okno (4–7) i
+odpolední (13–16) — tam extrémy nastávají. Výjimkou je **první den**, který se
+bere i osekaný: ukazuje, co ze dne ještě zbývá, a to je užitečnější než
+celodenní hodnota odjinud. Rozhodnutí je v `daily.py`, mimo Home Assistant,
+aby šlo testovat samostatně.
+
+Výhled pak doplní všechny dny, které model nepokryl — nejen ty za koncem řady,
+ale i den, který kvůli tomuto pravidlu vypadl. Páruje se podle data.
 
 Není to dokumentované rozhraní, takže výpadek nesmí ovlivnit zbytek integrace —
 `async_refresh` se nechá selhat a předpověď zůstane jen na třech dnech.

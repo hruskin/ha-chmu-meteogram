@@ -32,6 +32,7 @@ from . import icons
 from .chmu_client import MeteogramPoint
 from .const import DOMAIN
 from .coordinator import ChmuCoordinator
+from .daily import use_model_day
 from .runtime import ChmuRuntime
 
 _ONE_HOUR = timedelta(hours=1)
@@ -194,10 +195,12 @@ class ChmuForecastWeather(_ChmuWeatherBase):
             by_day.setdefault(local.date(), []).append((local, p))
 
         out: list[Forecast] = []
-        for _day, items in sorted(by_day.items()):
+        for index, (_day, items) in enumerate(sorted(by_day.items())):
             temps = [p.temperature for _, p in items if p.temperature is not None]
             if not temps:
                 continue
+            if not use_model_day(index, {t.hour for t, _ in items}):
+                continue  # osekaný den — přenecháme ho výhledu
             mid_local, mid = min(items, key=lambda it: abs(it[0].hour - 13))
             precs = [p.precipitation for _, p in items if p.precipitation is not None]
             winds = [p.wind_speed for _, p in items if p.wind_speed is not None]
@@ -223,12 +226,17 @@ class ChmuForecastWeather(_ChmuWeatherBase):
         if not outlook:
             return days or None
 
-        # Navážeme až za posledním dnem z modelu — ten je pro lokalitu přesnější.
-        last = None
-        if days:
-            last = dt_util.parse_datetime(days[-1]["datetime"])
+        # Model má u své lokality přednost. Výhled doplní dny, které model
+        # nepokryl — ať už proto, že sahá dál, nebo že jsme jeho poslední
+        # osekaný den zahodili.
+        covered = {
+            dt.date()
+            for dt in (dt_util.parse_datetime(d["datetime"]) for d in days)
+            if dt
+        }
+        first = min(covered) if covered else None
         for day in outlook:
-            if last and day.day <= last.date():
+            if day.day in covered or (first and day.day < first):
                 continue
             days.append(
                 Forecast(
@@ -240,6 +248,7 @@ class ChmuForecastWeather(_ChmuWeatherBase):
                     native_templow=day.temp_min,
                 )
             )
+        days.sort(key=lambda d: d["datetime"])
         return days or None
 
     @property
