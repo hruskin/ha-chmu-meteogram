@@ -57,15 +57,21 @@ ale bývají `null`. Stav počasí se odvozuje ze slovního popisu (jev má pře
 před oblačností), ne z `*_icon` — ikonový číselník neznáme celý.
 
 Denní řada vzniká složením obou zdrojů. Model má u své lokality přednost, ale
-jen u dnů, kde se dá věřit extrémům: meteogram končí uprostřed dne, takže jeho
-poslední den bývá jen pár nočních hodin a „maximum" by z nich vyšlo jako
-nejteplejší noční hodnota (viděno: 17,8–18,4 °C proti 13–27 °C ve výhledu).
+jen u dnů, kde se dá věřit extrémům.
 
-Den z modelu se proto použije jen tehdy, když pokrývá ranní okno (4–7) i
-odpolední (13–16) — tam extrémy nastávají. Výjimkou je **první den**, který se
-bere i osekaný: ukazuje, co ze dne ještě zbývá, a to je užitečnější než
-celodenní hodnota odjinud. Rozhodnutí je v `daily.py`, mimo Home Assistant,
-aby šlo testovat samostatně.
+Meteogram je řada 73 hodin od svého vydání, takže krajní dny jsou neúplné:
+první je oříznutý zepředu (začíná hodinou vydání), poslední zezadu (začíná
+o půlnoci a končí předčasně). Model se vydává čtyřikrát denně, takže poslední
+den vyjde na 3, 9, 15 nebo 21 hodin. U těch kratších chybí odpoledne a
+„maximum" by z nich vyšlo jako nejteplejší noční hodnota — viděno 17,8–18,4 °C
+proti 13–27 °C ve výhledu (poslední den měl tehdy 3 hodiny).
+
+Den z modelu se proto použije jen tehdy, má-li **aspoň 21 hodin**. Denní
+maximum nastává obvykle mezi 14. a 16. hodinou, takže i patnáctihodinový den
+(do 14:00) by ho podcenil. Z reálných tvarů projde jen ten po vydání ve 20:00.
+Výjimkou je **první den**, který se bere i osekaný: ukazuje, co ze dne ještě
+zbývá, a to je užitečnější než celodenní hodnota odjinud. Rozhodnutí je
+v `daily.py`, mimo Home Assistant, aby šlo testovat samostatně.
 
 Výhled pak doplní všechny dny, které model nepokryl — nejen ty za koncem řady,
 ale i den, který kvůli tomuto pravidlu vypadl. Páruje se podle data.
