@@ -19,7 +19,6 @@ from homeassistant.const import (
     UnitOfPressure,
     UnitOfSpeed,
     UnitOfTemperature,
-    UnitOfTime,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
@@ -31,6 +30,18 @@ from .const import DOMAIN
 from .coordinator import ChmuCoordinator
 from .radar_coordinator import ChmuRadarCoordinator
 from .runtime import ChmuRuntime
+
+# Enum stav dešťové entity. Klíče jsou strojové (bez diakritiky) — text
+# zobrazení řeší HA podle jazyka přes translation_key "rain".
+RAIN_DRY = "dry"
+RAIN_EXPECTED = "rain_expected"
+RAIN_NOW = "raining"
+RAIN_OPTIONS = [RAIN_DRY, RAIN_EXPECTED, RAIN_NOW]
+_RAIN_ICON = {
+    RAIN_DRY: "mdi:weather-partly-cloudy",
+    RAIN_EXPECTED: "mdi:weather-rainy",
+    RAIN_NOW: "mdi:weather-pouring",
+}
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -122,11 +133,7 @@ async def async_setup_entry(
         ChmuSensor(runtime.coordinator, desc, entry.entry_id) for desc in SENSORS
     ]
     if runtime.radar:
-        entities += [
-            ChmuRainStartsSensor(runtime.radar, entry.entry_id),
-            ChmuRainEndsSensor(runtime.radar, entry.entry_id),
-            ChmuRadarIntensitySensor(runtime.radar, entry.entry_id),
-        ]
+        entities.append(ChmuRainSensor(runtime.radar, entry.entry_id))
     async_add_entities(entities)
 
 
@@ -186,15 +193,25 @@ class ChmuSensor(CoordinatorEntity[ChmuCoordinator], SensorEntity):
         }
 
 
-class _RadarEntity(CoordinatorEntity[ChmuRadarCoordinator], SensorEntity):
-    """Společný základ pro radarové sensory."""
+class ChmuRainSensor(CoordinatorEntity[ChmuRadarCoordinator], SensorEntity):
+    """Jediná dešťová entita z radaru.
+
+    Stav je enum dry / rain_expected / raining (zobrazení řeší překlady).
+    Vše ostatní (intenzita, dbz, trend, minuty do začátku/konce, celá radarová
+    předpověď +10…+60 min) je v atributech — z pěti entit jedna.
+    """
 
     _attr_has_entity_name = True
+    _attr_translation_key = "rain"
+    _attr_device_class = SensorDeviceClass.ENUM
+    _attr_options = RAIN_OPTIONS
 
-    def __init__(self, coordinator: ChmuRadarCoordinator, entry_id: str, key: str) -> None:
+    def __init__(self, coordinator: ChmuRadarCoordinator, entry_id: str) -> None:
         super().__init__(coordinator)
         tgt = coordinator.target
-        self._attr_unique_id = f"{entry_id}_{key}"
+        # unique_id "rain" je nový; stará pětice (_raining, _rain_expected,
+        # _rain_starts_in, _rain_ends_in, _radar_intensity) se přestane vytvářet.
+        self._attr_unique_id = f"{entry_id}_rain"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, tgt.device_identifier)},
             name=f"ČHMÚ {tgt.name}",
@@ -204,36 +221,40 @@ class _RadarEntity(CoordinatorEntity[ChmuRadarCoordinator], SensorEntity):
         )
 
     @property
-    def _radar(self):
-        return self.coordinator.data
-
-
-class ChmuRainStartsSensor(_RadarEntity):
-    """Za kolik minut podle radaru začne pršet (0 = prší, None = nečeká se)."""
-
-    _attr_translation_key = "rain_starts_in"
-    _attr_icon = "mdi:weather-rainy"
-    _attr_native_unit_of_measurement = UnitOfTime.MINUTES
-    _attr_device_class = SensorDeviceClass.DURATION
-
-    def __init__(self, coordinator: ChmuRadarCoordinator, entry_id: str) -> None:
-        super().__init__(coordinator, entry_id, "rain_starts_in")
+    def native_value(self) -> str | None:
+        d = self.coordinator.data
+        if not d or d.now is None:
+            return None
+        if d.raining:
+            return RAIN_NOW
+        if d.rain_expected:
+            return RAIN_EXPECTED
+        return RAIN_DRY
 
     @property
-    def native_value(self) -> int | None:
-        d = self._radar
-        return d.starts_in if d else None
+    def icon(self) -> str:
+        return _RAIN_ICON.get(self.native_value, "mdi:radar")
 
     @property
     def extra_state_attributes(self) -> dict:
-        d = self._radar
+        d = self.coordinator.data
         if not d:
             return {}
+        now = d.now
+        intensity = None
+        if now is not None:
+            intensity = now.rate_mm_h if now.has_echo else 0.0
         return {
-            "radar_time": d.observed_at.isoformat() if d.observed_at else None,
-            "raining_now": d.raining,
+            "starts_in_minutes": d.starts_in,
+            "ends_in_minutes": d.ends_in,
+            "intensity_mm_h": intensity,
+            "dbz": now.max_dbz if now else None,
+            "coverage": round(now.coverage, 2) if now else None,
             "trend": d.trend,
-            "threshold_dbz": d.forecast_threshold_dbz,
+            "radar_time": d.observed_at.isoformat() if d.observed_at else None,
+            "radius_km": self.coordinator.radius_km,
+            "threshold_dbz": d.threshold_dbz,
+            "forecast_threshold_dbz": d.forecast_threshold_dbz,
             "forecast": {
                 f"+{minutes}min": {
                     "dbz": s.max_dbz,
@@ -242,71 +263,5 @@ class ChmuRainStartsSensor(_RadarEntity):
                 }
                 for minutes, s in d.forecast
             },
-            "radius_km": self.coordinator.radius_km,
-            "attribution": "Data: ČHMÚ (opendata.chmi.cz), radar CZRAD",
-        }
-
-
-class ChmuRainEndsSensor(_RadarEntity):
-    """Za kolik minut podle radaru déšť ustane."""
-
-    _attr_translation_key = "rain_ends_in"
-    _attr_icon = "mdi:weather-sunny"
-    _attr_native_unit_of_measurement = UnitOfTime.MINUTES
-    _attr_device_class = SensorDeviceClass.DURATION
-
-    def __init__(self, coordinator: ChmuRadarCoordinator, entry_id: str) -> None:
-        super().__init__(coordinator, entry_id, "rain_ends_in")
-
-    @property
-    def native_value(self) -> int | None:
-        d = self._radar
-        return d.ends_in if d else None
-
-    @property
-    def extra_state_attributes(self) -> dict:
-        d = self._radar
-        if not d:
-            return {}
-        return {
-            "radar_time": d.observed_at.isoformat() if d.observed_at else None,
-            "raining_now": d.raining,
-            "trend": d.trend,
-            "threshold_dbz": d.threshold_dbz,
-            "radius_km": self.coordinator.radius_km,
-            "attribution": "Data: ČHMÚ (opendata.chmi.cz), radar CZRAD",
-        }
-
-
-class ChmuRadarIntensitySensor(_RadarEntity):
-    """Aktuální intenzita srážek podle radaru."""
-
-    _attr_translation_key = "radar_intensity"
-    _attr_icon = "mdi:radar"
-    _attr_native_unit_of_measurement = "mm/h"
-    _attr_state_class = SensorStateClass.MEASUREMENT
-
-    def __init__(self, coordinator: ChmuRadarCoordinator, entry_id: str) -> None:
-        super().__init__(coordinator, entry_id, "radar_intensity")
-
-    @property
-    def native_value(self) -> float | None:
-        d = self._radar
-        if not d or not d.now:
-            return None
-        return d.now.rate_mm_h if d.now.has_echo else 0.0
-
-    @property
-    def extra_state_attributes(self) -> dict:
-        d = self._radar
-        if not d or not d.now:
-            return {}
-        return {
-            "dbz": d.now.max_dbz,
-            "coverage": round(d.now.coverage, 2),
-            "trend": d.trend,
-            "ends_in_minutes": d.ends_in,
-            "radar_time": d.observed_at.isoformat() if d.observed_at else None,
-            "radius_km": self.coordinator.radius_km,
             "attribution": "Data: ČHMÚ (opendata.chmi.cz), radar CZRAD",
         }

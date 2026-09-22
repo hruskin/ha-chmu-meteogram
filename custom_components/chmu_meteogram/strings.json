@@ -7,7 +7,7 @@
         "data": {
           "mode": "Location source",
           "alerts_enabled": "Fetch ČHMÚ alerts",
-          "radar_enabled": "Track weather radar (raining / rain expected)",
+          "radar_enabled": "Track weather radar (rain sensor)",
           "outlook_enabled": "Ten-day ČHMÚ outlook"
         }
       },
@@ -70,33 +70,18 @@
       "snow": {
         "name": "Snow"
       },
-      "rain_starts_in": {
-        "name": "Rain starts in"
-      },
-      "rain_ends_in": {
-        "name": "Rain ends in"
-      },
-      "radar_intensity": {
-        "name": "Precipitation intensity"
+      "rain": {
+        "name": "Rain",
+        "state": {
+          "dry": "Dry",
+          "rain_expected": "Rain expected",
+          "raining": "Raining"
+        }
       }
     },
     "binary_sensor": {
       "alerts": {
         "name": "ČHMÚ alerts"
-      },
-      "raining": {
-        "name": "Raining",
-        "state": {
-          "off": "No",
-          "on": "Yes"
-        }
-      },
-      "rain_expected": {
-        "name": "Rain expected",
-        "state": {
-          "off": "No",
-          "on": "Yes"
-        }
       }
     },
     "weather": {

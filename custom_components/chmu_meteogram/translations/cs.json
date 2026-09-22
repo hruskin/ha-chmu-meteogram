@@ -7,7 +7,7 @@
         "data": {
           "mode": "Zdroj lokality",
           "alerts_enabled": "Stahovat výstrahy ČHMÚ",
-          "radar_enabled": "Sledovat meteoradar (prší / bude pršet)",
+          "radar_enabled": "Sledovat meteoradar (dešťový senzor)",
           "outlook_enabled": "Desetidenní výhled ČHMÚ"
         }
       },
@@ -70,33 +70,18 @@
       "snow": {
         "name": "Sníh"
       },
-      "rain_starts_in": {
-        "name": "Déšť za"
-      },
-      "rain_ends_in": {
-        "name": "Déšť skončí za"
-      },
-      "radar_intensity": {
-        "name": "Intenzita srážek"
+      "rain": {
+        "name": "Déšť",
+        "state": {
+          "dry": "Sucho",
+          "rain_expected": "Čeká se déšť",
+          "raining": "Prší"
+        }
       }
     },
     "binary_sensor": {
       "alerts": {
         "name": "Výstrahy ČHMÚ"
-      },
-      "raining": {
-        "name": "Prší",
-        "state": {
-          "off": "Ne",
-          "on": "Ano"
-        }
-      },
-      "rain_expected": {
-        "name": "Bude pršet",
-        "state": {
-          "off": "Ne",
-          "on": "Ano"
-        }
       }
     },
     "weather": {
