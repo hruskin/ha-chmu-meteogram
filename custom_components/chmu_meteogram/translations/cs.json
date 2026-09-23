@@ -41,6 +41,14 @@
       }
     }
   },
+  "selector": {
+    "mode": {
+      "options": {
+        "home": "Domácí souřadnice (HA)",
+        "poi": "POI ze seznamu"
+      }
+    }
+  },
   "entity": {
     "sensor": {
       "temperature": {

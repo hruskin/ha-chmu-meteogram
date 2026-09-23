@@ -4,6 +4,14 @@ Formát vychází z [Keep a Changelog](https://keepachangelog.com/cs/1.1.0/),
 verzování drží [SemVer](https://semver.org/lang/cs/). Do 1.0.0 se zásadní
 (breaking) změny značí zvýšením podverze (0.X.0).
 
+## 0.13.1 — 2026-09-22
+
+### Změněno
+
+- Výběr zdroje lokality (Home / POI) v nastavení je nově dvojjazyčný (cs/en)
+  přes překlady, místo natvrdo české volby. Zbytek UI a stavy entit už
+  dvojjazyčné byly. Texty výstrah zůstávají česky — ČHMÚ je jen v češtině dává.
+
 ## 0.13.0 — 2026-09-22
 
 ### Zásadní změny (breaking)

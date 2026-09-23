@@ -41,6 +41,14 @@
       }
     }
   },
+  "selector": {
+    "mode": {
+      "options": {
+        "home": "Home coordinates (HA)",
+        "poi": "POI from the list"
+      }
+    }
+  },
   "entity": {
     "sensor": {
       "temperature": {

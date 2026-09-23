@@ -50,12 +50,12 @@ def _number(minimum: float, maximum: float, step: float, unit: str) -> NumberSel
 
 
 def _mode_selector() -> SelectSelector:
+    # Popisky voleb jdou přes překlad (top-level "selector".mode.options),
+    # ne natvrdo, aby byl výběr zdroje dvojjazyčný.
     return SelectSelector(
         SelectSelectorConfig(
-            options=[
-                SelectOptionDict(value=MODE_HOME, label="Home (přesné souřadnice HA)"),
-                SelectOptionDict(value=MODE_POI, label="POI ze seznamu"),
-            ],
+            options=[MODE_HOME, MODE_POI],
+            translation_key="mode",
             mode=SelectSelectorMode.LIST,
         )
     )
